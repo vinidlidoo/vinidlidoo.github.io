@@ -40,7 +40,15 @@ include_content = true
 [languages.ja]
 title = "vinidlidoo"
 description = "個人ブログ"
+build_search_index = true
 taxonomies = [{ name = "tags" }]
+
+[languages.ja.search]
+index_format = "elasticlunr_json"
+include_title = true
+include_description = true
+include_path = true
+include_content = true
 
 [markdown]
 bottom_footnotes = true

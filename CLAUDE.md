@@ -14,6 +14,12 @@ zola build          # Build to public/
 zola check          # Validate site without building
 ```
 
+Zola is installed via cargo (not Homebrew) to enable Japanese search:
+
+```bash
+cargo install --git https://github.com/getzola/zola --features indexing-ja --locked
+```
+
 ## Project Structure
 
 ```
@@ -69,6 +75,12 @@ To update theme:
 ```bash
 git submodule update --remote themes/tabi
 ```
+
+Currently tracking `main` (ahead of v4.1.0) for Japanese search fix (tabi#620).
+
+## Search
+
+Elasticlunr client-side search is enabled for all three languages. Each language with `build_search_index = true` needs its own `[languages.XX.search]` section matching the global `[search]` config, or Zola crashes with an index out of bounds error.
 
 ## Tabi-Specific Config
 
