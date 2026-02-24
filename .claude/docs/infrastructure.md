@@ -8,6 +8,14 @@ Zola is installed via cargo (not Homebrew) to enable Japanese search:
 cargo install --git https://github.com/getzola/zola --features indexing-ja --locked
 ```
 
+## CI/CD (GitHub Actions)
+
+Deploy workflow at `.github/workflows/deploy.yml` builds Zola from source (for `indexing-ja`) and deploys to GitHub Pages.
+
+- Zola version is pinned via `tag:` in the cargo-install step — **update this when upgrading Zola**
+- Tabi theme version is tracked by the git submodule (no workflow change needed on update)
+- First build after cache expiry (~7 day TTL) takes ~7 min; cached builds are fast
+
 ## Theme (Git Submodule)
 
 The tabi theme is a git submodule. After cloning on a new machine:
