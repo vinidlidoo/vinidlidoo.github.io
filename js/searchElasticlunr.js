@@ -2465,7 +2465,7 @@
 
             if (a[i] === b[j]) {
                 intersectSet.add(a[i]);
-                (i++, j++);
+                i++, j++;
                 continue;
             }
 
@@ -2510,9 +2510,9 @@
         let longSet, shortSet, unionSet;
 
         if (this.length >= otherSet.length) {
-            ((longSet = this), (shortSet = otherSet));
+            (longSet = this), (shortSet = otherSet);
         } else {
-            ((longSet = otherSet), (shortSet = this));
+            (longSet = otherSet), (shortSet = this);
         }
 
         unionSet = longSet.clone();
@@ -2985,8 +2985,8 @@ window.onload = function () {
                     let snippetText = result.doc.body
                         ? generateSnippet(result.doc.body, searchTerm.split(/\s+/))
                         : result.doc.description
-                          ? result.doc.description
-                          : '';
+                        ? result.doc.description
+                        : '';
                     snippetElement.innerHTML = snippetText;
 
                     // Create the hyperlink.
@@ -3017,7 +3017,7 @@ window.onload = function () {
                 }
             });
 
-            results.addEventListener('click', function (event) {
+            results.addEventListener('click', function(event) {
                 const clickedElement = event.target.closest('a');
                 if (clickedElement) {
                     const clickedHref = clickedElement.getAttribute('href');
@@ -3028,11 +3028,8 @@ window.onload = function () {
 
                     // Check if the clicked link matches the current page.
                     // If using Ctrl+click or Cmd+click, don't close the modal.
-                    if (
-                        normalizeUrl(clickedHref) === normalizeUrl(currentPageUrl) &&
-                        !event.ctrlKey &&
-                        !event.metaKey
-                    ) {
+                    if (normalizeUrl(clickedHref) === normalizeUrl(currentPageUrl) &&
+                        !event.ctrlKey && !event.metaKey) {
                         closeModal();
                     }
                 }
