@@ -131,15 +131,6 @@ For wide tables with many columns or long content, use `wide=true` to prevent te
 
 Use the `/mermaid-diagram` skill. See `.claude/skills/mermaid-diagram/SKILL.md`.
 
-## Pending: tabi submodule on fork branch
-
-- PR: welpo/tabi#628 (IME composing fix)
-- Blog submodule (`themes/tabi`) points at `fork/fix-ime-composing-guard` instead of upstream
-- `.gitmodules` also points to fork (was `welpo/tabi.git`, branch line added)
-- **When PR is merged:** restore `.gitmodules` URL to `welpo/tabi.git`, remove `branch` line, update submodule to upstream main, remove the `fork` remote from `themes/tabi`, commit & push
-- Check with: `gh pr view 628 --repo welpo/tabi --json state -q .state`
-- **When resolved:** delete this entire "Pending" section from CLAUDE.md
-
 ## Infrastructure
 
 For details on theme management, search config, Zola installation, syntax highlighting, video/audio hosting, CSP, newsletter, and template overrides, see `.claude/docs/infrastructure.md`.

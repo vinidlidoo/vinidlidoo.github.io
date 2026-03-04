@@ -1,4 +1,3 @@
 [submodule "themes/tabi"]
 	path = themes/tabi
-	url = https://github.com/vinidlidoo/tabi.git
-	branch = fix-ime-composing-guard
+	url = https://github.com/welpo/tabi.git
