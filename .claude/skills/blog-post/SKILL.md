@@ -27,86 +27,69 @@ researcher stays on standby to answer questions about Vincent's interests).
 
 | Agent | Type | Objective | Output |
 |-------|------|-----------|--------|
-| **Transcript researcher** | `transcript-researcher` agent | Parse a conversation transcript to understand what Vincent found most interesting, what he asked about repeatedly, and what confused him. Produce a prioritized brief telling the outline writer what to cover and in what order. Remain on standby to answer questions from other agents about Vincent's interests. | `drafts/briefs/<topic>-transcript-brief.md` |
-| **Web researcher** | Ad-hoc `general-purpose` agent | Ensure technical correctness and completeness of the outline. In phase 1: build foundational understanding of the topic through authoritative sources. In phase 3: verify specific claims, fill gaps, and check completeness issues flagged by the style critic. | `drafts/briefs/<topic>-web-research.md` (updated across phases) + `SendMessage` to outline writer when brief is updated |
-| **Outline writer** | Ad-hoc `general-purpose` agent | Synthesize all research into a draft outline, then revise based on critique. | `drafts/outlines/<topic>.md` |
-| **Style critic** | `style-critic` agent | Review the outline for style alignment and pedagogical flow. Flag technical claims that need verification (for the web researcher). Produce a verdict on readiness. | Feedback via `SendMessage` |
+| **Transcript researcher** | `transcript-researcher` agent | Parse transcript for Vincent's interests, confusion points, and engagement patterns; produce a prioritized brief. | `drafts/briefs/<topic>-transcript-brief.md` |
+| **Web researcher** | Ad-hoc `general-purpose` agent | Verify technical claims, key numbers, and completeness; update research brief across phases. | `drafts/briefs/<topic>-web-research.md` (updated across phases) |
+| **Outline writer** | Ad-hoc `general-purpose` agent | Synthesize research into a draft outline; revise based on critique and user decisions. | `drafts/outlines/<topic>.md` |
+| **Style critic** | `style-critic` agent | Review for style alignment, pedagogical flow, and technical soundness; produce a verdict. | Feedback via `SendMessage` |
 
-#### Consulting Vincent
+#### Coordination
 
-Vincent wants to be consulted during outline creation. Two mechanisms:
+**Task list as backbone:** The team shares a task list (created with
+`TeamCreate` in Phase 1). The leader creates tasks, teammates complete them,
+and the leader monitors via `TaskList`.
 
-- **Phase boundary check-ins** — The skill leader checks in with Vincent at
-  the end of phase 1 (research summary) and phase 2 (first draft). Present
-  what was found/written, flag open questions, and ask if the direction is
-  right before proceeding.
-- **Blocker escalation** — If any agent hits a blocker mid-phase (ambiguous
-  scope, contradictory sources, unclear priorities), it messages the skill
-  leader, who relays the question to Vincent via `AskUserQuestion`.
+**Direct messaging:** Agents use `SendMessage` for ephemeral per-round
+feedback (e.g., style critique results, claim verification questions).
+
+**Consulting Vincent:** Check in at the end of Phase 1 and Phase 2 (see each
+phase for specifics). Escalate mid-phase blockers to Vincent via
+`AskUserQuestion`.
 
 #### Phase 1: Research (parallel)
 
-Create a team with `TeamCreate`, then run these in parallel:
+Create the team with `TeamCreate`, then create and assign tasks:
 
-1. **Transcript researcher** — Give it the high-level topic and the transcript
-   path. It parses the conversation and writes a prioritized brief: what the
-   outline should cover, what Vincent was especially engaged with, and what
-   angles to consider. Stays on standby after delivering the brief. **Skip
-   entirely if no transcript was provided.**
-
-2. **Web researcher** — Give it the topic, any user-provided references, and
-   a summary of what the post will cover. It finds authoritative sources
-   (papers, specs, prior art, related blog posts) to ground the outline's
-   technical claims. Writes an annotated research brief.
-
-3. **Obsidian lookup** (skill leader) — Search for relevant notes in Vincent's
-   Obsidian vault `Study/` folder using the Obsidian skill. Pass any matching
-   note content to the outline writer in phase 2.
+- **Task: Parse transcript** → assign to transcript researcher. Give it the
+  high-level topic and the transcript path. It writes a prioritized brief and
+  marks the task complete. Stays on standby after. **Skip if no transcript.**
+- **Task: Web research** → assign to web researcher. Give it the topic, any
+  user-provided references, and a summary of what the post will cover. It
+  writes an annotated research brief and marks the task complete.
+- **Obsidian lookup** (skill leader, no task needed) — Search for relevant
+  notes in Vincent's Obsidian vault `Study/` folder using the Obsidian skill.
 
 **Check-in with Vincent:** Summarize what the researchers found, what the
-Obsidian notes contain (if any), and flag any open questions (e.g., ambiguous
-scope, conflicting sources, topics that could go multiple directions). Wait
-for Vincent's input before proceeding.
+Obsidian notes contain (if any), and flag open questions.
 
 #### Phase 2: Outline writing
 
-Spawn the **outline writer**. Provide it with:
+Create and assign:
 
-- Transcript brief from `drafts/briefs/` (if any)
-- Web research brief from `drafts/briefs/`
-- Obsidian note content (if any)
-- Style guide at `.claude/docs/writing-style.md`
-- Outline template at `.claude/skills/blog-post/outline-template.md`
-- Memory files for series context (notation, scope boundaries from prior sessions)
+- **Task: Write first draft outline** → assign to outline writer. Provide it
+  with paths to transcript brief, web research brief, Obsidian note content,
+  style guide, outline template, and memory files. Before marking the task
+  complete, the writer self-reviews: verify all user decisions from the spawn
+  prompt are applied (terminology, scope, weight) and cross-reference concrete
+  numbers against the web research brief.
 
-The writer synthesizes all inputs into a first draft outline at
-`drafts/outlines/<topic>.md`.
-
-**Check-in with Vincent:** Present the first draft outline. Ask if the
-structure, scope, and emphasis are on the right track before entering the
-critique-revise loop.
+**Check-in with Vincent:** Present the first draft outline and ask if the
+direction is right before entering the critique-revise loop.
 
 #### Phase 3: Critique-revise loop (up to 3 rounds)
 
-Spawn the **style critic**. Each round:
+Spawn the **style critic**. Each round, create all tasks upfront with
+dependencies (`addBlockedBy`) to enforce ordering:
 
-1. **Style critic** reviews the outline and produces:
-   - **Style feedback** to the outline writer: prioritized as must fix /
-     should fix / consider
-   - **Claims list** to the web researcher: technical claims to verify, gaps
-     to fill, completeness issues to check
-   - **Verdict**: one of:
-     - *Ready to present* — outline is good enough for Vincent
-     - *Present next round* — needs minor work but worth checking with Vincent
-       after one more pass
-     - *Needs another round* — significant issues require further revision
-
-2. **Web researcher** verifies claims from the critic's list and updates
-   `drafts/briefs/<topic>-web-research.md`. Then sends a `SendMessage` to the
-   outline writer summarizing what changed and asking it to re-read the brief.
-
-3. **Outline writer** re-reads the updated web research brief, then revises
-   based on style feedback and the new findings.
+- **Task: Verify claims (round N)** → web researcher (if claims were
+  flagged). Updates the research brief.
+- **Task: Revise outline (round N)** → outline writer. Include revision
+  instructions from Vincent's feedback (round 1) or the previous critic
+  verdict. `addBlockedBy` verify claims task if it exists.
+- **Task: Review outline (round N)** → style critic. `addBlockedBy` revise
+  task. The critic produces:
+  1. **Style feedback** → messages the outline writer
+  2. **Claims list** → messages the web researcher
+  3. **Verdict** → messages the skill leader
 
 The loop exits when the critic says "ready to present" or "present next round",
 or after 3 rounds (whichever comes first).
@@ -119,7 +102,7 @@ Deliver the final outline with a summary of:
 - What was addressed and what remains open
 - Any unverified claims or gaps
 
-Shut down all teammates.
+Shut down all teammates and clean up the team with `TeamDelete`.
 
 ### Workflow 2: Writing from Outline
 
