@@ -13,22 +13,113 @@ For long/complex topics, propose splitting into multiple posts before outlining.
 
 ### Workflow 1: Creating an Outline
 
-Use when: User provides a transcript (from Claude conversation) or a brief describing what they want to write about.
+Use when: Vincent asks for a blog post outline.
 
-**Steps:** Use agent teams (`TeamCreate`) to orchestrate the workflow. All teammates persist across phases (no respawning).
+**Expected inputs** (any combination):
 
-1. **Create team and spin up research phase** — Create a team with `TeamCreate`, then spawn teammates in parallel:
-   - **Transcript researcher** — Use the `transcript-researcher` agent (`.claude/agents/transcript-researcher.md`). Reads source material, extracts key ideas, technical claims, and structural suggestions. Writes a structured brief to `drafts/briefs/<topic>-transcript-brief.md`. Skip if source material is short enough to fit in the outline writer's context.
-   - **Web researcher** — Spawn as an ad-hoc `general-purpose` Task agent with per-session instructions. Proactively researches the topic: finds relevant papers, blog posts, specs, and prior art. Also fetches any specific references provided by the user or found in source material. Writes findings to `drafts/briefs/<topic>-web-research.md`.
-   - **Style critic** — Use the `style-critic` agent (`.claude/agents/style-critic.md`). Reads recent posts (by recency and by tag) and the Style/Learnings sections of this skill. Internalizes patterns for the critique phase.
+- A conversation transcript (Claude conversation where Vincent explored the topic)
+- A topic description or brief
+- Specific references or links to include
 
-2. **Outline writing** — Spawn an ad-hoc `general-purpose` Task agent as the outline writer. Instruct it to read this skill file for style guidance, check memory files for series context (notation, scope boundaries from prior sessions), and synthesize all research briefs from `drafts/briefs/` into a draft outline in `drafts/outlines/`, following the outline template at `.claude/skills/blog-post/outline-template.md`.
+**Agents:** Up to 4 teammates, orchestrated by the skill leader (the main
+agent running this skill). All agents persist through phase 3 (the transcript
+researcher stays on standby to answer questions about Vincent's interests).
 
-3. **Critique-revise loop** — The style critic (same agent from step 1) reviews the outline, the outline writer revises. Coordinate via `SendMessage`. Repeat once (two critique rounds max).
+| Agent | Type | Objective | Output |
+|-------|------|-----------|--------|
+| **Transcript researcher** | `transcript-researcher` agent | Parse a conversation transcript to understand what Vincent found most interesting, what he asked about repeatedly, and what confused him. Produce a prioritized brief telling the outline writer what to cover and in what order. Remain on standby to answer questions from other agents about Vincent's interests. | `drafts/briefs/<topic>-transcript-brief.md` |
+| **Web researcher** | Ad-hoc `general-purpose` agent | Ensure technical correctness and completeness of the outline. In phase 1: build foundational understanding of the topic through authoritative sources. In phase 3: verify specific claims, fill gaps, and check completeness issues flagged by the style critic. | `drafts/briefs/<topic>-web-research.md` (updated across phases) + `SendMessage` to outline writer when brief is updated |
+| **Outline writer** | Ad-hoc `general-purpose` agent | Synthesize all research into a draft outline, then revise based on critique. | `drafts/outlines/<topic>.md` |
+| **Style critic** | `style-critic` agent | Review the outline for style alignment and pedagogical flow. Flag technical claims that need verification (for the web researcher). Produce a verdict on readiness. | Feedback via `SendMessage` |
 
-4. **Present to user** — Final outline with a summary of what the critics flagged and what was addressed. Shut down teammates.
+#### Consulting Vincent
 
-Note: For simple posts with short source material, the transcript researcher can be skipped, but the web researcher and style critic should always run.
+Vincent wants to be consulted during outline creation. Two mechanisms:
+
+- **Phase boundary check-ins** — The skill leader checks in with Vincent at
+  the end of phase 1 (research summary) and phase 2 (first draft). Present
+  what was found/written, flag open questions, and ask if the direction is
+  right before proceeding.
+- **Blocker escalation** — If any agent hits a blocker mid-phase (ambiguous
+  scope, contradictory sources, unclear priorities), it messages the skill
+  leader, who relays the question to Vincent via `AskUserQuestion`.
+
+#### Phase 1: Research (parallel)
+
+Create a team with `TeamCreate`, then run these in parallel:
+
+1. **Transcript researcher** — Give it the high-level topic and the transcript
+   path. It parses the conversation and writes a prioritized brief: what the
+   outline should cover, what Vincent was especially engaged with, and what
+   angles to consider. Stays on standby after delivering the brief. **Skip
+   entirely if no transcript was provided.**
+
+2. **Web researcher** — Give it the topic, any user-provided references, and
+   a summary of what the post will cover. It finds authoritative sources
+   (papers, specs, prior art, related blog posts) to ground the outline's
+   technical claims. Writes an annotated research brief.
+
+3. **Obsidian lookup** (skill leader) — Search for relevant notes in Vincent's
+   Obsidian vault `Study/` folder using the Obsidian skill. Pass any matching
+   note content to the outline writer in phase 2.
+
+**Check-in with Vincent:** Summarize what the researchers found, what the
+Obsidian notes contain (if any), and flag any open questions (e.g., ambiguous
+scope, conflicting sources, topics that could go multiple directions). Wait
+for Vincent's input before proceeding.
+
+#### Phase 2: Outline writing
+
+Spawn the **outline writer**. Provide it with:
+
+- Transcript brief from `drafts/briefs/` (if any)
+- Web research brief from `drafts/briefs/`
+- Obsidian note content (if any)
+- Style guide at `.claude/docs/writing-style.md`
+- Outline template at `.claude/skills/blog-post/outline-template.md`
+- Memory files for series context (notation, scope boundaries from prior sessions)
+
+The writer synthesizes all inputs into a first draft outline at
+`drafts/outlines/<topic>.md`.
+
+**Check-in with Vincent:** Present the first draft outline. Ask if the
+structure, scope, and emphasis are on the right track before entering the
+critique-revise loop.
+
+#### Phase 3: Critique-revise loop (up to 3 rounds)
+
+Spawn the **style critic**. Each round:
+
+1. **Style critic** reviews the outline and produces:
+   - **Style feedback** to the outline writer: prioritized as must fix /
+     should fix / consider
+   - **Claims list** to the web researcher: technical claims to verify, gaps
+     to fill, completeness issues to check
+   - **Verdict**: one of:
+     - *Ready to present* — outline is good enough for Vincent
+     - *Present next round* — needs minor work but worth checking with Vincent
+       after one more pass
+     - *Needs another round* — significant issues require further revision
+
+2. **Web researcher** verifies claims from the critic's list and updates
+   `drafts/briefs/<topic>-web-research.md`. Then sends a `SendMessage` to the
+   outline writer summarizing what changed and asking it to re-read the brief.
+
+3. **Outline writer** re-reads the updated web research brief, then revises
+   based on style feedback and the new findings.
+
+The loop exits when the critic says "ready to present" or "present next round",
+or after 3 rounds (whichever comes first).
+
+#### Phase 4: Present to user
+
+Deliver the final outline with a summary of:
+
+- What the critic flagged across rounds
+- What was addressed and what remains open
+- Any unverified claims or gaps
+
+Shut down all teammates.
 
 ### Workflow 2: Writing from Outline
 
@@ -42,7 +133,7 @@ Use when: User has an approved outline in `drafts/outlines/` and wants the full 
    - Expand main messages into full prose
    - Add transitions between sections
    - Include planned diagrams/tables
-   - Match voice and formatting from Style section below
+   - Match voice and formatting from `.claude/docs/writing-style.md`
 
 3. **User review** — User reads draft and provides feedback or direct edits
 
@@ -66,86 +157,13 @@ Use when: User wants targeted changes to a published or draft post.
 
 ## After Writing
 
-If Vincent made style corrections or expressed preferences during the session, append them to the "Learnings" section at the bottom of this file. Keep entries concise (1-2 lines each). All learnings are valid immediately.
-
-**Consolidation** happens separately, when the style-critic agent runs at the start of a new outline session. It reads both sections and:
-
-- Moves Learnings entries into the appropriate Style subsections (Voice, Structure, Formatting, etc.)
-- Combines related entries and removes duplicates with existing Style rules
-- Only removes a Learning if Vincent has explicitly contradicted it with a newer preference
+If Vincent made style corrections or expressed preferences during the session,
+append them to the "Learnings" section in `.claude/docs/writing-style.md`.
 
 ## Style
 
-### Voice
-
-- **Conversational but precise**—explaining to a curious friend, not lecturing
-- **First person**—"I want to explore", "Let's see what this means"
-- **Humble curiosity**—share the learning journey, not just conclusions
-- **Dense, no fluff**—respect the reader's time; don't say the same thing twice in different words
-- **Honest about difficulty**—don't claim something is "expected" or "obvious" when it's actually surprising
-- **Flowing rhythm**—prefer flowing constructions ("Not exactly breaking, more like resurfacing") over terse ones; answer your own rhetorical questions to drive forward rather than leaving them hanging
-- **Concrete framing**—ground descriptions in what's happening ("The flow looks like this"), not how you feel about it ("The vision I keep returning to")
-- **One critique, then constructive**—when critiquing external work, one jab is enough. Frame as "opens a door" not "failed to deliver"
-- **Genuine acknowledgment**—when pivoting from criticism to opportunity, be honest about the limitation first
-- **Soften alignment claims**—"It looks like we're circling similar ideas" beats asserting alignment
-- **Don't double-hedge**—one hedge per claim is enough
-- **Sentence fragments sparingly**—starting with "And" can work for effect, but when in doubt, integrate into the previous sentence
-- **Avoid "Because" openers**—prefer "X, so Y" constructions; use "Because" sparingly for effect only
-- **No sarcastic rhetorical openers**—questions like "So what's the framework good for?" read as dismissive; lead with the payoff directly
-
-### Structure
-
-- **Hook**: Open with what sparked the exploration (a tweet, podcast, conversation, problem); promise a concrete reward ("by the end you'll understand X")
-- **Motivate each section**: Answer "why am I reading this?" before diving in
-- **Short sections**: 2-4 paragraphs per `##` section; use questions as section transitions ("But can X do Y?")
-- **Announce structure upfront**: When introducing multi-part concepts, state the count and breakdown
-- **Examples before definitions**: Build intuition first, then formalize; demonstrate value through a concrete scenario rather than explaining what something is good for
-- **Specific section titles**: Capture the actual content; generic titles like "On This Blog" or "The Full Loop" are weaker than descriptive ones
-- **Parallel structure**: When covering related topics in one section, use parallel framing ("On X:... On Y:...") to tie them together
-- **Footnotes for asides**: Keep tangents out of the main flow
-- **Media continuity**: When embedding audio/video, keep follow-up commentary attached to preceding context; don't orphan explanatory sentences after media blocks
-- **Closing section**: "Takeaway", "Bottom Line", or "What's Next" (for series)
-- **Footer**: Auto-generated by the site template. Do not add manually.
-
-### Technical Content
-
-- Explain domain-specific notation piece by piece; use consistent notation throughout
-- Use concrete examples and anthropomorphizations
-- Explain concepts before naming them; show the technique first, then give it a name. Use plain language before introducing terminology
-- Define terms that seem obvious but aren't; geometric or informal language may need algebraic clarification
-- List edge cases explicitly; don't leave them implicit
-- When contrasting concepts, explain WHY the distinction matters
-- Don't make unsubstantiated claims; if something hasn't been proven in the post, don't assert it
-- Qualify claims about real-world applications; distinguish the mathematical foundation from implementation details
-- Acknowledge hard problems honestly in vision/future sections; shows intellectual honesty without undermining the argument
-- Proofs: rigorous but followable; use "Suppose, toward contradiction" phrasing
-- Link to related posts with explicit names: `[my post on Russell's Paradox](@/blog/russells-paradox.md)`
-
-### Math-Heavy Posts
-
-- Use display math liberally; equations should be easy to spot, not buried in prose
-- Use bullet points for lists of examples, axioms, verification steps; less prose for technical content
-
-### Formatting
-
-- **Bold** key terms on first use
-- Avoid em dashes; use colons, semicolons, periods, or parentheses instead. On the rare occasion one is needed, use `—` (em dash character), never `--` (double hyphen)
-- KaTeX: `$...$` inline, `$$...$$` block; use `\lbrace`/`\rbrace` for set braces, `\*` for Kleene star
-- KaTeX underscore escaping: inside `\text{}`, use `\text{node\\_hash}`; for subscripts after `\text{}`, use `\text{child}\_{0}` not `\text{child}_0`
-- KaTeX array line breaks: use `\\\` (three backslashes) inside `\begin{array}` environments; prefer `\begin{array}{ll}` with `\left\lbrace...\right.` over `\begin{cases}` which is flaky
-- Escape tildes for approximation: use `\~` instead of `~` (e.g., `\~100 GB`) to avoid strikethrough interpretation
-- Numbered lists that span non-list content: use HTML `<ol start="N">` to continue numbering
-- `<details><summary>...</summary>...</details>` for optional deep-dives
-- Tables: include a line explaining how to read them
-- Twitter/X embeds: use `data-theme="dark"` and `data-align="center"`; needs CSP config for `platform.twitter.com`
-- Anchor links: use standalone `<a id="..."></a>` elements; `id` on other elements doesn't work reliably in Zola
-- No emojis
-
-### Series Posts
-
-- Title format: "Title (Part N/M)"
-- Link to previous/next parts at top and bottom
-- Each part should stand alone while building on prior context
+See `.claude/docs/writing-style.md` for the full style guide (voice, structure,
+formatting, technical content, learnings).
 
 ## Frontmatter
 
@@ -169,27 +187,3 @@ katex = true  # only if using math
 - **Final posts** go to `content/blog/slug-matching-title.md`
 
 Don't run `zola serve` or `zola check` during editing; Vincent prefers to run these himself. Batch validation at the end if needed.
-
----
-
-## Learnings
-
-(All prior entries consolidated into Style subsections above.)
-
-- Don't quote concrete numbers (byte sizes, percentages) before the reader has the machinery to understand where they come from. Stay conceptual in setup/hypothesis sections; let later sections deliver the specifics.
-- Be precise about what's actually surprising. Before writing "how can X do Y?", ask: does something the reader already knows also do Y? If so, sharpen the claim to what's genuinely new.
-- Avoid hand-wavy abstract phrases like "all-or-nothing operation." Show a concrete formula or example instead of describing a property in words.
-- Don't introduce technical details (e.g., finite fields, specific algorithms) before the reader needs them. If a concept only matters in a later section, let that section introduce it. Transition paragraphs should do one job: bridge the reader forward.
-- Build up to key equations: show the derivation step by step, then present the clean formula as the payoff. Don't drop an equation first and justify it after.
-- Late sections should shed complexity, not add it. The reader is fatigued after hard technical content. Closing/future-looking sections should use plain language, avoid new jargon, and strip optional details (tables, details blocks) when the main text already covers the point.
-- When mentioning technology that supersedes what the post teaches, frame the current content as foundational, not obsolete. Don't undercut the reader's investment.
-- Link on the concept, not the container. `[finite field](@/blog/...)` beats `my post on [X](@/blog/...)` or `[post](@/blog/...)`. The link text should be the most informative word.
-- Don't repeat formulas or expressions within a few lines. If $C = P(s) \cdot G$ just appeared, use "this $C$" or prose instead of restating it.
-- Introduce terminology through action, not definition. "Alice wants to **open** the commitment" beats "In cryptography, revealing a value is called **opening**." Show the term in use; the reader absorbs the definition from context.
-- When introducing unfamiliar terms in late/closing sections, frame them as variants or swaps, not prerequisites. "Swaps in different building blocks: a different X, Y, and Z" reassures the reader they don't need to understand each one.
-- Use `\tag{N}` for important equations referenced later. Refer back with "equation $(N)$", not bare "$(N)$".
-- Consistent terminology: pick one term for a concept (e.g., "public parameters" not sometimes "public points" or "public curve points") and bold it on first use.
-- Don't state the same fact in multiple sections. If the intro and closing both mention a shift or development, consolidate to where it has the most impact and use a pronoun or brief reference elsewhere.
-- When noting a directional shift, state why. "X is unlikely" is less satisfying than "X is unlikely because Y." Give the reader the reason, not just the conclusion.
-- Avoid punchy slogans in closing sections. "The direction is clear: prove more, store less" reads as stiff after dense technical content. Plain language beats sound bites.
-- Don't reference terms before the reader has context for them. Even casual mentions (e.g., "trie" in an intro) can confuse if the concept hasn't been explained yet.
