@@ -18,7 +18,10 @@
 - [ ] Non-Profit vs For-Profit organizations
 - [ ] Zero-Knowledge Proofs
 - [ ] Ethereum Rollup Architecture
-- [ ] Ethereum State, Merkle and Verkle Trees
+- [ ] AWS Lambdas vs Cloudflare Workers (from 1st principles)
+- [ ] Post-quantum Signatures: from BLS to Hash-based signatures
+- [ ] Ethereum transactions: Account Abstraction
+- [x] Ethereum State, Merkle and Verkle Trees
 
 ## Completed
 
