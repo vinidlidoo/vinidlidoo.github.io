@@ -5,9 +5,9 @@ description: Create blog post outlines and drafts for Vincent's Zola blog. Orche
 
 # Blog Post Skill
 
-Orchestrate blog post creation using agent teams. The primary workflow spins up parallel research agents, synthesizes their output into an outline, and runs a critique-revise loop before presenting to the user.
-
-For long/complex topics, propose splitting into multiple posts before outlining.
+Orchestrate blog post creation and editing. Three workflows cover the full
+lifecycle: outlining (research + critique), writing from an approved outline,
+and editing existing posts. Each workflow is detailed in its own file.
 
 ## Workflows
 
@@ -21,23 +21,20 @@ See [workflow-writing.md](workflow-writing.md).
 
 ### Workflow 3: Editing an Existing Post
 
-Use when: User wants targeted changes to a published or draft post.
+See [workflow-editing.md](workflow-editing.md).
 
-**Steps:**
+## Team Retrospective
 
-1. **Read the post** — Understand current content, structure, and tone
-2. **Clarify scope** — If unclear, ask user what specifically needs changing
-3. **Make targeted edits** — Change only what's requested; don't restructure or rewrite unless asked
-4. **User review** — User approves changes
+Before shutting down a team, run a brief retro:
 
-**Optional: style critic loop.** When Vincent asks for it (e.g., "use the
-critic" or "run it through the critic"), spawn the style critic as a
-subagent. The leader makes edits and the critic reviews in a back-and-forth
-loop (up to 3 rounds) without Vincent in the middle. This is useful when
-Vincent gives a batch of changes and wants the leader and critic to work
-through them together, presenting the result only when both are satisfied.
+1. Ask each teammate what they'd improve about the workflow.
+2. Ask Vincent if he has feedback on how the process went.
+3. Append all suggestions to `.claude/docs/workflow-retros.md`.
 
-## After Writing
+This applies to any workflow that uses a full team (outline, writing). Skip
+for lightweight flows like editing without the critic loop.
+
+## After Each Session
 
 If Vincent made style corrections or expressed preferences during the session,
 append them to the "Learnings" section in `.claude/docs/writing-style.md`.

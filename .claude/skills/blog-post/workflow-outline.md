@@ -37,8 +37,8 @@ to enforce ordering between tasks — described as "depends on" below.
 notifications and clarification questions between teammates.
 
 **Consulting Vincent:** Check in at the end of Phase 1 and Phase 2 (see each
-phase for specifics). Escalate mid-phase blockers to Vincent via
-`AskUserQuestion`.
+phase for specifics). Do not create next-phase tasks until Vincent has
+responded. Escalate mid-phase blockers to Vincent via `AskUserQuestion`.
 
 ## Phase 1: Research (parallel)
 
@@ -54,7 +54,9 @@ Create the team with `TeamCreate`, then create and assign tasks:
   notes in Vincent's Obsidian vault `Study/` folder using the Obsidian skill.
 
 **Check-in with Vincent:** Summarize what the researchers found, what the
-Obsidian notes contain (if any), and flag open questions.
+Obsidian notes contain (if any), and flag open questions. If the research
+reveals the topic is too broad for a single post, propose splitting it into
+multiple posts before proceeding to Phase 2.
 
 ## Phase 2: Outline writing
 
@@ -68,7 +70,8 @@ Create and assign:
   numbers against the web research brief.
 
 **Check-in with Vincent:** Present the first draft outline and ask if the
-direction is right before entering the critique-revise loop.
+direction is right. Wait for Vincent's response before creating Phase 3
+tasks.
 
 ## Phase 3: Critique-revise loop (up to 3 rounds)
 
@@ -94,7 +97,7 @@ dependencies to enforce ordering:
 The loop exits when the critic says "ready to present" or "present next round",
 or after 3 rounds (whichever comes first).
 
-## Phase 4: Present to user
+## Phase 4: Present to Vincent
 
 Deliver the final outline with a summary of (using
 `drafts/critic-feedback/<topic>-outline.md` as the source):
@@ -103,4 +106,5 @@ Deliver the final outline with a summary of (using
 - What was addressed and what remains open
 - Any unverified claims or gaps
 
-Shut down all teammates and clean up the team with `TeamDelete`.
+Run the team retrospective (see SKILL.md), then shut down all teammates and
+clean up the team with `TeamDelete`.

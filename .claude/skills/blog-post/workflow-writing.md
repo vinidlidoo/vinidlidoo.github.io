@@ -21,7 +21,7 @@ writer and critic can message the web researcher for clarifications.
 | Agent | Type | Objective | Output |
 |-------|------|-----------|--------|
 | **Writer** | Ad-hoc `general-purpose` agent | Write the post section by section; revise based on critique and user feedback. May propose structural deviations from the outline when the prose demands it. | `drafts/posts/<topic>.md` |
-| **Style critic** | `style-critic` agent | Review for style alignment, flow, and technical soundness; produce a verdict. Should flag when outline structure hurts the post and recommend adjustments. | `drafts/critic-feedback/<topic>-writing.md` (appended each round) |
+| **Style critic** | `style-critic` agent | Review for style alignment, pedagogical flow, and technical soundness; produce a verdict. Should flag when outline structure hurts the post and recommend adjustments. | `drafts/critic-feedback/<topic>-writing.md` (appended each round) |
 | **Web researcher** | Ad-hoc `general-purpose` agent | Verify technical claims, key numbers, and completeness; update research brief across phases. | `drafts/briefs/<topic>-web-research.md` (updated across phases) |
 
 **Key files:**
@@ -96,7 +96,8 @@ Deliver the draft with a summary of (using
 - What was addressed and what remains open
 - Any structural deviations from the original outline, with rationale
 
-Shut down all teammates and clean up the team with `TeamDelete`.
+Run the team retrospective (see SKILL.md), then shut down all teammates and
+clean up the team with `TeamDelete`.
 
 ## Phase 4: Iterate
 
