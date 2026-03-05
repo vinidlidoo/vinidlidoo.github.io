@@ -1,6 +1,7 @@
 +++
 title = "Zero-Knowledge: Turning Computation into Polynomials (Part 1/3)"
 date = 2026-03-04
+updated = 2026-03-05
 description = "From a program to a few polynomial equations: how SNARKs encode computation through flattening, R1CS, and the QAP transformation"
 
 [taxonomies]
@@ -15,7 +16,7 @@ social_media_card = "/img/zk-computation-to-polynomials-banner.webp"
 
 Zero knowledge keeps coming up. Balaji [frames it](https://x.com/balajis/status/2022462579713675506) as the counterweight to AI: "Artificial intelligence is the attack. Zero knowledge is the defense." [Podcasts](https://zeroknowledge.fm/), conference talks, [crypto roadmaps](https://strawmap.org/): ZK is everywhere. I wanted to understand what's actually going on under the hood, so [as promised](@/blog/verkle-trees-polynomial-commitments.md#what-s-next), I traced the math from scratch. The part that surprised me most wasn't the cryptography. It was the step before: how do you take a program and turn it into something cryptography can even work with?
 
-That's what this post covers. We'll take a small program, break it into elementary operations, encode those operations as matrices, and collapse everything into a single equation that a SNARK[^snark] can check. This is Part 1 of three (Part 2 covers the proof protocol, Part 3 covers applications). I'll assume familiarity with [finite fields](@/blog/math-behind-private-key.md#fields-numbers-with-arithmetic) and [polynomial commitments](@/blog/verkle-trees-polynomial-commitments.md) from my earlier posts.
+That's what this post covers. We'll take a small program, break it into elementary operations, encode those operations as matrices, and collapse everything into a single equation that a SNARK[^snark] can check. The structure and example follow [Vitalik's 2016 QAP walkthrough](https://medium.com/@VitalikButerin/quadratic-arithmetic-programs-from-zero-to-hero-f6d558cea649), which remains one of the clearest primers on the topic I could find. This is Part 1 of three (Part 2 covers the proof protocol, Part 3 covers applications). I'll assume familiarity with [finite fields](@/blog/math-behind-private-key.md#fields-numbers-with-arithmetic) and [polynomial commitments](@/blog/verkle-trees-polynomial-commitments.md) from my earlier posts.
 
 ## Proving Without Showing
 
@@ -26,11 +27,11 @@ A zero-knowledge proof guarantees two things:
 - **Privacy**: Alice doesn't reveal $x$.
 - **Succinctness**: Bob's verification work is tiny compared to running $f$.
 
-Our running example for the entire post (borrowed from [Vitalik's QAP walkthrough](https://medium.com/@VitalikButerin/quadratic-arithmetic-programs-from-zero-to-hero-f6d558cea649)):
+Our running example for the entire post:
 
 $$f(x) = x^3 + x + 5$$
 
-Alice claims she knows an input that produces 35. By the end of the post, we'll have transformed this claim into a single polynomial divisibility check. We'll use $x = 3$ as the concrete witness to work through each step, but remember: in a real proof, this value stays hidden.
+Alice claims she knows an input that produces 35. By the end of the post, we'll have transformed this claim into a single polynomial divisibility check. We'll use the solution $x = 3$ as we work through each step, but remember: in a real proof, this value is hidden from Bob.
 
 Step one is to break the computation into pieces small enough to encode as constraints.
 
@@ -49,11 +50,13 @@ Each line is a **gate**. The full set is an **arithmetic circuit**. The process 
 
 ![Expression tree for x³ + x + 5 flattened into four sequential gates](/img/zk-flattening.webp)
 
-We now have four gates. The next step: express each one as a constraint that a verifier can check.
+Our example is a cubic equation, but this flattening technique generalizes to any bounded program. Addition and multiplication over a finite field are expressive enough to encode conditionals, comparisons, and bitwise operations. For example, given a variable $b$ that's 0 or 1, the expression $y = 7b + 9(1 - b)$ picks one of two values: an `if/else` built from arithmetic. Loops unroll to a fixed depth. The gate count grows with program complexity, but the encoding stays the same.
+
+Back to our example. We have four gates, and the next step is to express each one as a constraint that a verifier can check.
 
 ## R1CS: Constraints as Dot Products
 
-The next step encodes each gate as a constraint on a single shared vector. The format is called a **Rank-1 Constraint System (R1CS)**. All the arithmetic from here on happens over a [finite field](@/blog/math-behind-private-key.md#fields-numbers-with-arithmetic) $\mathbb{F}_p$. We use small integers to keep the example readable, but in practice $p \sim 2^{255}$.
+Each gate becomes a constraint on a single shared vector. The format is called a **Rank-1 Constraint System (R1CS)**. All the arithmetic from here on happens over a [finite field](@/blog/math-behind-private-key.md#fields-numbers-with-arithmetic) $\mathbb{F}_p$. We use small integers to keep the example readable, but in practice $p \sim 2^{255}$.
 
 The vector $\mathbf{s}$ is a flat list of every variable in the circuit:
 
@@ -105,11 +108,11 @@ Each row is a gate, each column an entry in $\mathbf{s}$.
 
 ![The three R1CS matrices L, R, and O with row labels and highlighted non-zero entries](/img/zk-r1cs-matrices.webp)
 
-A valid witness satisfies all four instances of equation $(2)$ simultaneously. An invalid witness (e.g., wrong intermediate values, wrong output) fails at least one. We've now established that R1CS works, but also that it requires checking each gate separately: four dot products for four gates.
+A valid witness satisfies all four instances of equation $(2)$ simultaneously. An invalid witness (e.g., wrong intermediate values, wrong output) fails at least one. We've now established that R1CS works, but also that it requires checking each gate separately: four checks for four gates, each requiring three dot products and a multiply.
 
 ## QAP: From Dot Products to Polynomials
 
-The **Quadratic Arithmetic Program (QAP)** transformation converts those four separate R1CS checks into a single polynomial divisibility check. This is the step that makes SNARKs succinct.
+The **Quadratic Arithmetic Program (QAP)** transformation converts those four separate R1CS checks into a single polynomial divisibility check.
 
 The technique: take each *column* of the L, R, O matrices and turn it into a polynomial via [Lagrange interpolation](@/blog/verkle-trees-polynomial-commitments.md#from-values-to-a-polynomial). The Verkle trees post already covered this: encoding discrete values as evaluations of a polynomial. Same trick, different data.
 
@@ -141,17 +144,19 @@ If even one gate constraint were violated, $T(t)$ would lose a root, the divisio
 
 ## What One Equation Buys Us
 
-The **Schwartz-Zippel lemma** makes equation $(3)$ powerful: evaluate both sides at a random $\tau$ to verify a computation; if the polynomials differ, the chance of accidentally passing is negligible.[^sz] One random evaluation replaces all $n$ gate checks. Production circuits have millions of gates (Zcash Sapling uses ~1.5 million, zkEVM rollups tens of millions). That's where the "succinct" in SNARK comes from.
+The **Schwartz-Zippel lemma** makes equation $(3)$ powerful: evaluate equality of both sides at a random $\tau$ to verify a computation; if the polynomials differ, the chance of accidentally passing is negligible.[^sz] One random evaluation replaces all $n$ gate checks. Production circuits have millions of gates (Zcash Sapling uses ~1.5 million, zkEVM rollups tens of millions). That's where the "succinct" in SNARK comes from.
+
+The naive approach would be to send $T(t)$ and $H(t)$ to the verifier and let them pick $\tau$. But these polynomials have degree proportional to the number of gates: $O(n)$ data on the wire, and $O(n)$ work for each verifier to evaluate them. We just collapsed $n$ gate checks into one evaluation; shipping the polynomials would undo those savings. So we want the prover to evaluate and send only point results.
 
 ## What's Missing
 
 Two problems stand between the QAP and an actual proof.
 
-**The random point must be secret.** If the prover knew $\tau$ beforehand, they could pick values for $T(\tau)$ and $H(\tau)$ that satisfy equation $(3)$ without a valid witness.
+**The prover must not know $\tau$.** If they do, they can compute $Z(\tau)$ (which is public), pick any $H(\tau)$, set $T(\tau) = H(\tau) \cdot Z(\tau)$, and satisfy equation $(3)$ without a valid witness. The prover must evaluate at $\tau$ without learning what $\tau$ is.
 
-**The prover must be bound to the circuit's polynomials.** Even with a secret $\tau$, nothing forces the prover to use the QAP's column polynomials. They could fabricate unrelated polynomials that pass the divisibility check.
+**The prover must be bound to the circuit's polynomials.** Even with a hidden $\tau$, nothing forces the prover to evaluate the QAP's actual polynomials. They could fabricate unrelated ones that pass the check at the hidden point.
 
-Part 2 will add the cryptography: a trusted setup that hides $\tau$, pairing-based checks that bind the prover to the circuit's polynomials, and a blinding step that makes the proof reveal nothing about the witness.
+Part 2 will add the cryptography that resolves both problems: a trusted setup that hides $\tau$, pairing-based checks that bind the prover to the circuit's polynomials, and a blinding step that makes the proof reveal nothing about the witness.
 
 <!-- TODO: Add link to Part 2 when published -->
 
