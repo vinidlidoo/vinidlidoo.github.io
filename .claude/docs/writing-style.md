@@ -151,4 +151,8 @@ the positive claim directly.
 
 ## Learnings
 
-(All entries consolidated into Style subsections above.)
+- **No em dashes.** Use periods, commas, or semicolons instead.
+- **Never present incomplete machinery as a working protocol.** If the post hasn't built enough to make something work, say so upfront rather than presenting it as working and then poking holes.
+- **Don't start paragraphs with "But".** Rephrase or restructure.
+- **Complexity claims need honesty.** If an operation is O(n), don't call it constant. Be precise about what each stage achieves and what's deferred.
+- **Production numbers ground abstract claims.** When arguing succinctness or scale, include real-world circuit sizes (e.g., Zcash ~1.5M gates, zkEVM rollups tens of millions).
