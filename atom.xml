@@ -17,7 +17,108 @@
         <subtitle>A personal blog</subtitle>
     <link href="https://vinidlidoo.github.io/atom.xml" rel="self" type="application/atom+xml"/>
     <link href="https://vinidlidoo.github.io" rel="alternate" type="text/html"/>
-    <generator uri="https://www.getzola.org/">Zola</generator><updated>2026-02-18T00:00:00+00:00</updated><id>https://vinidlidoo.github.io/atom.xml</id><entry xml:lang="en">
+    <generator uri="https://www.getzola.org/">Zola</generator><updated>2026-03-04T00:00:00+00:00</updated><id>https://vinidlidoo.github.io/atom.xml</id><entry xml:lang="en">
+        <title>Zero-Knowledge: Turning Computation into Polynomials (Part 1&#x2F;3)</title>
+        <published>2026-03-04T00:00:00+00:00</published>
+        <updated>2026-03-04T00:00:00+00:00</updated>
+        <author>
+            <name>Vincent</name>
+        </author>
+        <link rel="alternate" href="https://vinidlidoo.github.io/blog/zk-computation-to-polynomials/" type="text/html"/>
+        <id>https://vinidlidoo.github.io/blog/zk-computation-to-polynomials/</id>
+        
+            <content type="html">&lt;p&gt;&lt;img src=&quot;&#x2F;img&#x2F;zk-computation-to-polynomials-banner.webp&quot; alt=&quot;Origami crane folded from a sheet of mathematical notation&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Zero knowledge keeps coming up. Balaji &lt;a rel=&quot;external&quot; href=&quot;https:&#x2F;&#x2F;x.com&#x2F;balajis&#x2F;status&#x2F;2022462579713675506&quot;&gt;frames it&lt;&#x2F;a&gt; as the counterweight to AI: &quot;Artificial intelligence is the attack. Zero knowledge is the defense.&quot; &lt;a rel=&quot;external&quot; href=&quot;https:&#x2F;&#x2F;zeroknowledge.fm&#x2F;&quot;&gt;Podcasts&lt;&#x2F;a&gt;, conference talks, &lt;a rel=&quot;external&quot; href=&quot;https:&#x2F;&#x2F;strawmap.org&#x2F;&quot;&gt;crypto roadmaps&lt;&#x2F;a&gt;: ZK is everywhere. I wanted to understand what&#x27;s actually going on under the hood, so &lt;a href=&quot;https:&#x2F;&#x2F;vinidlidoo.github.io&#x2F;blog&#x2F;verkle-trees-polynomial-commitments&#x2F;#what-s-next&quot;&gt;as promised&lt;&#x2F;a&gt;, I traced the math from scratch. The part that surprised me most wasn&#x27;t the cryptography. It was the step before: how do you take a program and turn it into something cryptography can even work with?&lt;&#x2F;p&gt;
+&lt;p&gt;That&#x27;s what this post covers. We&#x27;ll take a small program, break it into elementary operations, encode those operations as matrices, and collapse everything into a single equation that a SNARK&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-snark-1&quot;&gt;&lt;a href=&quot;#fn-snark&quot;&gt;1&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt; can check. This is Part 1 of three (Part 2 covers the proof protocol, Part 3 covers applications). I&#x27;ll assume familiarity with &lt;a href=&quot;https:&#x2F;&#x2F;vinidlidoo.github.io&#x2F;blog&#x2F;math-behind-private-key&#x2F;#fields-numbers-with-arithmetic&quot;&gt;finite fields&lt;&#x2F;a&gt; and &lt;a href=&quot;https:&#x2F;&#x2F;vinidlidoo.github.io&#x2F;blog&#x2F;verkle-trees-polynomial-commitments&#x2F;&quot;&gt;polynomial commitments&lt;&#x2F;a&gt; from my earlier posts.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;proving-without-showing&quot;&gt;Proving Without Showing&lt;&#x2F;h2&gt;
+&lt;p&gt;Alice claims she knows some value $x$ such that $f(x) = y$. Bob wants to be convinced, but he doesn&#x27;t want to run $f$ himself (maybe it&#x27;s expensive), and Alice doesn&#x27;t want to reveal $x$ (maybe it&#x27;s secret). A &lt;strong&gt;zero-knowledge proof&lt;&#x2F;strong&gt; lets Alice convince Bob of both things simultaneously.&lt;&#x2F;p&gt;
+&lt;p&gt;A zero-knowledge proof guarantees two things:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Privacy&lt;&#x2F;strong&gt;: Alice doesn&#x27;t reveal $x$.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Succinctness&lt;&#x2F;strong&gt;: Bob&#x27;s verification work is tiny compared to running $f$.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Our running example for the entire post (borrowed from &lt;a rel=&quot;external&quot; href=&quot;https:&#x2F;&#x2F;medium.com&#x2F;@VitalikButerin&#x2F;quadratic-arithmetic-programs-from-zero-to-hero-f6d558cea649&quot;&gt;Vitalik&#x27;s QAP walkthrough&lt;&#x2F;a&gt;):&lt;&#x2F;p&gt;
+&lt;p&gt;$$f(x) = x^3 + x + 5$$&lt;&#x2F;p&gt;
+&lt;p&gt;Alice claims $f(3) = 35$. By the end of the post, we&#x27;ll have transformed this claim into a single polynomial divisibility check.&lt;&#x2F;p&gt;
+&lt;p&gt;Step one is to break the computation into pieces small enough to encode as constraints.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;flattening-breaking-computation-into-gates&quot;&gt;Flattening: Breaking Computation into Gates&lt;&#x2F;h2&gt;
+&lt;p&gt;The idea is to rewrite $f(3) = 35$ as a sequence of elementary operations, each of the form &lt;code&gt;result = left (op) right&lt;&#x2F;code&gt;. Think of it as disassembling a formula into its simplest possible operations:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;sym1 = x * x          &#x2F;&#x2F; gate 1: squaring&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;sym2 = sym1 * x        &#x2F;&#x2F; gate 2: cubing&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;sym3 = sym2 + x        &#x2F;&#x2F; gate 3: addition&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;out  = sym3 + 5        &#x2F;&#x2F; gate 4: add constant&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Each line is a &lt;strong&gt;gate&lt;&#x2F;strong&gt;. The full set is an &lt;strong&gt;arithmetic circuit&lt;&#x2F;strong&gt;. The process of encoding computation as gates is called &lt;strong&gt;arithmetization&lt;&#x2F;strong&gt;, and it&#x27;s the first stage of the SNARK pipeline. The flattened form encodes exactly the same logic as $f(x)$. Just a different representation.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;img&#x2F;zk-flattening.webp&quot; alt=&quot;Expression tree for x³ + x + 5 flattened into four sequential gates&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;We now have four gates. The next step: express each one as a constraint that a verifier can check.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;r1cs-constraints-as-dot-products&quot;&gt;R1CS: Constraints as Dot Products&lt;&#x2F;h2&gt;
+&lt;p&gt;The next step encodes each gate as a constraint on a single shared vector. The format is called a &lt;strong&gt;Rank-1 Constraint System (R1CS)&lt;&#x2F;strong&gt;. All the arithmetic from here on happens over a &lt;a href=&quot;https:&#x2F;&#x2F;vinidlidoo.github.io&#x2F;blog&#x2F;math-behind-private-key&#x2F;#fields-numbers-with-arithmetic&quot;&gt;finite field&lt;&#x2F;a&gt; $\mathbb{F}_p$. We use small integers to keep the example readable, but in practice $p \sim 2^{255}$.&lt;&#x2F;p&gt;
+&lt;p&gt;The vector $\mathbf{s}$ is a flat list of every variable in the circuit:&lt;&#x2F;p&gt;
+&lt;p&gt;$$\mathbf{s} = [1,\ x,\ \text{out},\ \text{sym1},\ \text{sym2},\ \text{sym3}] \tag{1}$$&lt;&#x2F;p&gt;
+&lt;p&gt;With $x = 3$:&lt;&#x2F;p&gt;
+&lt;p&gt;$$\mathbf{s} = [1,\ 3,\ 35,\ 9,\ 27,\ 30]$$&lt;&#x2F;p&gt;
+&lt;p&gt;That leading 1 isn&#x27;t a variable: it&#x27;s a constant term that we&#x27;ll see in action when gate 4 encodes the &quot;+ 5&quot;. This vector, with all its intermediate values filled in, is the &lt;strong&gt;witness&lt;&#x2F;strong&gt;: it&#x27;s everything the prover computed.&lt;&#x2F;p&gt;
+&lt;p&gt;Each gate becomes a constraint of the form:&lt;&#x2F;p&gt;
+&lt;p&gt;$$(\mathbf{L}_i \cdot \mathbf{s}) \times (\mathbf{R}_i \cdot \mathbf{s}) = (\mathbf{O}_i \cdot \mathbf{s}) \tag{2}$$&lt;&#x2F;p&gt;
+&lt;p&gt;where $\mathbf{L}_i$ (&lt;strong&gt;l&lt;&#x2F;strong&gt;eft input), $\mathbf{R}_i$ (&lt;strong&gt;r&lt;&#x2F;strong&gt;ight input), and $\mathbf{O}_i$ (&lt;strong&gt;o&lt;&#x2F;strong&gt;utput) are the $i$-th rows of matrices $L$, $R$, and $O$. Each row vector &quot;selects&quot; the right variables from $\mathbf{s}$.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;gates-1-and-2-encoding-multiplication&quot;&gt;Gates 1 and 2: encoding multiplication&lt;&#x2F;h3&gt;
+&lt;p&gt;Gate 1 is $\text{sym1} = x \times x$. Looking back at $\mathbf{s}$ from equation $(1)$, we need vectors that select $x$ on the left, $x$ on the right, and $\text{sym1}$ as the result:&lt;&#x2F;p&gt;
+&lt;p&gt;$$\mathbf{L}_1 = [0, 1, 0, 0, 0, 0] \quad \text{(selects } x \text{)}$$&lt;&#x2F;p&gt;
+&lt;p&gt;$$\mathbf{R}_1 = [0, 1, 0, 0, 0, 0] \quad \text{(selects } x \text{)}$$&lt;&#x2F;p&gt;
+&lt;p&gt;$$\mathbf{O}_1 = [0, 0, 0, 1, 0, 0] \quad \text{(selects sym1)}$$&lt;&#x2F;p&gt;
+&lt;p&gt;Check: $(\mathbf{L}_1 \cdot \mathbf{s}) \times (\mathbf{R}_1 \cdot \mathbf{s}) = 3 \times 3 = 9 = (\mathbf{O}_1 \cdot \mathbf{s})$. It works.&lt;&#x2F;p&gt;
+&lt;p&gt;Gate 2 ($\text{sym2} = \text{sym1} \times x$) follows the same multiplication pattern: $\mathbf{L}_2$ selects $\text{sym1}$, $\mathbf{R}_2$ selects $x$, and $\mathbf{O}_2$ selects $\text{sym2}$.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;gates-3-and-4-encoding-addition&quot;&gt;Gates 3 and 4: encoding addition&lt;&#x2F;h3&gt;
+&lt;p&gt;Gate 3 has no multiplication: $\text{sym3} = \text{sym2} + x$. We encode it as $(\text{sym2} + x) \times 1 = \text{sym3}$, folding the addition into the $\mathbf{L}$ vector. The right side is just the constant 1:&lt;&#x2F;p&gt;
+&lt;p&gt;$$\mathbf{L}_3 = [0, 1, 0, 0, 1, 0]$$&lt;&#x2F;p&gt;
+&lt;p&gt;$$\mathbf{R}_3 = [1, 0, 0, 0, 0, 0]$$&lt;&#x2F;p&gt;
+&lt;p&gt;$$\mathbf{O}_3 = [0, 0, 0, 0, 0, 1]$$&lt;&#x2F;p&gt;
+&lt;p&gt;Check: $(27 + 3) \times 1 = 30$. Gate 4 ($\text{out} = \text{sym3} + 5$) works the same way, with the constant 5 in the first column of $\mathbf{L}_4$: $\mathbf{L}_4 = [5, 0, 0, 0, 0, 1]$. Check: $(5 + 30) \times 1 = 35$.&lt;&#x2F;p&gt;
+&lt;p&gt;The key insight: additions don&#x27;t add constraints. They ride along in the $\mathbf{L}_i$ or $\mathbf{O}_i$ vectors of existing gates. If the original computation had been $(\text{sym2} + x) \times 2$ instead of a pure addition, that would still be one gate: $\mathbf{L}_i$ selects $\text{sym2} + x$, $\mathbf{R}_i$ selects the constant 2, and the addition costs nothing extra. The constraint count is driven by multiplications; additions just come along for free.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;the-full-matrices&quot;&gt;The Full Matrices&lt;&#x2F;h3&gt;
+&lt;p&gt;Each row is a gate, each column an entry in $\mathbf{s}$.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;img&#x2F;zk-r1cs-matrices.webp&quot; alt=&quot;The three R1CS matrices L, R, and O with row labels and highlighted non-zero entries&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;A valid witness satisfies all four instances of equation $(2)$ simultaneously. An invalid witness (e.g., wrong intermediate values, wrong output) fails at least one. We&#x27;ve now established that R1CS works, but also that it requires checking each gate separately: four dot products for four gates.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;qap-from-dot-products-to-polynomials&quot;&gt;QAP: From Dot Products to Polynomials&lt;&#x2F;h2&gt;
+&lt;p&gt;The &lt;strong&gt;Quadratic Arithmetic Program (QAP)&lt;&#x2F;strong&gt; transformation converts those four separate R1CS checks into a single polynomial divisibility check. This is the step that makes SNARKs succinct.&lt;&#x2F;p&gt;
+&lt;p&gt;The technique: take each &lt;em&gt;column&lt;&#x2F;em&gt; of the L, R, O matrices and turn it into a polynomial via &lt;a href=&quot;https:&#x2F;&#x2F;vinidlidoo.github.io&#x2F;blog&#x2F;verkle-trees-polynomial-commitments&#x2F;#from-values-to-a-polynomial&quot;&gt;Lagrange interpolation&lt;&#x2F;a&gt;. The Verkle trees post already covered this: encoding discrete values as evaluations of a polynomial. Same trick, different data.&lt;&#x2F;p&gt;
+&lt;p&gt;Concretely, column $j$ of matrix $L$ has 4 values (one per gate). Treat these as evaluations at points $t = 1, 2, 3, 4$ and interpolate a degree-3 polynomial $L_j(t)$.&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-tvar-1&quot;&gt;&lt;a href=&quot;#fn-tvar&quot;&gt;2&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt; For example, the $x$-column of $L$ has values $[1, 0, 1, 0]$, so $L_1(t)$ is the unique degree-3 polynomial passing through the points $(1, 1),\ (2, 0),\ (3, 1),\ (4, 0)$.&lt;&#x2F;p&gt;
+&lt;p&gt;Repeat for every column of L, R, and O. Result: 6 polynomials each for L, R, and O since $\mathbf{s}$ has 6 entries (18 polynomials total).&lt;&#x2F;p&gt;
+&lt;p&gt;We want a single polynomial that, at each gate point $t = i$, evaluates to the dot product $\mathbf{L}_i \cdot \mathbf{s}$. A useful property makes this possible: a weighted sum of polynomials is itself a polynomial. The weights just scale and combine the coefficients. So we can use the witness entries $s_j$ as weights on the column polynomials:&lt;&#x2F;p&gt;
+&lt;p&gt;$$L(t) = \sum_{j=0}^{5} s_j \cdot L_j(t)$$&lt;&#x2F;p&gt;
+&lt;p&gt;$$R(t) = \sum_{j=0}^{5} s_j \cdot R_j(t)$$&lt;&#x2F;p&gt;
+&lt;p&gt;$$O(t) = \sum_{j=0}^{5} s_j \cdot O_j(t)$$&lt;&#x2F;p&gt;
+&lt;p&gt;At any gate point $t = i$, $L(i)$ evaluates to $\mathbf{L}_i \cdot \mathbf{s}$: the left-hand dot product for gate $i$. The same holds for $R(i)$ and $O(i)$. &lt;strong&gt;One polynomial per side (3 total), encoding all four gates at once.&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;For a valid witness, every gate constraint holds, so $L(t) \cdot R(t) - O(t) = 0$ at $t = 1, 2, 3, 4$. Call this expression $T(t)$. It&#x27;s a polynomial with roots at $1, 2, 3, 4$.&lt;&#x2F;p&gt;
+&lt;p&gt;Define the &lt;strong&gt;target polynomial&lt;&#x2F;strong&gt; $Z(t) = (t-1)(t-2)(t-3)(t-4)$, which has roots at those same four points.&lt;&#x2F;p&gt;
+&lt;p&gt;Since $T(t)$ and $Z(t)$ share the same roots, $Z(t)$ divides $T(t)$ with no remainder. The prover can perform polynomial long division to obtain a &lt;strong&gt;quotient polynomial&lt;&#x2F;strong&gt; $H(t)$ such that:&lt;&#x2F;p&gt;
+&lt;p&gt;$$T(t) = H(t) \cdot Z(t) \tag{3}$$&lt;&#x2F;p&gt;
+&lt;p&gt;If even one gate constraint were violated, $T(t)$ would lose a root, the division would leave a remainder, and no polynomial $H(t)$ would exist.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;img&#x2F;zk-pipeline.webp&quot; alt=&quot;Pipeline from program to polynomial divisibility check: Program, Flatten, R1CS, QAP, Check&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;what-one-equation-buys-us&quot;&gt;What One Equation Buys Us&lt;&#x2F;h2&gt;
+&lt;p&gt;The &lt;strong&gt;Schwartz-Zippel lemma&lt;&#x2F;strong&gt; makes equation $(3)$ powerful: evaluate both sides at a random $\tau$ to verify a computation; if the polynomials differ, the chance of accidentally passing is negligible.&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-sz-1&quot;&gt;&lt;a href=&quot;#fn-sz&quot;&gt;3&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt; One random evaluation replaces all $n$ gate checks. Production circuits have millions of gates (Zcash Sapling uses ~1.5 million, zkEVM rollups tens of millions). That&#x27;s where the &quot;succinct&quot; in SNARK comes from.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;what-s-missing&quot;&gt;What&#x27;s Missing&lt;&#x2F;h2&gt;
+&lt;p&gt;Two problems stand between the QAP and an actual proof.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;The random point must be secret.&lt;&#x2F;strong&gt; If the prover knew $\tau$ beforehand, they could pick values for $T(\tau)$ and $H(\tau)$ that satisfy equation $(3)$ without a valid witness.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;The prover must be bound to the circuit&#x27;s polynomials.&lt;&#x2F;strong&gt; Even with a secret $\tau$, nothing forces the prover to use the QAP&#x27;s column polynomials. They could fabricate unrelated polynomials that pass the divisibility check.&lt;&#x2F;p&gt;
+&lt;p&gt;Part 2 will add the cryptography: a trusted setup that hides $\tau$, pairing-based checks that bind the prover to the circuit&#x27;s polynomials, and a blinding step that makes the proof reveal nothing about the witness.&lt;&#x2F;p&gt;
+&lt;!-- TODO: Add link to Part 2 when published --&gt;
+&lt;hr &#x2F;&gt;
+&lt;section class=&quot;footnotes&quot;&gt;
+&lt;ol class=&quot;footnotes-list&quot;&gt;
+&lt;li id=&quot;fn-snark&quot;&gt;
+&lt;p&gt;&lt;strong&gt;S&lt;&#x2F;strong&gt;uccinct &lt;strong&gt;N&lt;&#x2F;strong&gt;on-interactive &lt;strong&gt;AR&lt;&#x2F;strong&gt;gument of &lt;strong&gt;K&lt;&#x2F;strong&gt;nowledge. &lt;a href=&quot;#fr-snark-1&quot;&gt;↩&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li id=&quot;fn-tvar&quot;&gt;
+&lt;p&gt;We use $t$ for the polynomial variable to avoid collision with $x$, which is already the circuit input. &lt;a href=&quot;#fr-tvar-1&quot;&gt;↩&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li id=&quot;fn-sz&quot;&gt;
+&lt;p&gt;If $P$ and $Q$ are distinct polynomials of degree at most $d$ over $\mathbb{F}_p$, their difference $D = P - Q$ is non-zero with degree at most $d$, so it has at most $d$ roots. A random evaluation point lands on one of those roots with probability at most $d&#x2F;p$. With $p \sim 2^{255}$ and $d$ in the thousands, this is negligible. &lt;a href=&quot;#fr-sz-1&quot;&gt;↩&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;&#x2F;section&gt;
+</content>
+        <summary type="html">From a program to a few polynomial equations: how SNARKs encode computation through flattening, R1CS, and the QAP transformation</summary>
+        </entry><entry xml:lang="en">
         <title>Verkle Trees: Polynomial Commitments (Part 2&#x2F;2)</title>
         <published>2026-02-13T00:00:00+00:00</published>
         <updated>2026-02-16T00:00:00+00:00</updated>
