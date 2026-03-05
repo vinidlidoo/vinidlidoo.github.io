@@ -1,7 +1,6 @@
 +++
 title = "Zero-Knowledge: Turning Computation into Polynomials (Part 1/3)"
 date = 2026-03-04
-draft = true
 description = "From a program to a few polynomial equations: how SNARKs encode computation through flattening, R1CS, and the QAP transformation"
 
 [taxonomies]
