@@ -39,10 +39,10 @@
 &lt;&#x2F;ul&gt;
 &lt;p&gt;Our running example for the entire post (borrowed from &lt;a rel=&quot;external&quot; href=&quot;https:&#x2F;&#x2F;medium.com&#x2F;@VitalikButerin&#x2F;quadratic-arithmetic-programs-from-zero-to-hero-f6d558cea649&quot;&gt;Vitalik&#x27;s QAP walkthrough&lt;&#x2F;a&gt;):&lt;&#x2F;p&gt;
 &lt;p&gt;$$f(x) = x^3 + x + 5$$&lt;&#x2F;p&gt;
-&lt;p&gt;Alice claims $f(3) = 35$. By the end of the post, we&#x27;ll have transformed this claim into a single polynomial divisibility check.&lt;&#x2F;p&gt;
+&lt;p&gt;Alice claims she knows an input that produces 35. By the end of the post, we&#x27;ll have transformed this claim into a single polynomial divisibility check. We&#x27;ll use $x = 3$ as the concrete witness to work through each step, but remember: in a real proof, this value stays hidden.&lt;&#x2F;p&gt;
 &lt;p&gt;Step one is to break the computation into pieces small enough to encode as constraints.&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;flattening-breaking-computation-into-gates&quot;&gt;Flattening: Breaking Computation into Gates&lt;&#x2F;h2&gt;
-&lt;p&gt;The idea is to rewrite $f(3) = 35$ as a sequence of elementary operations, each of the form &lt;code&gt;result = left (op) right&lt;&#x2F;code&gt;. Think of it as disassembling a formula into its simplest possible operations:&lt;&#x2F;p&gt;
+&lt;p&gt;The idea is to rewrite $f(x) = 35$ as a sequence of elementary operations, each of the form &lt;code&gt;result = left (op) right&lt;&#x2F;code&gt;. Think of it as disassembling a formula into its simplest possible operations:&lt;&#x2F;p&gt;
 &lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;sym1 = x * x          &#x2F;&#x2F; gate 1: squaring&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
 &lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;sym2 = sym1 * x        &#x2F;&#x2F; gate 2: cubing&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
 &lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;sym3 = sym2 + x        &#x2F;&#x2F; gate 3: addition&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
