@@ -134,11 +134,13 @@ If the Mermaid output looks structurally correct but the user wants a more polis
 .claude/skills/mermaid-diagram/gemini-image.py drafts/img/<name>-polished.png "Description of the diagram, based on the Mermaid version at drafts/img/<name>.png"
 ```
 
-Use `-m pro` for higher quality (Nano Banana Pro), default is `-m flash` (free tier):
+Use `-m flash2` for Nano Banana 2, or `-m pro` for Nano Banana Pro. Default is `-m flash` (free tier):
 
 ```bash
-.claude/skills/mermaid-diagram/gemini-image.py -m pro drafts/img/<name>.png "Description..."
+.claude/skills/mermaid-diagram/gemini-image.py -m flash2 drafts/img/<name>.png "Description..."
 ```
+
+**Sandbox note:** The `gemini-image.py` script requires network access and writes to the uv cache, both of which are blocked by the default sandbox. Run it with `dangerouslyDisableSandbox: true`.
 
 **Dual-reference technique:** When you need both a specific structure AND a specific visual style, pass two images — one for each concern:
 
@@ -152,7 +154,7 @@ Use `-m pro` for higher quality (Nano Banana Pro), default is `-m flash` (free t
 
 This prevents Gemini from over-indexing on one image. The Mermaid render provides exact topology; the style reference provides the aesthetic (e.g., hand-drawn Excalidraw look from a previous diagram).
 
-**Iterative refinement:** Pass Gemini's previous output back as `-i` to make targeted fixes. Be very specific about what to change and what to keep ("fix X, keep everything else exactly the same"). Gemini handles small corrections well but tends to drift on open-ended re-prompts. After 2-3 iterations with diminishing returns, accept minor cosmetic imperfections rather than risk regression on correct content.
+**Iterative refinement:** Pass Gemini's previous output back as `-i` to make targeted fixes. Be very specific about what to change and what to keep ("fix X, keep everything else exactly the same"). Gemini handles small corrections well but tends to drift on open-ended re-prompts. After 2-3 iterations with diminishing returns, accept minor cosmetic imperfections rather than risk regression on correct content. **Layout changes** (centering, spacing, repositioning elements) are largely ignored when a reference image is passed — Gemini locks onto the spatial layout. For layout fixes, regenerate from scratch without the previous output as reference.
 
 **Aspect ratio consistency:** Lock in the aspect ratio from the first generation and keep it for all iterations. Switching (e.g., 16:9 → 21:9) mid-iteration changes proportions and makes the result incompatible with the original image's dimensions when compressing.
 
@@ -219,7 +221,7 @@ Python script that generates images from text prompts via the Gemini API. Uses `
 
 - **Location:** `.claude/skills/mermaid-diagram/gemini-image.py`
 - **Requires:** `GEMINI_API_KEY` environment variable
-- **Models:** `flash` (default, free tier) or `pro` (higher quality, supports 2K resolution)
+- **Models:** `flash` (default, free tier), `flash2` (Nano Banana 2), or `pro` (Nano Banana Pro, supports 2K resolution)
 
 **Usage:**
 
