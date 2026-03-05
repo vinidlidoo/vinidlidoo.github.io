@@ -9,9 +9,10 @@ tags = ["crypto", "computer-science"]
 
 [extra]
 katex = true
+social_media_card = "/img/zk-computation-to-polynomials-banner.webp"
 +++
 
-<!-- TODO: Add hero/banner image once created -->
+![Origami crane folded from a sheet of mathematical notation](/img/zk-computation-to-polynomials-banner.webp)
 
 Zero knowledge keeps coming up. Balaji [frames it](https://x.com/balajis/status/2022462579713675506) as the counterweight to AI: "Artificial intelligence is the attack. Zero knowledge is the defense." [Podcasts](https://zeroknowledge.fm/), conference talks, [crypto roadmaps](https://strawmap.org/): ZK is everywhere. I wanted to understand what's actually going on under the hood, so [as promised](@/blog/verkle-trees-polynomial-commitments.md#what-s-next), I traced the math from scratch. The part that surprised me most wasn't the cryptography. It was the step before: how do you take a program and turn it into something cryptography can even work with?
 
@@ -47,7 +48,7 @@ out  = sym3 + 5        // gate 4: add constant
 
 Each line is a **gate**. The full set is an **arithmetic circuit**. The process of encoding computation as gates is called **arithmetization**, and it's the first stage of the SNARK pipeline. The flattened form encodes exactly the same logic as $f(x)$. Just a different representation.
 
-<!-- FIGURE: Visual diagram showing the original expression as an expression tree, then flattened into sequential gates. Arrow labeled "flatten" between the two. -->
+![Expression tree for x³ + x + 5 flattened into four sequential gates](/img/zk-flattening.webp)
 
 We now have four gates. The next step: express each one as a constraint that a verifier can check.
 
@@ -150,7 +151,11 @@ Repeat for every column of L, R, and O. Result: 6 polynomials each for L, R, and
 
 We want a single polynomial that, at each gate point $t = i$, evaluates to the dot product $\mathbf{L}_i \cdot \mathbf{s}$. A useful property makes this possible: a weighted sum of polynomials is itself a polynomial. The weights just scale and combine the coefficients. So we can use the witness entries $s_j$ as weights on the column polynomials:
 
-$$L(t) = \sum_{j=0}^{5} s_j \cdot L_j(t), \quad R(t) = \sum_{j=0}^{5} s_j \cdot R_j(t), \quad O(t) = \sum_{j=0}^{5} s_j \cdot O_j(t)$$
+$$L(t) = \sum_{j=0}^{5} s_j \cdot L_j(t)$$
+
+$$R(t) = \sum_{j=0}^{5} s_j \cdot R_j(t)$$
+
+$$O(t) = \sum_{j=0}^{5} s_j \cdot O_j(t)$$
 
 At any gate point $t = i$, $L(i)$ evaluates to $\mathbf{L}_i \cdot \mathbf{s}$: the left-hand dot product for gate $i$. The same holds for $R(i)$ and $O(i)$. **One polynomial per side (3 total), encoding all four gates at once.**
 
@@ -164,7 +169,7 @@ $$T(t) = H(t) \cdot Z(t) \tag{3}$$
 
 If even one gate constraint were violated, $T(t)$ would lose a root, the division would leave a remainder, and no polynomial $H(t)$ would exist.
 
-<!-- FIGURE: Diagram showing the pipeline: Program → Flatten → R1CS matrices → Lagrange interpolation → QAP polynomials → polynomial divisibility check. Each stage shows what the data looks like (expression tree, gates, matrices, polynomials). -->
+![Pipeline from program to polynomial divisibility check: Program, Flatten, R1CS, QAP, Check](/img/zk-pipeline.webp)
 
 ## What One Equation Buys Us
 
