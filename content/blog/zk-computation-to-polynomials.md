@@ -102,40 +102,9 @@ The key insight: additions don't add constraints. They ride along in the $\mathb
 
 ### The Full Matrices
 
-<details>
-<summary>Each row is a gate, each column header an entry in $\mathbf{s}$. Click to expand.</summary>
+Each row is a gate, each column an entry in $\mathbf{s}$.
 
-{% table() %}
-
-|       | 1 | $x$ | out | sym1 | sym2 | sym3 |
-|-------|---|-----|-----|------|------|------|
-| $\mathbf{L}_1$ | 0 | 1   | 0   | 0    | 0    | 0    |
-| $\mathbf{L}_2$ | 0 | 0   | 0   | 1    | 0    | 0    |
-| $\mathbf{L}_3$ | 0 | 1   | 0   | 0    | 1    | 0    |
-| $\mathbf{L}_4$ | 5 | 0   | 0   | 0    | 0    | 1    |
-{% end %}
-
-{% table() %}
-
-|       | 1 | $x$ | out | sym1 | sym2 | sym3 |
-|-------|---|-----|-----|------|------|------|
-| $\mathbf{R}_1$ | 0 | 1   | 0   | 0    | 0    | 0    |
-| $\mathbf{R}_2$ | 0 | 1   | 0   | 0    | 0    | 0    |
-| $\mathbf{R}_3$ | 1 | 0   | 0   | 0    | 0    | 0    |
-| $\mathbf{R}_4$ | 1 | 0   | 0   | 0    | 0    | 0    |
-{% end %}
-
-{% table() %}
-
-|       | 1 | $x$ | out | sym1 | sym2 | sym3 |
-|-------|---|-----|-----|------|------|------|
-| $\mathbf{O}_1$ | 0 | 0   | 0   | 1    | 0    | 0    |
-| $\mathbf{O}_2$ | 0 | 0   | 0   | 0    | 1    | 0    |
-| $\mathbf{O}_3$ | 0 | 0   | 0   | 0    | 0    | 1    |
-| $\mathbf{O}_4$ | 0 | 0   | 1   | 0    | 0    | 0    |
-{% end %}
-
-</details>
+![The three R1CS matrices L, R, and O with row labels and highlighted non-zero entries](/img/zk-r1cs-matrices.webp)
 
 A valid witness satisfies all four instances of equation $(2)$ simultaneously. An invalid witness (e.g., wrong intermediate values, wrong output) fails at least one. We've now established that R1CS works, but also that it requires checking each gate separately: four dot products for four gates.
 
