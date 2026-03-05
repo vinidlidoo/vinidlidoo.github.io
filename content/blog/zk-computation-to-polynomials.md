@@ -30,13 +30,13 @@ Our running example for the entire post (borrowed from [Vitalik's QAP walkthroug
 
 $$f(x) = x^3 + x + 5$$
 
-Alice claims $f(3) = 35$. By the end of the post, we'll have transformed this claim into a single polynomial divisibility check.
+Alice claims she knows an input that produces 35. By the end of the post, we'll have transformed this claim into a single polynomial divisibility check. We'll use $x = 3$ as the concrete witness to work through each step, but remember: in a real proof, this value stays hidden.
 
 Step one is to break the computation into pieces small enough to encode as constraints.
 
 ## Flattening: Breaking Computation into Gates
 
-The idea is to rewrite $f(3) = 35$ as a sequence of elementary operations, each of the form `result = left (op) right`. Think of it as disassembling a formula into its simplest possible operations:
+The idea is to rewrite $f(x) = 35$ as a sequence of elementary operations, each of the form `result = left (op) right`. Think of it as disassembling a formula into its simplest possible operations:
 
 ```
 sym1 = x * x          // gate 1: squaring
