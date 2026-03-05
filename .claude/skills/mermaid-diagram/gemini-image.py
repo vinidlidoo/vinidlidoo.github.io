@@ -15,6 +15,7 @@ from PIL import Image
 MODELS = {
     "flash": "gemini-2.5-flash-image",
     "pro": "gemini-3-pro-image-preview",
+    "flash2": "gemini-3.1-flash-image-preview",
 }
 
 
@@ -23,7 +24,7 @@ def main():
     parser.add_argument("output", help="Output image path (e.g., static/img/diagram.png)")
     parser.add_argument("prompt", nargs="+", help="Text prompt for image generation")
     parser.add_argument("-m", "--model", choices=MODELS.keys(), default="flash",
-                        help="Model to use: flash (free tier) or pro (Nano Banana Pro)")
+                        help="Model to use: flash (free tier), pro (Nano Banana Pro), flash2 (Nano Banana 2)")
     parser.add_argument("-i", "--image", action="append", default=[],
                         help="Input image(s) as reference (can be repeated)")
     parser.add_argument("-s", "--size", choices=["1K", "2K"], default="1K",
