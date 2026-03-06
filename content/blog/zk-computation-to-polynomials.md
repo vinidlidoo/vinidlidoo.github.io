@@ -14,15 +14,13 @@ social_media_card = "/img/zk-computation-to-polynomials-banner.webp"
 
 ![Origami crane folded from a sheet of mathematical notation](/img/zk-computation-to-polynomials-banner.webp)
 
-Zero knowledge keeps coming up. Balaji [frames it](https://x.com/balajis/status/2022462579713675506) as the counterweight to AI: "Artificial intelligence is the attack. Zero knowledge is the defense." [Podcasts](https://zeroknowledge.fm/), conference talks, [crypto roadmaps](https://strawmap.org/): ZK is everywhere. I wanted to understand what's actually going on under the hood, so [as promised](@/blog/verkle-trees-polynomial-commitments.md#what-s-next), I traced the math from scratch. The part that surprised me most wasn't the cryptography. It was the step before: how do you take a program and turn it into something cryptography can even work with?
+Zero knowledge keeps coming up. Balaji [frames it](https://x.com/balajis/status/2022462579713675506) as the counterweight to AI: "Artificial intelligence is the attack. Zero knowledge is the defense." [Podcasts](https://zeroknowledge.fm/), conference talks, [crypto roadmaps](https://strawmap.org/): ZK is everywhere. I wanted to understand what's actually going on under the hood, so [as promised](@/blog/verkle-trees-polynomial-commitments.md#what-s-next), I traced the math from scratch. The part that excited me most wasn't the cryptography. It was the step before: how do you take a program and turn it into something cryptography can even work with?
 
 That's what this post covers. We'll take a small program, break it into elementary operations, encode those operations as matrices, and collapse everything into a single equation that a SNARK[^snark] can check. The structure and example follow [Vitalik's 2016 QAP walkthrough](https://medium.com/@VitalikButerin/quadratic-arithmetic-programs-from-zero-to-hero-f6d558cea649), which remains one of the clearest primers on the topic I could find. This is Part 1 of three (Part 2 covers the proof protocol, Part 3 covers applications). I'll assume familiarity with [finite fields](@/blog/math-behind-private-key.md#fields-numbers-with-arithmetic) and [polynomial commitments](@/blog/verkle-trees-polynomial-commitments.md) from my earlier posts.
 
 ## Proving Without Showing
 
-Alice claims she knows some value $x$ such that $f(x) = y$. Bob wants to be convinced, but he doesn't want to run $f$ himself (maybe it's expensive), and Alice doesn't want to reveal $x$ (maybe it's secret). A **zero-knowledge proof** lets Alice convince Bob of both things simultaneously.
-
-A zero-knowledge proof guarantees two things:
+Alice claims she knows some value $x$ such that $f(x) = y$. Bob wants to be convinced, but he doesn't want to run $f$ himself (maybe it's expensive), and Alice doesn't want to reveal $x$ (maybe it's secret). A **zero-knowledge proof** gives them both what they want:
 
 - **Privacy**: Alice doesn't reveal $x$.
 - **Succinctness**: Bob's verification work is tiny compared to running $f$.
@@ -31,7 +29,7 @@ Our running example for the entire post:
 
 $$f(x) = x^3 + x + 5$$
 
-Alice claims she knows an input that produces 35. By the end of the post, we'll have transformed this claim into a single polynomial divisibility check. We'll use the solution $x = 3$ as we work through each step, but remember: in a real proof, this value is hidden from Bob.
+Alice claims she knows an input that produces 35. By the end of the post, we'll have transformed this claim into a single polynomial divisibility check. We'll use the actual solution $x = 3$ as we work through each step, but remember: in a real proof, this value is hidden from Bob.
 
 Step one is to break the computation into pieces small enough to encode as constraints.
 
@@ -66,17 +64,17 @@ With $x = 3$:
 
 $$\mathbf{s} = [1,\ 3,\ 35,\ 9,\ 27,\ 30]$$
 
-That leading 1 isn't a variable: it's a constant term that we'll see in action when gate 4 encodes the "+ 5". This vector, with all its intermediate values filled in, is the **witness**: it's everything the prover computed.
+That leading $1$ isn't a variable: it's a constant term that we'll see in action when $\text{gate } 4$ encodes the "+ 5" from the cubic equation. This vector, with all its intermediate values filled in, is the **witness**: it's everything the prover computed.
 
 Each gate becomes a constraint of the form:
 
-$$(\mathbf{L}_i \cdot \mathbf{s}) \times (\mathbf{R}_i \cdot \mathbf{s}) = (\mathbf{O}_i \cdot \mathbf{s}) \tag{2}$$
+$$(\mathbf{L}_i \cdot \mathbf{s}) \times (\mathbf{R}_i \cdot \mathbf{s}) = \mathbf{O}_i \cdot \mathbf{s} \tag{2}$$
 
 where $\mathbf{L}_i$ (**l**eft input), $\mathbf{R}_i$ (**r**ight input), and $\mathbf{O}_i$ (**o**utput) are the $i$-th rows of matrices $L$, $R$, and $O$. Each row vector "selects" the right variables from $\mathbf{s}$.
 
 ### Gates 1 and 2: encoding multiplication
 
-Gate 1 is $\text{sym1} = x \times x$. Looking back at $\mathbf{s}$ from equation $(1)$, we need vectors that select $x$ on the left, $x$ on the right, and $\text{sym1}$ as the result:
+$\text{gate } 1$ is $\text{sym1} = x \times x$. Looking back at $\mathbf{s}$ from equation $(1)$, we need vectors that select $x$ on the left, $x$ on the right, and $\text{sym1}$ as the result:
 
 $$\mathbf{L}_1 = [0, 1, 0, 0, 0, 0] \quad \text{(selects } x \text{)}$$
 
@@ -86,11 +84,11 @@ $$\mathbf{O}_1 = [0, 0, 0, 1, 0, 0] \quad \text{(selects sym1)}$$
 
 Check: $(\mathbf{L}_1 \cdot \mathbf{s}) \times (\mathbf{R}_1 \cdot \mathbf{s}) = 3 \times 3 = 9 = (\mathbf{O}_1 \cdot \mathbf{s})$. It works.
 
-Gate 2 ($\text{sym2} = \text{sym1} \times x$) follows the same multiplication pattern: $\mathbf{L}_2$ selects $\text{sym1}$, $\mathbf{R}_2$ selects $x$, and $\mathbf{O}_2$ selects $\text{sym2}$.
+$\text{gate } 2$ ($\text{sym2} = \text{sym1} \times x$) follows the same multiplication pattern: $\mathbf{L}_2$ selects $\text{sym1}$, $\mathbf{R}_2$ selects $x$, and $\mathbf{O}_2$ selects $\text{sym2}$.
 
 ### Gates 3 and 4: encoding addition
 
-Gate 3 has no multiplication: $\text{sym3} = \text{sym2} + x$. We encode it as $(\text{sym2} + x) \times 1 = \text{sym3}$, folding the addition into the $\mathbf{L}$ vector. The right side is just the constant 1:
+$\text{gate } 3$ has no multiplication: $\text{sym3} = \text{sym2} + x$. We encode it as $(\text{sym2} + x) \times 1 = \text{sym3}$, folding the addition into the $\mathbf{L}$ vector. The right side is just the constant $1$:
 
 $$\mathbf{L}_3 = [0, 1, 0, 0, 1, 0]$$
 
@@ -98,9 +96,9 @@ $$\mathbf{R}_3 = [1, 0, 0, 0, 0, 0]$$
 
 $$\mathbf{O}_3 = [0, 0, 0, 0, 0, 1]$$
 
-Check: $(27 + 3) \times 1 = 30$. Gate 4 ($\text{out} = \text{sym3} + 5$) works the same way, with the constant 5 in the first column of $\mathbf{L}_4$: $\mathbf{L}_4 = [5, 0, 0, 0, 0, 1]$. Check: $(5 + 30) \times 1 = 35$.
+Check: $(27 + 3) \times 1 = 30$. $\text{gate } 4$ ($\text{out} = \text{sym3} + 5$) works the same way, with $\mathbf{L}_4 = [5, 0, 0, 0, 0, 1]$. Check: $(5 + 30) \times 1 = 35$.
 
-The key insight: additions don't add constraints. They ride along in the $\mathbf{L}_i$ or $\mathbf{O}_i$ vectors of existing gates. If the original computation had been $(\text{sym2} + x) \times 2$ instead of a pure addition, that would still be one gate: $\mathbf{L}_i$ selects $\text{sym2} + x$, $\mathbf{R}_i$ selects the constant 2, and the addition costs nothing extra. The constraint count is driven by multiplications; additions just come along for free.
+The key insight: additions don't add constraints. They ride along in the $\mathbf{L}_i$ or $\mathbf{O}_i$ vectors of existing gates. If the original computation had been $(\text{sym2} + x) \times 2$ instead of a pure addition, that would still be one gate: $\mathbf{L}_i$ selects $\text{sym2} + x$, $\mathbf{R}_i$ selects the constant $2$, and the addition costs nothing extra. The constraint count is driven by multiplications; additions just come along for free.
 
 ### The Full Matrices
 
@@ -118,7 +116,7 @@ The technique: take each *column* of the L, R, O matrices and turn it into a pol
 
 Concretely, column $j$ of matrix $L$ has 4 values (one per gate). Treat these as evaluations at points $t = 1, 2, 3, 4$ and interpolate a degree-3 polynomial $L_j(t)$.[^tvar] For example, the $x$-column of $L$ has values $[1, 0, 1, 0]$, so $L_1(t)$ is the unique degree-3 polynomial passing through the points $(1, 1),\ (2, 0),\ (3, 1),\ (4, 0)$.
 
-Repeat for every column of L, R, and O. Result: 6 polynomials each for L, R, and O since $\mathbf{s}$ has 6 entries (18 polynomials total).
+Repeat for every column of L, R, and O. Result: 6 polynomials each for L, R, and O (since $\mathbf{s}$ has 6 entries; 18 polynomials total).
 
 We want a single polynomial that, at each gate point $t = i$, evaluates to the dot product $\mathbf{L}_i \cdot \mathbf{s}$. A useful property makes this possible: a weighted sum of polynomials is itself a polynomial. The weights just scale and combine the coefficients. So we can use the witness entries $s_j$ as weights on the column polynomials:
 
@@ -128,11 +126,9 @@ $$R(t) = \sum_{j=0}^{5} s_j \cdot R_j(t)$$
 
 $$O(t) = \sum_{j=0}^{5} s_j \cdot O_j(t)$$
 
-At any gate point $t = i$, $L(i)$ evaluates to $\mathbf{L}_i \cdot \mathbf{s}$: the left-hand dot product for gate $i$. The same holds for $R(i)$ and $O(i)$. **One polynomial per side (3 total), encoding all four gates at once.**
+At any gate point $t = i$, $L(i)$ evaluates to $\mathbf{L}_i \cdot \mathbf{s}$, the left-hand dot product for gate $i$. The same holds for $R(i)$ and $O(i)$. **One polynomial per side (3 total), encoding all four gates at once.**
 
-For a valid witness, every gate constraint holds, so $L(t) \cdot R(t) - O(t) = 0$ at $t = 1, 2, 3, 4$. Call this expression $T(t)$. It's a polynomial with roots at $1, 2, 3, 4$.
-
-Define the **target polynomial** $Z(t) = (t-1)(t-2)(t-3)(t-4)$, which has roots at those same four points.
+For a valid witness, every gate constraint holds, so $L(t) \cdot R(t) - O(t) = 0$ at $t = 1, 2, 3, 4$. Call this expression $T(t)$. It's a polynomial with roots at $1, 2, 3, 4$. Define the **target polynomial** $Z(t) = (t-1)(t-2)(t-3)(t-4)$, which has roots at those same four points.
 
 Since $T(t)$ and $Z(t)$ share the same roots, $Z(t)$ divides $T(t)$ with no remainder. The prover can perform polynomial long division to obtain a **quotient polynomial** $H(t)$ such that:
 
