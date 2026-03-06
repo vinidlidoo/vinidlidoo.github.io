@@ -128,3 +128,10 @@
 {"type":"style","en":"applications across X's roadmap","rule":"Use 'dont les applications parcourent toute la feuille de route' or 'présent dans toute la feuille de route'. Avoid 'à travers' as calque of 'across'.","avoid":"avec des applications à travers"}
 {"type":"style","en":"swapped in / substituted","rule":"Avoid 'substituer' without explicit complement (substituer X à Y). Use 'opter pour' or 'adopter' when describing a choice of building blocks.","avoid":"substituait d'autres briques"}
 {"type":"style","en":"ever-growing (adjective)","rule":"Use 'qui ne cesse de croître' rather than 'en croissance permanente', which sounds clinical.","avoid":"en croissance permanente"}
+{"type":"mapping","en":"witness (cryptographic)","fr":"témoin","domain":"cryptography"}
+{"type":"mapping","en":"arithmetic circuit","fr":"circuit arithmétique","domain":"cryptography"}
+{"type":"mapping","en":"arithmetization","fr":"arithmétisation","domain":"cryptography"}
+{"type":"mapping","en":"target polynomial","fr":"polynôme cible","domain":"cryptography"}
+{"type":"mapping","en":"gate (circuit)","fr":"porte","domain":"cryptography"}
+{"type":"mapping","en":"the actual solution (math context)","fr":"la vraie solution","avoid":"la solution réelle","domain":"math","notes":"'réelle' risks confusion with 'nombre réel' (real number)"}
+{"type":"style","en":"L/R/O matrix mnemonics","rule":"When matrices are named after English words (L/R/O for left/right/output), keep the English mnemonic with bold letter and add a French gloss: '(**l**eft, entrée gauche)'.","avoid":"(**g**auche)"}
