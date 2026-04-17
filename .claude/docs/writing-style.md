@@ -33,6 +33,7 @@ start of a new outline session. It reads both sections and:
 - **Soften alignment claims**—"It looks like we're circling similar ideas" beats asserting alignment
 - **Don't double-hedge**—one hedge per claim is enough
 - **Sentence fragments sparingly**—starting with "And" can work for effect, but when in doubt, integrate into the previous sentence
+- **Don't start paragraphs with "But"**—rephrase or restructure to integrate the contrast
 - **Avoid "Because" openers**—prefer "X, so Y" constructions; use "Because" sparingly for effect only
 - **No sarcastic rhetorical openers**—questions like "So what's the framework good for?" read as dismissive; lead with the payoff directly
 - **Contractions naturally**—use don't, can't, won't; uncontracted forms sound stiff
@@ -71,7 +72,10 @@ start of a new outline session. It reads both sections and:
 - List edge cases explicitly; don't leave them implicit
 - When contrasting concepts, explain WHY the distinction matters
 - Don't make unsubstantiated claims; if something hasn't been proven in the post, don't assert it
+- **Never present incomplete machinery as a working protocol**: if the post hasn't built enough to make something work, say so upfront rather than presenting it as working and then poking holes
+- **Complexity claims need honesty**: if an operation is O(n), don't call it constant; be precise about what each stage achieves and what's deferred
 - Qualify claims about real-world applications; distinguish the mathematical foundation from implementation details
+- **Production numbers ground abstract claims**: when arguing succinctness or scale, include real-world circuit sizes (e.g., Zcash ~1.5M gates, zkEVM rollups tens of millions)
 - Acknowledge hard problems honestly in vision/future sections; shows intellectual honesty without undermining the argument
 - Proofs: rigorous but followable; use "Suppose, toward contradiction" phrasing
 - Link to related posts with explicit names: `[my post on Russell's Paradox](@/blog/russells-paradox.md)`
@@ -151,8 +155,4 @@ the positive claim directly.
 
 ## Learnings
 
-- **No em dashes.** Use periods, commas, or semicolons instead.
-- **Never present incomplete machinery as a working protocol.** If the post hasn't built enough to make something work, say so upfront rather than presenting it as working and then poking holes.
-- **Don't start paragraphs with "But".** Rephrase or restructure.
-- **Complexity claims need honesty.** If an operation is O(n), don't call it constant. Be precise about what each stage achieves and what's deferred.
-- **Production numbers ground abstract claims.** When arguing succinctness or scale, include real-world circuit sizes (e.g., Zcash ~1.5M gates, zkEVM rollups tens of millions).
+(All prior learnings consolidated into Voice/Structure/Technical Content sections.)
