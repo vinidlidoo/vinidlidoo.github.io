@@ -1,11 +1,11 @@
 ---
 name: mermaid-diagram
-description: Create and iterate on Mermaid diagrams. Preview with mermaid-ascii, render SVG with mmdc, or generate images with Gemini as fallback.
+description: Create and iterate on Mermaid diagrams. Preview with mermaid-ascii, render SVG with mmdc, or polish with Gemini or GPT Image 2 as fallback.
 ---
 
 # Mermaid Diagram Skill
 
-Create diagrams for blog posts: understand the content, pick the right diagram type, iterate with `mermaid-ascii` for terminal preview, then render SVG with `mmdc`. Optionally polish with Gemini image generation — either as a fallback when Mermaid can't produce a good layout, or as an enhancement step after Mermaid output to get a more polished look.
+Create diagrams for blog posts: understand the content, pick the right diagram type, iterate with `mermaid-ascii` for terminal preview, then render SVG with `mmdc`. Optionally polish with Gemini or GPT Image 2 — either as a fallback when Mermaid can't produce a good layout, or as an enhancement step after Mermaid output to get a more polished look.
 
 ## Invocation
 
@@ -131,13 +131,13 @@ cp drafts/img/<diagram-name>.svg static/img/<diagram-name>.svg
 If the Mermaid output looks structurally correct but the user wants a more polished or custom-styled result, use `gemini-image.py` to generate a refined version. Feed it the rendered PNG as context along with a description:
 
 ```bash
-.claude/skills/mermaid-diagram/gemini-image.py drafts/img/<name>-polished.png "Description of the diagram, based on the Mermaid version at drafts/img/<name>.png"
+~/.claude/skills/gemini-image/gemini-image.py -o drafts/img/<name>-polished.png "Description of the diagram, based on the Mermaid version at drafts/img/<name>.png"
 ```
 
 Use `-m flash2` for Nano Banana 2, or `-m pro` for Nano Banana Pro. Default is `-m flash` (free tier):
 
 ```bash
-.claude/skills/mermaid-diagram/gemini-image.py -m flash2 drafts/img/<name>.png "Description..."
+~/.claude/skills/gemini-image/gemini-image.py -m flash2 -o drafts/img/<name>.png "Description..."
 ```
 
 **Sandbox note:** The `gemini-image.py` script requires network access and writes to the uv cache, both of which are blocked by the default sandbox. Run it with `dangerouslyDisableSandbox: true`.
@@ -145,10 +145,10 @@ Use `-m flash2` for Nano Banana 2, or `-m pro` for Nano Banana Pro. Default is `
 **Dual-reference technique:** When you need both a specific structure AND a specific visual style, pass two images — one for each concern:
 
 ```bash
-.claude/skills/mermaid-diagram/gemini-image.py -m pro \
+~/.claude/skills/gemini-image/gemini-image.py -m pro \
   -i drafts/img/<name>-mermaid.png \
   -i drafts/img/<style-reference>.png \
-  drafts/img/<name>.png \
+  -o drafts/img/<name>.png \
   "Generate a diagram. Image 1 is the TREE STRUCTURE to reproduce. Image 2 is the VISUAL STYLE to match. ..."
 ```
 
@@ -165,6 +165,25 @@ This prevents Gemini from over-indexing on one image. The Mermaid render provide
 - **Layout/padding fixes** (e.g., "move the legend left", "add white margins") are mostly ignored. Gemini locks onto the spatial layout from the reference image.
 
 After user approval, copy to `static/img/`.
+
+### 7b. (Alternative) Polish with GPT Image 2
+
+GPT Image 2 is an alternative to Gemini. Pick it when:
+
+- Labels need to be rendered cleanly (gpt-image-2 handles text noticeably better than Gemini)
+- You want a different aesthetic than the Excalidraw/hand-drawn look the Gemini template targets
+
+```bash
+# Generate from scratch
+~/.claude/skills/gpt-image/gpt-image.py -q medium -a 16:9 -o drafts/img/<name>.png "..."
+
+# Edit / refine an existing diagram (e.g., a Mermaid PNG render)
+~/.claude/skills/gpt-image/gpt-image.py -q medium -i drafts/img/<name>-mermaid.png -o drafts/img/<name>-polished.png "..."
+```
+
+Use `-q low` while iterating (~$0.005/image), `-q medium` (~$0.04) or `-q high` (~$0.17) for the final. Supplying `-i` switches to the edits endpoint. Same dual-reference / aspect-ratio / iteration guidance as the Gemini section applies.
+
+Requires `OPENAI_API_KEY` and a verified OpenAI org.
 
 ### 8. Compress and Embed
 
@@ -198,7 +217,7 @@ If Mermaid can't produce a usable layout at all (e.g., complex spatial arrangeme
 2. **Generate a polished image** using `gemini-image.py`. Include the ASCII art in the prompt for spatial guidance:
 
 ```bash
-.claude/skills/mermaid-diagram/gemini-image.py drafts/img/<name>.png "Description of the diagram to generate"
+~/.claude/skills/gemini-image/gemini-image.py -o drafts/img/<name>.png "Description of the diagram to generate"
 ```
 
 After user approval, copy to `static/img/`.
@@ -215,38 +234,21 @@ Terminal preview of Mermaid diagrams as ASCII art. Supports flowcharts and seque
 - **Installed at:** `~/.local/bin/mermaid-ascii`
 - **Update script:** `~/.local/bin/update-mermaid-ascii`
 
-### gemini-image.py
+### gemini-image (global skill)
 
-Python script that generates images from text prompts via the Gemini API. Uses `uv run --script` for dependency management — no install needed.
+Gemini image generation. See `~/.claude/skills/gemini-image/SKILL.md` for full flags.
 
-- **Location:** `.claude/skills/mermaid-diagram/gemini-image.py`
+- **Script:** `~/.claude/skills/gemini-image/gemini-image.py`
 - **Requires:** `GEMINI_API_KEY` environment variable
-- **Models:** `flash` (default, free tier), `flash2` (Nano Banana 2), or `pro` (Nano Banana Pro, supports 2K resolution)
+- **Key flags:** `-m {flash,flash2,pro}`, `-i <image>` (reference, repeatable), `-s {1K,2K}`, `-a <ratio>`, `-o <path>`
 
-**Usage:**
+### gpt-image (global skill)
 
-```bash
-gemini-image.py [options] <output-path> <prompt>
+OpenAI `gpt-image-2` wrapper. See `~/.claude/skills/gpt-image/SKILL.md` for full flags.
 
-Options:
-  -m, --model {flash,pro}    Model to use (default: flash)
-  -i, --image <path>         Input image as reference (can be repeated)
-  -s, --size {1K,2K}         Output resolution (default: 1K, 2K requires pro model)
-  -a, --aspect-ratio <ratio> Aspect ratio (e.g., 16:9, 3:2, 1:1)
-```
-
-**Examples:**
-
-```bash
-# Basic generation
-gemini-image.py drafts/img/diagram.png "A flowchart showing..."
-
-# With reference image (e.g., Mermaid render)
-gemini-image.py -i drafts/img/mermaid-render.png drafts/img/polished.png "Transform this into Excalidraw style..."
-
-# High resolution with pro model
-gemini-image.py -m pro -s 2K -i input.png output.png "Regenerate at higher resolution..."
-```
+- **Script:** `~/.claude/skills/gpt-image/gpt-image.py`
+- **Requires:** `OPENAI_API_KEY` and a verified OpenAI org
+- **Key flags:** `-q {low,medium,high,auto}`, `-a {1:1,3:2,2:3,16:9,9:16}`, `-i <image>` (switches to edits endpoint), `-o <path>`
 
 ### gemini-prompt-template.md
 
