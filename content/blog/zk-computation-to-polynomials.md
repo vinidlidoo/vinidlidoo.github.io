@@ -116,9 +116,9 @@ The technique: take each *column* of the L, R, O matrices and turn it into a pol
 
 Concretely, column $j$ of matrix $L$ has 4 values (one per gate). Treat these as evaluations at points $t = 1, 2, 3, 4$ and interpolate a degree-3 polynomial $L_j(t)$.[^tvar] For example, the $x$-column of $L$ has values $[1, 0, 1, 0]$, so $L_1(t)$ is the unique degree-3 polynomial passing through the points $(1, 1),\ (2, 0),\ (3, 1),\ (4, 0)$.
 
-Repeat for every column of L, R, and O. Result: 6 polynomials each for L, R, and O (since $\mathbf{s}$ has 6 entries; 18 polynomials total).
+Repeat for every column of L, R, and O. Each column corresponds to one entry of $\mathbf{s}$, so there are 6 per side; call these 18 polynomials the **per-variable polynomials**.
 
-We want a single polynomial that, at each gate point $t = i$, evaluates to the dot product $\mathbf{L}_i \cdot \mathbf{s}$. A useful property makes this possible: a weighted sum of polynomials is itself a polynomial. The weights just scale and combine the coefficients. So we can use the witness entries $s_j$ as weights on the column polynomials:
+We want a single polynomial that, at each gate point $t = i$, evaluates to the dot product $\mathbf{L}_i \cdot \mathbf{s}$. A useful property makes this possible: a weighted sum of polynomials is itself a polynomial. The weights just scale and combine the coefficients. So we can use the witness entries $s_j$ as weights on the per-variable polynomials:
 
 $$L(t) = \sum_{j=0}^{5} s_j \cdot L_j(t)$$
 
