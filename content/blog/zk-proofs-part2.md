@@ -19,13 +19,13 @@ This post closes both gaps, and a few more we'll uncover along the way. By the e
 
 ## Moving Evaluation into Curve Space
 
-![Trusted setup burns τ into the CRS rails of G₁ and G₂ points; four polynomial coefficients pair with gold points and converge into a wax-sealed commitment P(τ)·G₁](/img/zk-trusted-setup-and-commitment.webp)
-
 The first gap closes by hiding $\tau$ inside curve points. A **trusted setup ceremony** picks a random scalar $\tau$ and publishes its powers in two prime-order elliptic-curve groups:
 
 $$G_1,\ \tau G_1,\ \tau^2 G_1,\ \ldots,\ \tau^d G_1$$
 
 in $\mathbb{G}_1$, plus the parallel powers $G_2, \tau G_2, \ldots, \tau^d G_2$ in $\mathbb{G}_2$, then destroys the scalar itself. A group of participants each contributes randomness to $\tau$, and as long as one of them destroys their share honestly, nobody can reconstruct it. The destroyed randomness is called **toxic waste**. What survives is the list of points above: the **Common Reference String (CRS)**, following the same pattern as the [trusted setup](@/blog/verkle-trees-polynomial-commitments.md#trusted-setup) from the Verkle post.
+
+![Trusted setup burns τ into the CRS rails of G₁ and G₂ points; four polynomial coefficients pair with gold points and converge into a wax-sealed commitment P(τ)·G₁](/img/zk-trusted-setup-and-commitment.webp)
 
 Anyone who holds the coefficients of a polynomial $P$ can now compute $P(\tau) \cdot G_1$ without learning $\tau$: multiply each published $\tau^k G_1$ by the coefficient $p_k$ and sum. The result is a **commitment** to the polynomial's value at the hidden point, and it is the core tool that lets the prover hand the verifier witness-dependent values without revealing the witness.
 
