@@ -47,7 +47,26 @@ technical content, and learnings.
 ## Output
 
 - **Outlines** go to `drafts/outlines/topic-name.md`
-- **Drafts** go to `drafts/posts/topic-name.md`
-- **Final posts** go to `content/blog/slug-matching-title.md`
+- **Drafts** live at `content/blog/slug-matching-title.md` with `draft = true`
+  in frontmatter from the first `Write` call. This lets Vincent preview with
+  `zola serve --drafts` and get hot-reload on edits. `drafts/posts/` is
+  reserved for archival source material (pre-structure notes, abandoned
+  drafts), not the active post.
+- **Final posts**: remove `draft = true` when Vincent approves for publish.
 
-Don't run `zola serve` or `zola check` during editing; Vincent prefers to run these himself. Batch validation at the end if needed.
+## Zola drafting checklist (for writing and editing workflows)
+
+When creating or modifying a draft that Vincent will preview with `zola serve --drafts`:
+
+- **Omit `social_media_card` from frontmatter until the image file exists.**
+  Tabi's `page.html` calls `throw` on a missing card, which fails the build
+  and stops `zola serve --drafts` from rendering the draft. Add the field
+  only after the image is committed to `static/img/`.
+- **Omit the leading `![hero](...)` markdown** if the banner image doesn't
+  exist yet. Same failure mode.
+- **Don't symlink the draft into `content/blog/`.** Zola's file watcher
+  doesn't follow symlinks for hot-reload; edits to the symlink target won't
+  trigger a rebuild. Write the file directly at `content/blog/<slug>.md`
+  with `draft = true`.
+- **Don't run `zola serve` or `zola check`** during editing. Vincent runs
+  these himself. Batch validation at the end if needed.

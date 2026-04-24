@@ -38,6 +38,11 @@ critic"), spawn the style critic as a subagent. This is useful when Vincent
 gives a batch of changes and wants you and the critic to work through them
 together, presenting the result only when both are satisfied.
 
+**Single point of contact:** Vincent talks to you (the skill leader) only.
+All coordination with the critic stays behind the scenes. Don't surface
+every inter-agent message to Vincent; surface milestones and questions that
+need his input.
+
 Include in the critic's spawn prompt:
 
 - The path to the post being edited
@@ -45,6 +50,10 @@ Include in the critic's spawn prompt:
 - What changes were requested
 - That the outline (if it exists) is a frozen reference and may not match the
   current post
+- **Vincent-mode framing from round 1:** put yourself in Vincent's shoes as
+  a reader; the benchmark is the best recent post in the same genre; flag
+  structural issues (shape, density, teaser rhythm, metaphor policy), not
+  just line-level ones
 
 ### Round 1
 
@@ -69,6 +78,11 @@ The critic's verdict is one of:
 - **Present next round** — minor issues, worth one more pass before showing
   Vincent
 - **Needs another round** — significant issues require further revision
+
+**Verdict heuristic:** default to "ready to present" when must-fix count ≤3
+*and* the draft hasn't changed substantially between rounds. Continuing to
+critique past that point invents problems that Vincent's own pass would
+absorb cheaply.
 
 The loop exits when the critic says "ready to present" or "present next
 round", or after 3 rounds (whichever comes first). Then present the result

@@ -52,3 +52,48 @@ review for patterns and fold into the workflow files.
 - The "verify load-bearing examples early" pattern (item 1) is the highest-leverage improvement. Consider adding a Phase 1.5 step: after Phase 1 research but before Phase 2 outlining, have the web researcher verify any concrete attack/example the outline is known to depend on.
 - Pre-downloading inaccessible primary sources (item 3) is a Vincent-side action. Flag at the start of future crypto-domain sessions.
 - Duplicate dispatches (item 6) are a leader coordination issue. Use TaskGet to check task status before sending messages.
+
+---
+
+## 2026-04-17 → 2026-04-18 — ZK Proofs Part 2 (Writing)
+
+**Post:** `content/blog/zk-proofs-part2.md` (draft)
+**Workflow:** Writing from outline with full team. Seven critic/writer rounds across two days: 2 initial, 3 autonomous "Vincent-mode" rounds, 2 final rounds after Vincent re-engaged.
+
+### Vincent's feedback
+
+1. **"Taking my inline comments and extrapolating to what my comments on the whole doc would have been, guided by the style guide, is the key enabler."** Rounds 3-5 (the autonomous "Vincent-mode" stretch) produced the structural improvements that rounds 1-2 had missed because they were line-level. Preserve and codify this pattern.
+2. **Team-lead as the single point of contact works well.** Vincent prefers one teammate to talk to; multi-agent coordination should stay behind the scenes. Should also apply to the editing workflow — update that skill's workflow file.
+3. **Worth documenting a "drafting-from-zero" zola checklist.** The `social_media_card` / symlink frictions hit twice this session and could be front-loaded.
+
+### Teammate feedback
+
+1. **Writer: Inline `<!-- FEEDBACK -->` comments from Vincent were the highest-signal input in the loop.** Concrete, in situ, zero ambiguity. Abstract must-fix lists without proposed wording were the lowest signal — the writer had to re-invent the sentence, sometimes wrong on the first pass. Critic's suggested-prose format was the second-best signal.
+
+2. **Writer: Round 3 ("broader rewrite latitude") was the highest-value round.** Rounds 1-2 were line-level polish; round 3 delivered the intro shrink, γ demotion, ρ-subsection flatten, global $A_i \to L_i$ rename, and π-bullets → display-math conversion. One structural round early beats four polish rounds late.
+
+3. **Critic: The first outline-to-draft leap missed Vincent's Obsidian-note mental model entirely.** A phase like "here's Vincent's mental model, write that" could have skipped the round-2 full restructure. The outline critic had signed off on the "one Greek letter per attack" spine that Vincent rejected on first draft.
+
+4. **Critic: Rounds 1-2 were one round too many.** Signal for "ready to present" should flip when must-fix count ≤3 *and* word-count delta between rounds is ~flat. Continuing to critique past that point invents problems.
+
+5. **Critic: "Vincent-mode" framing (rounds 3-5) should be the default framing from round 1.** Channelling Vincent beyond his inline comments = benchmarking against Part 1 on structural dimensions (section count, paragraph density, teaser rhythm, metaphor policy), not just voice. Give the critic permission to flag structural issues from the start.
+
+6. **Writer: γ-as-`<details>` got revisited three times across rounds.** Task briefs should name "Vincent-only decisions" explicitly so the writer doesn't keep changing state across rounds.
+
+7. **Writer: Task re-delivery notifications.** Around 7 ghost assignments for already-completed tasks. Delivery-layer issue, not workflow, but writer should silently verify state rather than acknowledging each.
+
+### Patterns to address
+
+- **Push structural review earlier.** The outline-approval bar should include "does this match the structural shape Vincent wants?", not just completeness. If the outline came from a Vincent-authored artifact (Obsidian note, transcript), that artifact's structure is the spine — test against it explicitly.
+- **Make "Vincent-mode" the critic's default framing.** Brief every round as: "Put yourself in Vincent's shoes as a reader; Part 1 is the benchmark; flag structural issues, not just line-level ones." Move it from a round-3 unlock to the round-1 baseline.
+- **Verdict heuristic:** must-fix ≤3 + word count stable across rounds → "ready to present." Stop hunting for polish items.
+- **Vincent-only decisions get explicit names in task briefs.** Add a standing "Don't touch" list per round so the writer doesn't re-open decisions Vincent has scoped out.
+- **Front-load style-guide learnings into the writer's first-draft brief.** Session-specific style traps (metaphor policy, forbidden openers, voice calibration) should come from `writing-style.md` directly, not be rediscovered in round 3.
+- **Zola drafting checklist.** Document in the blog-post skill:
+  - Omit `social_media_card` from frontmatter until the referenced image file exists (Tabi's `page.html` throws on missing files, breaking `zola serve --drafts`).
+  - Omit the leading `![hero](...)` markdown if the banner image doesn't exist yet.
+  - Draft file lives at `content/blog/<slug>.md` with `draft = true` in frontmatter, NOT in `drafts/posts/` via symlink — Zola's file watcher doesn't follow symlinks for hot-reload.
+
+### Running notes (kept for continuity)
+
+- **Don't include `social_media_card` in frontmatter until the image actually exists.** Tabi theme's `page.html` calls a `throw` that fails the build when the referenced file is missing; `zola serve --drafts` errors out and the draft can't be previewed.
