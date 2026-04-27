@@ -195,7 +195,7 @@ For any fixed witness, $\pi_A, \pi_B, \pi_C$ are uniformly distributed in their 
 
 Fold in the ρ patch and γ gating from the appendix, and the scheme we just derived is **Pinocchio/BCTV14** (2013–2014), the construction Zcash shipped with its original shielded pool in 2016. Modern refinements have pushed the pattern much further: a private-payment circuit runs ~100k constraints and fits in a proof a few hundred bytes long; a zkEVM rollup, an L2 chain that batches Ethereum execution into a single proof, aggregates tens of millions of constraints and lands around the same size after wrapping.[^wrapping]
 
-Part 3 will pick up two threads. First, the three protocols that shaped modern SNARKs: Groth16 shrinks the proof to 3 commitments and 1 pairing check, PLONK swaps per-circuit setup for a universal one that unlocks zkVMs, and STARKs replace pairings with hash-based commitments to drop the trusted setup and gain post-quantum security. Second, what production ZK systems prove in practice: Zcash's shielded transfers, general-purpose zkVMs that turn arbitrary programs into proofs, verifiable ML inference, and ZK identity systems.
+Part 3 will pick up two threads. First, the three protocols that shaped modern ZK proof systems: Groth16 shrinks the SNARK proof to 3 commitments and 1 pairing check, PLONK swaps per-circuit setup for a universal one that unlocks zkVMs, and STARKs leave the SNARK family entirely, replacing pairings with hash-based commitments to drop the trusted setup and gain post-quantum security. Second, what production ZK systems prove in practice: Zcash's shielded transfers, general-purpose zkVMs that turn arbitrary programs into proofs, verifiable ML inference, and ZK identity systems.
 
 ---
 
