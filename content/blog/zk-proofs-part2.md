@@ -47,11 +47,13 @@ Given a pair $(P, \alpha P)$, a curve point and itself shifted by an unknown sca
 
 So the prover **must** build from the published $P_j$ values, which is the property we need to bind $\pi_A$ to the $L_i$. Since both prover and verifier know the $L_i$ polynomials, the setup can hardcode them into the CRS: for each variable $i$, it publishes the pair $\big(L_i(\tau) \cdot G_1,\ \alpha_A \cdot L_i(\tau) \cdot G_1\big)$ with a secret scalar $\alpha_A$. The prover combines these pairs with witness weights $s_i$, using the plain halves to form $\pi_A$ and the $\alpha_A$-shifted halves to form $\pi_A'$.
 
-With these $\alpha$-shifted pairs and $\alpha_A \cdot G_2$ also in the CRS, the verifier can run a pairing check confirming $(\pi_A, \pi_A')$ has the right shift:[^pairings]
+With these $\alpha$-shifted pairs and $\alpha_A \cdot G_2$ also in the CRS, the verifier can run a pairing check confirming $(\pi_A, \pi_A')$ has the right shift:
 
 $$e(\pi_A',\ G_2) = e(\pi_A,\ \alpha_A \cdot G_2)$$
 
-Both sides reduce to $e(\pi_A, G_2)^{\alpha_A}$ by bilinearity, so the check passes iff $\pi_A' = \alpha_A \cdot \pi_A$. The same construction with fresh scalars $\alpha_B$ and $\alpha_C$ gives $(\pi_B, \pi_B')$ and $(\pi_C, \pi_C')$. $\pi_B$ is built in $G_2$ rather than $G_1$ so it can later pair with $\pi_A$, while $\pi_C$ stays in $G_1$.
+A **pairing** $e(P, Q)$ takes two curve points and produces an element of a multiplicative target group $\mathbb{G}_T$. Bilinearity gives $e(aP, bQ) = e(P, Q)^{ab}$, so both sides above reduce to $e(\pi_A, G_2)^{\alpha_A}$, and the check passes iff $\pi_A' = \alpha_A \cdot \pi_A$.[^pairings]
+
+The same construction with fresh scalars $\alpha_B$ and $\alpha_C$ gives $(\pi_B, \pi_B')$ and $(\pi_C, \pi_C')$. $\pi_B$ is built in $G_2$ rather than $G_1$ so it can later pair with $\pi_A$, while $\pi_C$ stays in $G_1$.
 
 In summary:
 
@@ -315,7 +317,7 @@ For the exact ZK-blinding CRS elements and public-input encoding, see libsnark's
 
 [^letters]: Pinocchio and BCTV14 write the per-variable polynomials as $A_i, B_i, C_i$. This post uses $L_i, R_i, O_i$ to stay consistent with Part 1 and with the aggregate $L, R, O$.
 [^aside]: Splitting all three sides would triple the per-public-input CRS points without adding leverage.
-[^pairings]: A pairing $e(P, Q)$ takes two curve points and produces an element of a target group $\mathbb{G}_T$ where multiplication is available; bilinearity gives $e(aP, bQ) = e(P, Q)^{ab}$. The [Verkle post](@/blog/verkle-trees-polynomial-commitments.md#verifying-the-proof-with-pairings) has the full derivation.
+[^pairings]: For a worked example showing the derivation from polynomial identity to bilinear check, see the Verkle post's [verifying the proof with pairings](@/blog/verkle-trees-polynomial-commitments.md#verifying-the-proof-with-pairings) section.
 [^koe]: KoE goes beyond standard discrete-log hardness. DL hardness says "you can't find $\alpha$ given $\alpha G$", which is falsifiable: anyone can try. KoE says something stronger: *whenever* a prover returns a correctly α-shifted pair $(C, \alpha C)$, there exists an algorithm (an **extractor**) that recovers the coefficients the prover used to build $C$. That's a claim about the existence of an algorithm, not a computational bound, so no experiment can disprove it. If KoE breaks, SNARKs break.
 [^threedeltas]: Three independent scalars, not one shared. A shared δ would correlate the commitments: solve for δ from one, predict the others.
 [^wrapping]: zkEVMs typically prove the bulk of their work with a STARK (fast, no trusted setup, large proof), then re-prove that STARK verification inside a Groth16 circuit. The "wrap" collapses the large STARK proof down to a small on-chain one.
