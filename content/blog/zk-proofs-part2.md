@@ -123,18 +123,18 @@ That is the QAP identity $L \cdot R - O = H \cdot Z$ evaluated at $\tau$, now li
 
 ## A Working Core, Two Gaps Left
 
-Equations (1) through (4) supply the eight commitments shown on the left, wired to five pairing checks on the right:
+Equations (1) through (4) supply the eight commitments shown on the left, wired to the five pairing checks on the right:
 
 ![Eight proof-element wax seals (six gold G₁, two silver G₂) wired to five pairing-check clauses, color-coded by family — KoE in gold, β-consistency in terracotta, divisibility in crimson](/img/zk-snark-architecture.webp)
 
-What we have is a working SNARK, modulo a CRS-level patch that closes a remaining soundness gap (ρ, covered in the appendix), and a second scalar γ that lives in the CRS as a soundness-proof artifact.[^gamma] Two gaps remain on the main path:
+What we have is a working SNARK, modulo a CRS-level patch that closes a remaining soundness gap (ρ, covered in the appendix). Two gaps remain on the main path:
 
 - **Public inputs.** Nothing yet pins the claimed output to what the verifier expects. The next section adds a public/private split.
 - **Zero knowledge.** The commitments could leak information about the witness. The final section adds blinding to close that gap.
 
 ## Pinning the Public Variables
 
-The typical SNARK claim reads "this program, run on my private inputs, produces this public output." The verifier has the output; they want a proof the run was honest. The five pairing checks, though, accept *any* consistent witness: the prover can pick whatever output they like and still pass.
+A typical SNARK claim reads "this program, run on my private inputs, produces this public output." The verifier has the output; they want a proof the run was honest. The five pairing checks, though, accept *any* consistent witness: the prover can pick whatever output they like and still pass.
 
 Fix it by splitting the witness vector so the verifier owns the public half:
 
@@ -161,7 +161,7 @@ Same argument as before forces the QAP identity, now on $L = L_\text{pub} + L_\t
 
 ## Blinding the Commitments
 
-Everything above is **sound**: any proof the verifier accepts means a valid witness exists for the claim. But soundness doesn't imply privacy of the witness. $\pi_A, \pi_B, \pi_C$ are deterministic functions of the witness, and so an attacker with a candidate witness can confirm or rule it out by recomputing $\pi_A$. Zero-knowledge demands the proof reveal *nothing* about the witness.
+Everything above is **sound**: any proof the verifier accepts means a valid witness exists for the claim. But soundness doesn't imply privacy. $\pi_A, \pi_B, \pi_C$ are deterministic functions of the witness, so anyone with a candidate witness in mind can recompute $\pi_A$ from the public CRS and check it against the published proof: match confirms the guess, mismatch rules it out. Zero-knowledge demands the proof reveal *nothing* about the witness.
 
 The fix: randomize each commitment with a shift the verification equations absorb. The prover picks fresh $\delta_L, \delta_R, \delta_O$ per proof:[^threedeltas]
 
@@ -188,7 +188,7 @@ For any fixed witness, $\pi_A, \pi_B, \pi_C$ are uniformly distributed in their 
 
 ## What's Next
 
-Together with ρ and γ, the scheme we just derived is **Pinocchio/BCTV14** (2013–2014), the construction Zcash shipped with its original shielded pool in 2016. Modern refinements have pushed the same pattern much further: a private-payment circuit runs about 100,000 constraints and fits in a proof a few hundred bytes long; a zkEVM rollup aggregates tens of millions of constraints and lands around the same size after wrapping.[^wrapping]
+Together with the ρ patch, the scheme we just derived is **Pinocchio/BCTV14** (2013–2014), the construction Zcash shipped with its original shielded pool in 2016. Modern refinements have pushed the same pattern much further: a private-payment circuit runs about 100,000 constraints and fits in a proof a few hundred bytes long; a zkEVM rollup aggregates tens of millions of constraints and lands around the same size after wrapping.[^wrapping]
 
 Part 3 will pick up two threads. First, how modern protocols (Groth16, PLONK, STARKs) reshape this pattern to shrink proofs, replace per-circuit setup with a universal one, or drop pairings entirely. Second, what production ZK systems prove in practice: Zcash's shielded transfers, zkEVM rollups, and newer applications.
 
@@ -267,7 +267,7 @@ One subtle point on $\pi_B'$: the body writes $\pi_B' = \alpha_B \pi_B \in G_2$ 
 - $\tau$: hidden evaluation point
 - $\alpha_A, \alpha_B, \alpha_C$: KoE shifts
 - $\beta$: witness-consistency scalar
-- $\gamma$: β-check gate
+- $\gamma$: β-check gate[^gamma]
 - $\rho_A, \rho_B$: tag L, R, O distinctly so cross-family terms in the β-identity can't cancel
 
 The prover picks $\delta_L, \delta_R, \delta_O$ fresh per proof.
