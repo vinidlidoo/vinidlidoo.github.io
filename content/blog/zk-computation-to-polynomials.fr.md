@@ -116,9 +116,9 @@ La technique : prendre chaque *colonne* des matrices L, R, O et la transformer e
 
 Concrètement, la colonne $j$ de la matrice $L$ contient 4 valeurs (une par porte). On les traite comme des évaluations aux points $t = 1, 2, 3, 4$ et on interpole un polynôme de degré 3 $L_j(t)$.[^tvar] Par exemple, la colonne $x$ de $L$ a les valeurs $[1, 0, 1, 0]$, donc $L_1(t)$ est l'unique polynôme de degré 3 passant par les points $(1, 1),\ (2, 0),\ (3, 1),\ (4, 0)$.
 
-On répète pour chaque colonne de L, R et O. Résultat : 6 polynômes chacun pour L, R et O (puisque $\mathbf{s}$ a 6 entrées ; 18 polynômes au total).
+On répète pour chaque colonne de L, R et O. Chaque colonne correspond à une entrée de $\mathbf{s}$, donc 6 par côté ; appelons ces 18 polynômes les **polynômes par variable**.
 
-On veut un unique polynôme qui, à chaque point de porte $t = i$, s'évalue au produit scalaire $\mathbf{L}_i \cdot \mathbf{s}$. Une propriété utile rend cela possible : une somme pondérée de polynômes est elle-même un polynôme. Les poids ne font que multiplier et combiner les coefficients. On peut donc utiliser les entrées du témoin $s_j$ comme poids sur les polynômes de colonne :
+On veut un unique polynôme qui, à chaque point de porte $t = i$, s'évalue au produit scalaire $\mathbf{L}_i \cdot \mathbf{s}$. Une propriété utile rend cela possible : une somme pondérée de polynômes est elle-même un polynôme. Les poids ne font que multiplier et combiner les coefficients. On peut donc utiliser les entrées du témoin $s_j$ comme poids sur les polynômes par variable :
 
 $$L(t) = \sum_{j=0}^{5} s_j \cdot L_j(t)$$
 
