@@ -92,18 +92,18 @@ e(\pi_K, G_2) &amp;amp;= e(\pi_A + \pi_C,\ \beta \cdot G_2) \\
 &lt;p&gt;$$L(\tau) \cdot R(\tau) = H(\tau) \cdot Z(\tau) + O(\tau)$$&lt;&#x2F;p&gt;
 &lt;p&gt;That is the QAP identity $L \cdot R - O = H \cdot Z$ evaluated at $\tau$, now lifted into curve space. By &lt;a href=&quot;https:&#x2F;&#x2F;vinidlidoo.github.io&#x2F;blog&#x2F;zk-computation-to-polynomials&#x2F;#what-one-equation-buys-us&quot;&gt;Schwartz-Zippel&lt;&#x2F;a&gt;, if the identity holds at a hidden random $\tau$, it holds as polynomials with overwhelming probability.&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;a-working-core-two-gaps-left&quot;&gt;A Working Core, Two Gaps Left&lt;&#x2F;h2&gt;
-&lt;p&gt;Equations (1) through (4) supply the eight commitments shown on the left, wired to five pairing checks on the right:&lt;&#x2F;p&gt;
+&lt;p&gt;Equations (1) through (4) supply the eight commitments shown on the left, wired to the five pairing checks on the right:&lt;&#x2F;p&gt;
 &lt;p&gt;&lt;img src=&quot;&#x2F;img&#x2F;zk-snark-architecture.webp&quot; alt=&quot;Eight proof-element wax seals (six gold G₁, two silver G₂) wired to five pairing-check clauses, color-coded by family — KoE in gold, β-consistency in terracotta, divisibility in crimson&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
-&lt;p&gt;What we have is a working SNARK, modulo a CRS-level patch that closes a remaining soundness gap (ρ, covered in the appendix), and a second scalar γ that lives in the CRS as a soundness-proof artifact.&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-gamma-1&quot;&gt;&lt;a href=&quot;#fn-gamma&quot;&gt;4&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt; Two gaps remain on the main path:&lt;&#x2F;p&gt;
+&lt;p&gt;What we have is a working SNARK, modulo a CRS-level patch that closes a remaining soundness gap (ρ, covered in the appendix). Two gaps remain on the main path:&lt;&#x2F;p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;Public inputs.&lt;&#x2F;strong&gt; Nothing yet pins the claimed output to what the verifier expects. The next section adds a public&#x2F;private split.&lt;&#x2F;li&gt;
 &lt;li&gt;&lt;strong&gt;Zero knowledge.&lt;&#x2F;strong&gt; The commitments could leak information about the witness. The final section adds blinding to close that gap.&lt;&#x2F;li&gt;
 &lt;&#x2F;ul&gt;
 &lt;h2 id=&quot;pinning-the-public-variables&quot;&gt;Pinning the Public Variables&lt;&#x2F;h2&gt;
-&lt;p&gt;The typical SNARK claim reads &quot;this program, run on my private inputs, produces this public output.&quot; The verifier has the output; they want a proof the run was honest. The five pairing checks, though, accept &lt;em&gt;any&lt;&#x2F;em&gt; consistent witness: the prover can pick whatever output they like and still pass.&lt;&#x2F;p&gt;
+&lt;p&gt;A typical SNARK claim reads &quot;this program, run on my private inputs, produces this public output.&quot; The verifier has the output; they want a proof the run was honest. The five pairing checks, though, accept &lt;em&gt;any&lt;&#x2F;em&gt; consistent witness: the prover can pick whatever output they like and still pass.&lt;&#x2F;p&gt;
 &lt;p&gt;Fix it by splitting the witness vector so the verifier owns the public half:&lt;&#x2F;p&gt;
 &lt;p&gt;$$\mathbf{s} = [\underbrace{s_0, s_1, \ldots, s_\ell}_{\text{public}} \mid \underbrace{s_{\ell+1}, \ldots, s_n}_{\text{private}}]$$&lt;&#x2F;p&gt;
-&lt;p&gt;The public half holds the constant 1 and whatever values the verifier needs visible, usually the claimed output. The private half holds everything else. From here on, $\pi_A$ sums only over private indices; $\pi_B$ and $\pi_C$ stay as defined, since one anchor on the public side is enough:&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-aside-1&quot;&gt;&lt;a href=&quot;#fn-aside&quot;&gt;5&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;The public half holds the constant 1 and whatever values the verifier needs visible, usually the claimed output. The private half holds everything else. From here on, $\pi_A$ sums only over private indices; $\pi_B$ and $\pi_C$ stay as defined, since one anchor on the public side is enough:&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-aside-1&quot;&gt;&lt;a href=&quot;#fn-aside&quot;&gt;4&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;&lt;&#x2F;p&gt;
 &lt;p&gt;$$\pi_A = \sum_{i \text{ private}} s_i \cdot L_i(\tau) \cdot G_1$$&lt;&#x2F;p&gt;
 &lt;p&gt;The missing public half falls to the verifier, and the CRS already has the $L_i(\tau) \cdot G_1$ they need (from the KoE setup). The verifier picks the public-index ones and combines them with the claimed values on their side:&lt;&#x2F;p&gt;
 &lt;p&gt;$$L_\text{pub}(\tau) \cdot G_1 = \sum_{i \text{ public}} s_i \cdot L_i(\tau) \cdot G_1$$&lt;&#x2F;p&gt;
@@ -115,8 +115,8 @@ e\big(L_\text{pub}(\tau) \cdot G_1 + \pi_A,\ \pi_B\big) ={}&amp;amp; e(\pi_H,\ Z
 \end{aligned}$$&lt;&#x2F;p&gt;
 &lt;p&gt;Same argument as before forces the QAP identity, now on $L = L_\text{pub} + L_\text{priv}$: it holds iff $\pi_A, \pi_B, \pi_C, \pi_H$ were computed from a witness matching the verifier&#x27;s $L_\text{pub}$. The verifier now has visibility into the output the prover claims: a proof passes only when it&#x27;s computed against that exact claim.&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;blinding-the-commitments&quot;&gt;Blinding the Commitments&lt;&#x2F;h2&gt;
-&lt;p&gt;Everything above is &lt;strong&gt;sound&lt;&#x2F;strong&gt;: any proof the verifier accepts means a valid witness exists for the claim. But soundness doesn&#x27;t imply privacy of the witness. $\pi_A, \pi_B, \pi_C$ are deterministic functions of the witness, and so an attacker with a candidate witness can confirm or rule it out by recomputing $\pi_A$. Zero-knowledge demands the proof reveal &lt;em&gt;nothing&lt;&#x2F;em&gt; about the witness.&lt;&#x2F;p&gt;
-&lt;p&gt;The fix: randomize each commitment with a shift the verification equations absorb. The prover picks fresh $\delta_L, \delta_R, \delta_O$ per proof:&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-threedeltas-1&quot;&gt;&lt;a href=&quot;#fn-threedeltas&quot;&gt;6&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Everything above is &lt;strong&gt;sound&lt;&#x2F;strong&gt;: any proof the verifier accepts means a valid witness exists for the claim. But soundness doesn&#x27;t imply privacy. $\pi_A, \pi_B, \pi_C$ are deterministic functions of the witness, so anyone with a candidate witness in mind can recompute $\pi_A$ from the public CRS and check it against the published proof: match confirms the guess, mismatch rules it out. Zero-knowledge demands the proof reveal &lt;em&gt;nothing&lt;&#x2F;em&gt; about the witness.&lt;&#x2F;p&gt;
+&lt;p&gt;The fix: randomize each commitment with a shift the verification equations absorb. The prover picks fresh $\delta_L, \delta_R, \delta_O$ per proof:&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-threedeltas-1&quot;&gt;&lt;a href=&quot;#fn-threedeltas&quot;&gt;5&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;&lt;&#x2F;p&gt;
 &lt;p&gt;$$\begin{aligned}
 \pi_A &amp;amp;= L(\tau) \cdot G_1 + \delta_L \cdot Z(\tau) \cdot G_1 \\
 \pi_B &amp;amp;= R(\tau) \cdot G_2 + \delta_R \cdot Z(\tau) \cdot G_2 \\
@@ -132,7 +132,7 @@ e\big(L_\text{pub}(\tau) \cdot G_1 + \pi_A,\ \pi_B\big) ={}&amp;amp; e(\pi_H,\ Z
 &lt;p&gt;&lt;img src=&quot;&#x2F;img&#x2F;zk-blinding.webp&quot; alt=&quot;Same witness yields three identical gold wax-seal commitments without blinding (attacker&amp;#39;s lens matches), versus three distinct seals with independent blinding droplets (attacker&amp;#39;s lens sees only a fog of candidates)&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
 &lt;p&gt;For any fixed witness, $\pi_A, \pi_B, \pi_C$ are uniformly distributed in their groups (δ is uniform, $Z(\tau) \neq 0$). The attacker who tried recomputing $\pi_A$ from a candidate witness now sees only noise: eight curve points, five pairing checks, and zero bits about the witness.&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;what-s-next&quot;&gt;What&#x27;s Next&lt;&#x2F;h2&gt;
-&lt;p&gt;Together with ρ and γ, the scheme we just derived is &lt;strong&gt;Pinocchio&#x2F;BCTV14&lt;&#x2F;strong&gt; (2013–2014), the construction Zcash shipped with its original shielded pool in 2016. Modern refinements have pushed the same pattern much further: a private-payment circuit runs about 100,000 constraints and fits in a proof a few hundred bytes long; a zkEVM rollup aggregates tens of millions of constraints and lands around the same size after wrapping.&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-wrapping-1&quot;&gt;&lt;a href=&quot;#fn-wrapping&quot;&gt;7&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Together with the ρ patch, the scheme we just derived is &lt;strong&gt;Pinocchio&#x2F;BCTV14&lt;&#x2F;strong&gt; (2013–2014), the construction Zcash shipped with its original shielded pool in 2016. Modern refinements have pushed the same pattern much further: a private-payment circuit runs about 100,000 constraints and fits in a proof a few hundred bytes long; a zkEVM rollup aggregates tens of millions of constraints and lands around the same size after wrapping.&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-wrapping-1&quot;&gt;&lt;a href=&quot;#fn-wrapping&quot;&gt;6&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;&lt;&#x2F;p&gt;
 &lt;p&gt;Part 3 will pick up two threads. First, how modern protocols (Groth16, PLONK, STARKs) reshape this pattern to shrink proofs, replace per-circuit setup with a universal one, or drop pairings entirely. Second, what production ZK systems prove in practice: Zcash&#x27;s shielded transfers, zkEVM rollups, and newer applications.&lt;&#x2F;p&gt;
 &lt;hr &#x2F;&gt;
 &lt;h2 id=&quot;appendix&quot;&gt;Appendix&lt;&#x2F;h2&gt;
@@ -159,7 +159,7 @@ e\big(L_\text{pub}(\tau) \cdot G_1 + \pi_A,\ \pi_B\big) ={}&amp;amp; e(\pi_H,\ Z
 &amp;amp;\quad + (r_i - s_i&#x27;) \rho_B R_i(t) \\
 &amp;amp;\quad + (r_i - s_i&#x27;&#x27;) \rho_A \rho_B O_i(t) \equiv 0
 \end{aligned}$$&lt;&#x2F;p&gt;
-&lt;p&gt;Since $\rho_A, \rho_B$ are secret and algebraically independent, distinct ρ-monomials can&#x27;t cancel: each coefficient must vanish separately. That forces $r_i = s_i$ (from $\rho_A$), $r_i = s_i&#x27;$ (from $\rho_B$), $r_i = s_i&#x27;&#x27;$ (from $\rho_A \rho_B$). Single witness, restored.&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-within-1&quot;&gt;&lt;a href=&quot;#fn-within&quot;&gt;8&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Since $\rho_A, \rho_B$ are secret and algebraically independent, distinct ρ-monomials can&#x27;t cancel: each coefficient must vanish separately. That forces $r_i = s_i$ (from $\rho_A$), $r_i = s_i&#x27;$ (from $\rho_B$), $r_i = s_i&#x27;&#x27;$ (from $\rho_A \rho_B$). Single witness, restored.&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-within-1&quot;&gt;&lt;a href=&quot;#fn-within&quot;&gt;7&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;&lt;&#x2F;p&gt;
 &lt;p&gt;The other checks stay balanced. The α-checks scale uniformly with $\rho_A$ or $\rho_B$ on each side, so the KoE relations still hold. Divisibility picks up a common $\rho_A \rho_B$ factor on both sides: the CRS publishes $\rho_A \rho_B Z(\tau) \cdot G_2$ instead of $Z(\tau) \cdot G_2$, and the factor cancels.&lt;&#x2F;p&gt;
 &lt;&#x2F;details&gt;
 &lt;details&gt;
@@ -188,7 +188,7 @@ e\big(L_\text{pub}(\tau) \cdot G_1 + \pi_A,\ \pi_B\big) ={}&amp;amp; e(\pi_H,\ Z
 &lt;li&gt;$\tau$: hidden evaluation point&lt;&#x2F;li&gt;
 &lt;li&gt;$\alpha_A, \alpha_B, \alpha_C$: KoE shifts&lt;&#x2F;li&gt;
 &lt;li&gt;$\beta$: witness-consistency scalar&lt;&#x2F;li&gt;
-&lt;li&gt;$\gamma$: β-check gate&lt;&#x2F;li&gt;
+&lt;li&gt;$\gamma$: β-check gate&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-gamma-1&quot;&gt;&lt;a href=&quot;#fn-gamma&quot;&gt;8&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;&lt;&#x2F;li&gt;
 &lt;li&gt;$\rho_A, \rho_B$: tag L, R, O distinctly so cross-family terms in the β-identity can&#x27;t cancel&lt;&#x2F;li&gt;
 &lt;&#x2F;ul&gt;
 &lt;p&gt;The prover picks $\delta_L, \delta_R, \delta_O$ fresh per proof.&lt;&#x2F;p&gt;
@@ -245,9 +245,6 @@ e\big(L_\text{pub}(\tau) \cdot G_1 + \pi_A,\ \pi_B\big) ={}&amp;amp; e(\pi_H,\ Z
 &lt;li id=&quot;fn-pairings&quot;&gt;
 &lt;p&gt;A pairing $e(P, Q)$ takes two curve points and produces an element of a target group $\mathbb{G}_T$ where multiplication is available; bilinearity gives $e(aP, bQ) = e(P, Q)^{ab}$. The &lt;a href=&quot;https:&#x2F;&#x2F;vinidlidoo.github.io&#x2F;blog&#x2F;verkle-trees-polynomial-commitments&#x2F;#verifying-the-proof-with-pairings&quot;&gt;Verkle post&lt;&#x2F;a&gt; has the full derivation. &lt;a href=&quot;#fr-pairings-1&quot;&gt;↩&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;&#x2F;li&gt;
-&lt;li id=&quot;fn-gamma&quot;&gt;
-&lt;p&gt;γ is a CRS-generation artifact of the soundness reduction inherited from GGPR&#x2F;Pinocchio, not a protocol-level defense. The full story is in &lt;a rel=&quot;external&quot; href=&quot;https:&#x2F;&#x2F;eprint.iacr.org&#x2F;2012&#x2F;215.pdf&quot;&gt;GGPR §5.3&lt;&#x2F;a&gt; (EUROCRYPT 2013; ePrint 2012&#x2F;215); in the generic group model γ isn&#x27;t strictly needed (&lt;a rel=&quot;external&quot; href=&quot;https:&#x2F;&#x2F;eprint.iacr.org&#x2F;2019&#x2F;119.pdf&quot;&gt;Gabizon 2019&lt;&#x2F;a&gt;). &lt;a href=&quot;#fr-gamma-1&quot;&gt;↩&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
-&lt;&#x2F;li&gt;
 &lt;li id=&quot;fn-aside&quot;&gt;
 &lt;p&gt;Splitting all three sides would triple the per-public-input CRS points without adding leverage. &lt;a href=&quot;#fr-aside-1&quot;&gt;↩&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;&#x2F;li&gt;
@@ -259,6 +256,9 @@ e\big(L_\text{pub}(\tau) \cdot G_1 + \pi_A,\ \pi_B\big) ={}&amp;amp; e(\pi_H,\ Z
 &lt;&#x2F;li&gt;
 &lt;li id=&quot;fn-within&quot;&gt;
 &lt;p&gt;The per-monomial identities require each of the three families ($L_i$, $R_i$, $O_i$, each taken over all $i$) to be linearly independent on its own. Internal dependence within a family (e.g., among the $L_i$) can still exist, but it&#x27;s only a concern when the dependence involves public-input indices or crosses the public&#x2F;private boundary, which QAP construction rules out via mechanisms outside this post&#x27;s scope. &lt;a href=&quot;#fr-within-1&quot;&gt;↩&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li id=&quot;fn-gamma&quot;&gt;
+&lt;p&gt;γ is a CRS-generation artifact of the soundness reduction inherited from GGPR&#x2F;Pinocchio, not a protocol-level defense. The full story is in &lt;a rel=&quot;external&quot; href=&quot;https:&#x2F;&#x2F;eprint.iacr.org&#x2F;2012&#x2F;215.pdf&quot;&gt;GGPR §5.3&lt;&#x2F;a&gt; (EUROCRYPT 2013; ePrint 2012&#x2F;215); in the generic group model γ isn&#x27;t strictly needed (&lt;a rel=&quot;external&quot; href=&quot;https:&#x2F;&#x2F;eprint.iacr.org&#x2F;2019&#x2F;119.pdf&quot;&gt;Gabizon 2019&lt;&#x2F;a&gt;). &lt;a href=&quot;#fr-gamma-1&quot;&gt;↩&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;&#x2F;li&gt;
 &lt;&#x2F;ol&gt;
 &lt;&#x2F;section&gt;
