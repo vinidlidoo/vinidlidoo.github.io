@@ -1,6 +1,7 @@
 +++
 title = "Zero-Knowledge: Constructing a SNARK Proof (Part 2/3)"
 date = 2026-04-17
+updated = 2026-04-27
 description = "A trusted setup, eight curve commitments, and five pairing checks: how to turn a polynomial identity into a working zero-knowledge SNARK."
 
 [taxonomies]
@@ -37,15 +38,15 @@ That CRS will keep growing through the rest of this post as new checks call for 
 
 ## Binding the Commitments to the QAP Polynomials
 
-Let's start with three commitments: one per aggregate polynomial $L$, $R$, and $O$. Take $\pi_A$, the commitment to $L(\tau)$, which per Part 1 should be computed as the witness-weighted sum of per-variable polynomials $L_i$:[^letters]
+Let's start with three commitments: one per aggregate polynomial $L$, $R$, and $O$. Denote $\pi_A$, the commitment to $L(\tau)$, which per Part 1 is defined as the witness-weighted sum of per-variable polynomials $L_i$:[^letters]
 
 $$\pi_A = L(\tau) \cdot G_1 = \sum_i s_i \cdot L_i(\tau) \cdot G_1$$
 
-where $s_i$ are the witness values. The **Knowledge of Exponent (KoE)** assumption is what forces the prover to publish a $\pi_A$ computed using the equation above.
+where $s_i$ are the witness values. The **Knowledge of Exponent (KoE)** assumption is what forces the prover to publish a $\pi_A$ computed using the equation above:
 
 Given a pair $(P, \alpha P)$, a curve point and itself shifted by an unknown scalar $\alpha$, KoE says the only way to produce another pair with the same shift is to scale the original pair by a second known scalar $c$, as $(cP, c \cdot \alpha P) = (cP, \alpha \cdot cP)$.[^koe] KoE extends naturally to linear combinations: publish $(P_1, \alpha P_1), \ldots, (P_n, \alpha P_n)$ and the prover can return another $\alpha$-shifted pair $(C, \alpha C)$ if and only if $C = \sum_j c_j P_j$ for coefficients $c_j$ the prover knows.
 
-So the prover **must** build from the published $P_j$ values, which is the property we need to bind $\pi_A$ to the $L_i$. Since both prover and verifier know the $L_i$ polynomials, the setup can hardcode them into the CRS: for each variable $i$, it publishes the pair $\big(L_i(\tau) \cdot G_1,\ \alpha_A \cdot L_i(\tau) \cdot G_1\big)$ with a secret scalar $\alpha_A$. The prover combines these pairs with witness weights $s_i$, using the plain halves to form $\pi_A$ and the $\alpha_A$-shifted halves to form $\pi_A'$.
+So the prover *must* build from the published $P_j$ values, which is the property we need to bind $\pi_A$ to the $L_i$. Since both prover and verifier know the $L_i$ polynomials, the setup can hardcode them into the CRS: for each variable $i$, it publishes the pair $\big(L_i(\tau) \cdot G_1,\ \alpha_A \cdot L_i(\tau) \cdot G_1\big)$ with a secret scalar $\alpha_A$. The prover combines these pairs with witness weights $s_i$, using the plain halves to form $\pi_A$ and the $\alpha_A$-shifted halves to form $\pi_A'$.
 
 With these $\alpha$-shifted pairs and $\alpha_A \cdot G_2$ also in the CRS, the verifier can run a pairing check confirming $(\pi_A, \pi_A')$ has the right shift:
 
@@ -71,7 +72,7 @@ $$\begin{aligned}
 \pi_C' &= \alpha_C \cdot \pi_C
 \end{aligned} \tag{2}$$
 
-Nothing yet forces $s_i = s_i' = s_i''$: we could have three candidate witnesses passed in parallel.
+Nothing yet forces $s_i = s_i' = s_i''$; we could have three candidate witnesses passed in parallel.
 
 ## Binding the Commitments to a Single Witness
 
@@ -109,11 +110,11 @@ $\alpha$ binds each proof element to the QAP polynomials; β binds the three ele
 
 ## Binding the Commitments to a Satisfying Witness
 
-Part 1 showed that the quotient $H(t) = (L(t) \cdot R(t) - O(t)) / Z(t)$ exists as a polynomial iff every gate is satisfied, where $Z$ is the target polynomial vanishing at all gate roots. The prover commits $H(\tau)$ using the CRS powers of $\tau$:
+Part 1 showed that the quotient polynomial $H(t) = (L(t) \cdot R(t) - O(t)) / Z(t)$ divides with no remainder iff every gate is satisfied, where $Z$ is the target polynomial vanishing at all gate roots. The prover commits $H(\tau)$ using the CRS powers of $\tau$ from the first section:
 
 $$\pi_H = H(\tau) \cdot G_1 = \sum_j h_j \cdot (\tau^j \cdot G_1) \tag{4}$$
 
-Once $Z(\tau) \cdot G_2$ joins the CRS, the verifier runs:
+Once $Z(\tau) \cdot G_2$ joins the CRS, the verifier can run:
 
 $$e(\pi_A,\ \pi_B) = e(\pi_H,\ Z(\tau) \cdot G_2) \cdot e(\pi_C,\ G_2)$$
 
@@ -121,7 +122,7 @@ Both sides reduce to powers of $e(G_1, G_2)$; by bilinearity, matching exponents
 
 $$L(\tau) \cdot R(\tau) = H(\tau) \cdot Z(\tau) + O(\tau)$$
 
-That is the QAP identity $L \cdot R - O = H \cdot Z$ evaluated at $\tau$, now lifted into curve space. By [Schwartz-Zippel](@/blog/zk-computation-to-polynomials.md#what-one-equation-buys-us), if the identity holds at a hidden random $\tau$, it holds as polynomials with overwhelming probability.
+That is the QAP identity $L \cdot R - O = H \cdot Z$ evaluated at $\tau$. By [Schwartz-Zippel](@/blog/zk-computation-to-polynomials.md#what-one-equation-buys-us), if the identity holds at a hidden random $\tau$, it holds as polynomials with overwhelming probability.
 
 ## A Working Core, Two Gaps Left
 
@@ -136,13 +137,15 @@ What we have is a working SNARK, modulo a CRS-level patch that closes a remainin
 
 ## Pinning the Public Variables
 
-A typical SNARK claim reads "this program, run on my private inputs, produces this public output." The verifier has the output; they want a proof the run was honest. The five pairing checks, though, accept *any* consistent witness: the prover can pick whatever output they like and still pass.
+A typical SNARK claim reads "this program, run on my private inputs, produces this public output." The verifier has the output. They want a proof the run was honest. The five pairing checks, though, accept *any* consistent witness: the prover can pick whatever output they like and still pass.
 
 Fix it by splitting the witness vector so the verifier owns the public half:
 
 $$\mathbf{s} = [\underbrace{s_0, s_1, \ldots, s_\ell}\_{\text{public}} \mid \underbrace{s_{\ell+1}, \ldots, s_n}\_{\text{private}}]$$
 
-The public half holds the constant 1 and whatever values the verifier needs visible, usually the claimed output. The private half holds everything else. From here on, $\pi_A$ sums only over private indices; $\pi_B$ and $\pi_C$ stay as defined, since one anchor on the public side is enough:[^aside]
+The public half holds the constant 1 and whatever values the verifier needs visible, usually the claimed output. The private half holds everything else.
+
+From here on, $\pi_A$ sums only over private indices; $\pi_B$ and $\pi_C$ stay as defined, since one anchor on the public side is enough:[^aside]
 
 $$\pi_A = \sum_{i \text{ private}} s_i \cdot L_i(\tau) \cdot G_1$$
 
@@ -159,11 +162,11 @@ e\big(L_\text{pub}(\tau) \cdot G_1 + \pi_A,\ \pi_B\big) ={}& e(\pi_H,\ Z(\tau) \
 &\cdot e(\pi_C,\ G_2)
 \end{aligned}$$
 
-Same argument as before forces the QAP identity, now on $L = L_\text{pub} + L_\text{priv}$: it holds iff $\pi_A, \pi_B, \pi_C, \pi_H$ were computed from a witness matching the verifier's $L_\text{pub}$. The verifier now has visibility into the output the prover claims: a proof passes only when it's computed against that exact claim.
+Same argument as before forces the QAP identity, now on $L = L_\text{pub} + L_\text{priv}$: it holds iff $\pi_A, \pi_B, \pi_C, \pi_H$ were computed from a witness matching the verifier's $L_\text{pub}$. The verifier now binds the proof to the output they specify: a proof passes only when it's computed against that exact value.
 
 ## Blinding the Commitments
 
-Everything above is **sound**: any proof the verifier accepts means a valid witness exists for the claim. But soundness doesn't imply privacy. $\pi_A, \pi_B, \pi_C$ are deterministic functions of the witness, so anyone with a candidate witness in mind can recompute $\pi_A$ from the public CRS and check it against the published proof: match confirms the guess, mismatch rules it out. Zero-knowledge demands the proof reveal *nothing* about the witness.
+Everything above is **sound**: any proof the verifier accepts means a valid witness exists for the claim. But soundness doesn't imply privacy. $\pi_A, \pi_B, \pi_C$ are deterministic functions of the witness, so anyone with a candidate witness in mind can recompute $\pi_A$ from the public CRS and check it against the published proof: a match confirms the guess, a mismatch rules it out. Zero-knowledge demands the proof reveal *nothing* about the witness.
 
 The fix: randomize each commitment with a shift the verification equations absorb. The prover picks fresh $\delta_L, \delta_R, \delta_O$ per proof:[^threedeltas]
 
@@ -190,9 +193,9 @@ For any fixed witness, $\pi_A, \pi_B, \pi_C$ are uniformly distributed in their 
 
 ## What's Next
 
-Together with the ρ patch, the scheme we just derived is **Pinocchio/BCTV14** (2013–2014), the construction Zcash shipped with its original shielded pool in 2016. Modern refinements have pushed the same pattern much further: a private-payment circuit runs about 100,000 constraints and fits in a proof a few hundred bytes long; a zkEVM rollup aggregates tens of millions of constraints and lands around the same size after wrapping.[^wrapping]
+Fold in the ρ patch and γ gating from the appendix, and the scheme we just derived is **Pinocchio/BCTV14** (2013–2014), the construction Zcash shipped with its original shielded pool in 2016. Modern refinements have pushed the pattern much further: a private-payment circuit runs ~100k constraints and fits in a proof a few hundred bytes long; a zkEVM rollup, an L2 chain that batches Ethereum execution into a single proof, aggregates tens of millions of constraints and lands around the same size after wrapping.[^wrapping]
 
-Part 3 will pick up two threads. First, how modern protocols (Groth16, PLONK, STARKs) reshape this pattern to shrink proofs, replace per-circuit setup with a universal one, or drop pairings entirely. Second, what production ZK systems prove in practice: Zcash's shielded transfers, zkEVM rollups, and newer applications.
+Part 3 will pick up two threads. First, the three protocols that shaped modern SNARKs: Groth16 shrinks the proof to 3 commitments and 1 pairing check, PLONK swaps per-circuit setup for a universal one that unlocks zkVMs, and STARKs replace pairings with hash-based commitments to drop the trusted setup and gain post-quantum security. Second, what production ZK systems prove in practice: Zcash's shielded transfers, general-purpose zkVMs that turn arbitrary programs into proofs, verifiable ML inference, and ZK identity systems.
 
 ---
 
