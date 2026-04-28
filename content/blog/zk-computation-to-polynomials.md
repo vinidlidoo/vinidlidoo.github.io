@@ -1,7 +1,7 @@
 +++
 title = "Zero-Knowledge: Turning Computation into Polynomials (Part 1/3)"
 date = 2026-03-04
-updated = 2026-03-05
+updated = 2026-04-28
 description = "From a program to a few polynomial equations: how SNARKs encode computation through flattening, R1CS, and the QAP transformation"
 
 [taxonomies]
@@ -16,7 +16,7 @@ social_media_card = "/img/zk-computation-to-polynomials-banner.webp"
 
 Zero knowledge keeps coming up. Balaji [frames it](https://x.com/balajis/status/2022462579713675506) as the counterweight to AI: "Artificial intelligence is the attack. Zero knowledge is the defense." [Podcasts](https://zeroknowledge.fm/), conference talks, [crypto roadmaps](https://strawmap.org/): ZK is everywhere. I wanted to understand what's actually going on under the hood, so [as promised](@/blog/verkle-trees-polynomial-commitments.md#what-s-next), I traced the math from scratch. The part that excited me most wasn't the cryptography. It was the step before: how do you take a program and turn it into something cryptography can even work with?
 
-That's what this post covers. We'll take a small program, break it into elementary operations, encode those operations as matrices, and collapse everything into a single equation that a SNARK[^snark] can check. The structure and example follow [Vitalik's 2016 QAP walkthrough](https://medium.com/@VitalikButerin/quadratic-arithmetic-programs-from-zero-to-hero-f6d558cea649), which remains one of the clearest primers on the topic I could find. This is Part 1 of three (Part 2 covers the proof protocol, Part 3 covers applications). I'll assume familiarity with [finite fields](@/blog/math-behind-private-key.md#fields-numbers-with-arithmetic) and [polynomial commitments](@/blog/verkle-trees-polynomial-commitments.md) from my earlier posts.
+That's what this post covers. We'll take a small program, break it into elementary operations, encode those operations as matrices, and collapse everything into a single equation that a SNARK[^snark] can check. The structure and example follow [Vitalik's 2016 QAP walkthrough](https://medium.com/@VitalikButerin/quadratic-arithmetic-programs-from-zero-to-hero-f6d558cea649), which remains one of the clearest primers on the topic I could find. This is Part 1 of three ([Part 2](@/blog/zk-proofs-part2.md) covers the proof protocol, Part 3 will cover applications). I'll assume familiarity with [finite fields](@/blog/math-behind-private-key.md#fields-numbers-with-arithmetic) and [polynomial commitments](@/blog/verkle-trees-polynomial-commitments.md) from my earlier posts.
 
 ## Proving Without Showing
 
@@ -152,9 +152,7 @@ Two problems stand between the QAP and an actual proof.
 
 **The prover must be bound to the circuit's polynomials.** Even with a hidden $\tau$, nothing forces the prover to evaluate the QAP's actual polynomials. They could fabricate unrelated ones that pass the check at the hidden point.
 
-Part 2 will add the cryptography that resolves both problems: a trusted setup that hides $\tau$, pairing-based checks that bind the prover to the circuit's polynomials, and a blinding step that makes the proof reveal nothing about the witness.
-
-<!-- TODO: Add link to Part 2 when published -->
+[Part 2](@/blog/zk-proofs-part2.md) adds the cryptography that resolves both problems: a trusted setup that hides $\tau$, pairing-based checks that bind the prover to the circuit's polynomials, and a blinding step that makes the proof reveal nothing about the witness.
 
 ---
 

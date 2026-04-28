@@ -1,7 +1,7 @@
 +++
 title = "ゼロ知識証明：計算を多項式に変換する（第1回/全3回）"
 date = 2026-03-04
-updated = 2026-03-06
+updated = 2026-04-28
 description = "プログラムから数本の多項式方程式へ：SNARKがフラット化、R1CS、QAP変換を通じて計算をどうエンコードするか"
 
 [taxonomies]
@@ -16,7 +16,7 @@ social_media_card = "/img/zk-computation-to-polynomials-banner.webp"
 
 ゼロ知識証明が至るところで話題になっている。Balajiは[AIへの対抗手段だと位置づけている](https://x.com/balajis/status/2022462579713675506)。「人工知能は攻撃。ゼロ知識は防御。」[ポッドキャスト](https://zeroknowledge.fm/)にカンファレンス、[暗号のロードマップ](https://strawmap.org/)と、ZKはどこにでもある。実際に中で何が起きているのか理解したく、[予告どおり](@/blog/verkle-trees-polynomial-commitments.ja.md)数学をゼロから追いかけてみた。最も面白かったのは暗号技術ではなく、その手前のステップだった。どうやってプログラムを、暗号技術が扱える形に変換するのか、というところだ。
 
-この記事ではそこを扱う。小さなプログラムを取り上げ、基本演算に分解し、それらを行列としてエンコードし、すべてをSNARK[^snark]が検証できる1つの方程式に集約する。構成と例は、このトピックの入門として今でも最も明快な[Vitalikの2016年のQAP解説](https://medium.com/@VitalikButerin/quadratic-arithmetic-programs-from-zero-to-hero-f6d558cea649)に沿っている。これは全3回の第1回（第2回は証明プロトコル、第3回は応用を扱う）。以前の記事で取り上げた[有限体](@/blog/math-behind-private-key.ja.md)と[多項式コミットメント](@/blog/verkle-trees-polynomial-commitments.ja.md)の知識を前提とする。
+この記事ではそこを扱う。小さなプログラムを取り上げ、基本演算に分解し、それらを行列としてエンコードし、すべてをSNARK[^snark]が検証できる1つの方程式に集約する。構成と例は、このトピックの入門として今でも最も明快な[Vitalikの2016年のQAP解説](https://medium.com/@VitalikButerin/quadratic-arithmetic-programs-from-zero-to-hero-f6d558cea649)に沿っている。これは全3回の第1回（[第2回](@/blog/zk-proofs-part2.ja.md)は証明プロトコルを扱い、第3回は応用を扱う予定）。以前の記事で取り上げた[有限体](@/blog/math-behind-private-key.ja.md)と[多項式コミットメント](@/blog/verkle-trees-polynomial-commitments.ja.md)の知識を前提とする。
 
 ## 見せずに証明する
 
@@ -152,9 +152,7 @@ QAPと実際の証明の間には2つの問題が残っている。
 
 **証明者は回路の多項式に束縛されなければならない。** $\tau$ が隠されていても、証明者が実際のQAPの多項式を評価する義務はない。隠された点でチェックを通過する無関係な多項式を捏造できてしまう。
 
-第2回では、これら2つの問題を解決する暗号技術を追加する。$\tau$ を隠すトラステッドセットアップ・セレモニー、証明者を回路の多項式に束縛するペアリングに基づくチェック、そして証明がウィットネスについて何も明かさないようにする秘匿化ステップだ。
-
-<!-- TODO: Add link to Part 2 when published -->
+[第2回](@/blog/zk-proofs-part2.ja.md)では、これら2つの問題を解決する暗号技術を追加する。$\tau$ を隠すトラステッドセットアップ・セレモニー、証明者を回路の多項式に束縛するペアリングに基づくチェック、そして証明がウィットネスについて何も明かさないようにする秘匿化ステップだ。
 
 ---
 

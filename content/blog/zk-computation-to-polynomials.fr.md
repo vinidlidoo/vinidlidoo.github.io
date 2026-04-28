@@ -1,7 +1,7 @@
 +++
 title = "Zero-Knowledge : transformer un calcul en polynômes (Partie 1/3)"
 date = 2026-03-04
-updated = 2026-03-05
+updated = 2026-04-28
 description = "D'un programme à quelques équations polynomiales : comment les SNARKs encodent un calcul par aplatissement, R1CS et la transformation QAP"
 
 [taxonomies]
@@ -16,7 +16,7 @@ social_media_card = "/img/zk-computation-to-polynomials-banner.webp"
 
 Les preuves à connaissance nulle reviennent sans cesse. Balaji [les décrit](https://x.com/balajis/status/2022462579713675506) comme le contrepoids de l'IA : « L'intelligence artificielle, c'est l'attaque. Le zero knowledge, c'est la défense. » [Podcasts](https://zeroknowledge.fm/), conférences, [feuilles de route crypto](https://strawmap.org/) : le ZK est partout. Je voulais comprendre ce qui se passe réellement sous le capot, alors [comme promis](@/blog/verkle-trees-polynomial-commitments.fr.md#et-ensuite), j'ai retracé les mathématiques depuis zéro. Ce qui m'a le plus enthousiasmé, ce n'était pas la cryptographie. C'était l'étape d'avant : comment prend-on un programme pour le transformer en quelque chose sur lequel la cryptographie peut opérer ?
 
-C'est le sujet de cet article. On va prendre un petit programme, le décomposer en opérations élémentaires, encoder ces opérations sous forme de matrices, et tout condenser en une seule équation qu'un SNARK[^snark] peut vérifier. La structure et l'exemple suivent [le guide QAP de Vitalik (2016)](https://medium.com/@VitalikButerin/quadratic-arithmetic-programs-from-zero-to-hero-f6d558cea649), qui reste l'une des introductions les plus claires sur le sujet. Il s'agit de la Partie 1/3 (la Partie 2 couvre le protocole de preuve, la Partie 3 les applications). Je supposerai une familiarité avec les [corps finis](@/blog/math-behind-private-key.fr.md#les-corps-des-nombres-avec-de-l-arithmetique) et les [engagements polynomiaux](@/blog/verkle-trees-polynomial-commitments.fr.md) de mes articles précédents.
+C'est le sujet de cet article. On va prendre un petit programme, le décomposer en opérations élémentaires, encoder ces opérations sous forme de matrices, et tout condenser en une seule équation qu'un SNARK[^snark] peut vérifier. La structure et l'exemple suivent [le guide QAP de Vitalik (2016)](https://medium.com/@VitalikButerin/quadratic-arithmetic-programs-from-zero-to-hero-f6d558cea649), qui reste l'une des introductions les plus claires sur le sujet. Il s'agit de la Partie 1/3 ([la Partie 2](@/blog/zk-proofs-part2.fr.md) couvre le protocole de preuve, la Partie 3 couvrira les applications). Je supposerai une familiarité avec les [corps finis](@/blog/math-behind-private-key.fr.md#les-corps-des-nombres-avec-de-l-arithmetique) et les [engagements polynomiaux](@/blog/verkle-trees-polynomial-commitments.fr.md) de mes articles précédents.
 
 ## Prouver sans montrer
 
@@ -152,9 +152,7 @@ Deux problèmes se dressent entre le QAP et une preuve véritable.
 
 **Le prouveur doit être lié aux polynômes du circuit.** Même avec un $\tau$ caché, rien n'oblige le prouveur à évaluer les vrais polynômes du QAP. Il pourrait en fabriquer d'autres, sans rapport, qui passent la vérification au point caché.
 
-La Partie 2 ajoutera la cryptographie qui résout ces deux problèmes : une cérémonie de confiance qui cache $\tau$, des vérifications par couplage qui lient le prouveur aux polynômes du circuit, et une étape de masquage qui fait en sorte que la preuve ne révèle rien du témoin.
-
-<!-- TODO: Add link to Part 2 when published -->
+[La Partie 2](@/blog/zk-proofs-part2.fr.md) ajoute la cryptographie qui résout ces deux problèmes : une cérémonie de confiance qui cache $\tau$, des vérifications par couplage qui lient le prouveur aux polynômes du circuit, et une étape de masquage qui fait en sorte que la preuve ne révèle rien du témoin.
 
 ---
 
