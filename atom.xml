@@ -17,7 +17,7 @@
         <subtitle>A personal blog</subtitle>
     <link href="https://vinidlidoo.github.io/atom.xml" rel="self" type="application/atom+xml"/>
     <link href="https://vinidlidoo.github.io" rel="alternate" type="text/html"/>
-    <generator uri="https://www.getzola.org/">Zola</generator><updated>2026-04-27T00:00:00+00:00</updated><id>https://vinidlidoo.github.io/atom.xml</id><entry xml:lang="en">
+    <generator uri="https://www.getzola.org/">Zola</generator><updated>2026-04-28T00:00:00+00:00</updated><id>https://vinidlidoo.github.io/atom.xml</id><entry xml:lang="en">
         <title>Zero-Knowledge: Constructing a SNARK Proof (Part 2&#x2F;3)</title>
         <published>2026-04-17T00:00:00+00:00</published>
         <updated>2026-04-27T00:00:00+00:00</updated>
@@ -269,7 +269,7 @@ e\big(L_\text{pub}(\tau) \cdot G_1 + \pi_A,\ \pi_B\big) ={}&amp;amp; e(\pi_H,\ Z
         </entry><entry xml:lang="en">
         <title>Zero-Knowledge: Turning Computation into Polynomials (Part 1&#x2F;3)</title>
         <published>2026-03-04T00:00:00+00:00</published>
-        <updated>2026-03-05T00:00:00+00:00</updated>
+        <updated>2026-04-28T00:00:00+00:00</updated>
         <author>
             <name>Vincent</name>
         </author>
@@ -278,7 +278,7 @@ e\big(L_\text{pub}(\tau) \cdot G_1 + \pi_A,\ \pi_B\big) ={}&amp;amp; e(\pi_H,\ Z
         
             <content type="html">&lt;p&gt;&lt;img src=&quot;&#x2F;img&#x2F;zk-computation-to-polynomials-banner.webp&quot; alt=&quot;Origami crane folded from a sheet of mathematical notation&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
 &lt;p&gt;Zero knowledge keeps coming up. Balaji &lt;a rel=&quot;external&quot; href=&quot;https:&#x2F;&#x2F;x.com&#x2F;balajis&#x2F;status&#x2F;2022462579713675506&quot;&gt;frames it&lt;&#x2F;a&gt; as the counterweight to AI: &quot;Artificial intelligence is the attack. Zero knowledge is the defense.&quot; &lt;a rel=&quot;external&quot; href=&quot;https:&#x2F;&#x2F;zeroknowledge.fm&#x2F;&quot;&gt;Podcasts&lt;&#x2F;a&gt;, conference talks, &lt;a rel=&quot;external&quot; href=&quot;https:&#x2F;&#x2F;strawmap.org&#x2F;&quot;&gt;crypto roadmaps&lt;&#x2F;a&gt;: ZK is everywhere. I wanted to understand what&#x27;s actually going on under the hood, so &lt;a href=&quot;https:&#x2F;&#x2F;vinidlidoo.github.io&#x2F;blog&#x2F;verkle-trees-polynomial-commitments&#x2F;#what-s-next&quot;&gt;as promised&lt;&#x2F;a&gt;, I traced the math from scratch. The part that excited me most wasn&#x27;t the cryptography. It was the step before: how do you take a program and turn it into something cryptography can even work with?&lt;&#x2F;p&gt;
-&lt;p&gt;That&#x27;s what this post covers. We&#x27;ll take a small program, break it into elementary operations, encode those operations as matrices, and collapse everything into a single equation that a SNARK&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-snark-1&quot;&gt;&lt;a href=&quot;#fn-snark&quot;&gt;1&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt; can check. The structure and example follow &lt;a rel=&quot;external&quot; href=&quot;https:&#x2F;&#x2F;medium.com&#x2F;@VitalikButerin&#x2F;quadratic-arithmetic-programs-from-zero-to-hero-f6d558cea649&quot;&gt;Vitalik&#x27;s 2016 QAP walkthrough&lt;&#x2F;a&gt;, which remains one of the clearest primers on the topic I could find. This is Part 1 of three (Part 2 covers the proof protocol, Part 3 covers applications). I&#x27;ll assume familiarity with &lt;a href=&quot;https:&#x2F;&#x2F;vinidlidoo.github.io&#x2F;blog&#x2F;math-behind-private-key&#x2F;#fields-numbers-with-arithmetic&quot;&gt;finite fields&lt;&#x2F;a&gt; and &lt;a href=&quot;https:&#x2F;&#x2F;vinidlidoo.github.io&#x2F;blog&#x2F;verkle-trees-polynomial-commitments&#x2F;&quot;&gt;polynomial commitments&lt;&#x2F;a&gt; from my earlier posts.&lt;&#x2F;p&gt;
+&lt;p&gt;That&#x27;s what this post covers. We&#x27;ll take a small program, break it into elementary operations, encode those operations as matrices, and collapse everything into a single equation that a SNARK&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-snark-1&quot;&gt;&lt;a href=&quot;#fn-snark&quot;&gt;1&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt; can check. The structure and example follow &lt;a rel=&quot;external&quot; href=&quot;https:&#x2F;&#x2F;medium.com&#x2F;@VitalikButerin&#x2F;quadratic-arithmetic-programs-from-zero-to-hero-f6d558cea649&quot;&gt;Vitalik&#x27;s 2016 QAP walkthrough&lt;&#x2F;a&gt;, which remains one of the clearest primers on the topic I could find. This is Part 1 of three (&lt;a href=&quot;https:&#x2F;&#x2F;vinidlidoo.github.io&#x2F;blog&#x2F;zk-proofs-part2&#x2F;&quot;&gt;Part 2&lt;&#x2F;a&gt; covers the proof protocol, Part 3 will cover applications). I&#x27;ll assume familiarity with &lt;a href=&quot;https:&#x2F;&#x2F;vinidlidoo.github.io&#x2F;blog&#x2F;math-behind-private-key&#x2F;#fields-numbers-with-arithmetic&quot;&gt;finite fields&lt;&#x2F;a&gt; and &lt;a href=&quot;https:&#x2F;&#x2F;vinidlidoo.github.io&#x2F;blog&#x2F;verkle-trees-polynomial-commitments&#x2F;&quot;&gt;polynomial commitments&lt;&#x2F;a&gt; from my earlier posts.&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;proving-without-showing&quot;&gt;Proving Without Showing&lt;&#x2F;h2&gt;
 &lt;p&gt;Alice claims she knows some value $x$ such that $f(x) = y$. Bob wants to be convinced, but he doesn&#x27;t want to run $f$ himself (maybe it&#x27;s expensive), and Alice doesn&#x27;t want to reveal $x$ (maybe it&#x27;s secret). A &lt;strong&gt;zero-knowledge proof&lt;&#x2F;strong&gt; gives them both what they want:&lt;&#x2F;p&gt;
 &lt;ul&gt;
@@ -349,8 +349,7 @@ e\big(L_\text{pub}(\tau) \cdot G_1 + \pi_A,\ \pi_B\big) ={}&amp;amp; e(\pi_H,\ Z
 &lt;p&gt;Two problems stand between the QAP and an actual proof.&lt;&#x2F;p&gt;
 &lt;p&gt;&lt;strong&gt;The prover must not know $\tau$.&lt;&#x2F;strong&gt; If they do, they can compute $Z(\tau)$ (which is public), pick any $H(\tau)$, set $T(\tau) = H(\tau) \cdot Z(\tau)$, and satisfy equation $(3)$ without a valid witness. The prover must evaluate at $\tau$ without learning what $\tau$ is.&lt;&#x2F;p&gt;
 &lt;p&gt;&lt;strong&gt;The prover must be bound to the circuit&#x27;s polynomials.&lt;&#x2F;strong&gt; Even with a hidden $\tau$, nothing forces the prover to evaluate the QAP&#x27;s actual polynomials. They could fabricate unrelated ones that pass the check at the hidden point.&lt;&#x2F;p&gt;
-&lt;p&gt;Part 2 will add the cryptography that resolves both problems: a trusted setup that hides $\tau$, pairing-based checks that bind the prover to the circuit&#x27;s polynomials, and a blinding step that makes the proof reveal nothing about the witness.&lt;&#x2F;p&gt;
-&lt;!-- TODO: Add link to Part 2 when published --&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;vinidlidoo.github.io&#x2F;blog&#x2F;zk-proofs-part2&#x2F;&quot;&gt;Part 2&lt;&#x2F;a&gt; adds the cryptography that resolves both problems: a trusted setup that hides $\tau$, pairing-based checks that bind the prover to the circuit&#x27;s polynomials, and a blinding step that makes the proof reveal nothing about the witness.&lt;&#x2F;p&gt;
 &lt;hr &#x2F;&gt;
 &lt;section class=&quot;footnotes&quot;&gt;
 &lt;ol class=&quot;footnotes-list&quot;&gt;
