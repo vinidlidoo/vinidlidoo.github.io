@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Waza</title>
+<style>
+.markdown-body {
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-4: 0.25rem;
+  --base-size-40: 2.5rem;
+  --base-size-8: 0.5rem;
+  --base-text-weight-medium: 500;
+  --base-text-weight-normal: 400;
+  --base-text-weight-semibold: 600;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  --fontStack-sansSerif: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  --fgColor-accent: Highlight;
+}
+@media (prefers-color-scheme: dark) {
+  .markdown-body, [data-theme="dark"] {
+    /*dark */
+    color-scheme: dark;
+    --fgColor-accent: #4493f8;
+    --bgColor-attention-muted: #bb800926;
+    --bgColor-default: #0d1117;
+    --bgColor-muted: #151b23;
+    --bgColor-neutral-muted: #656c7633;
+    --borderColor-accent-emphasis: #1f6feb;
+    --borderColor-attention-emphasis: #9e6a03;
+    --borderColor-danger-emphasis: #da3633;
+    --borderColor-default: #3d444d;
+    --borderColor-done-emphasis: #8957e5;
+    --borderColor-success-emphasis: #238636;
+    --color-prettylights-syntax-brackethighlighter-angle: #9198a1;
+    --color-prettylights-syntax-brackethighlighter-unmatched: #f85149;
+    --color-prettylights-syntax-carriage-return-bg: #b62324;
+    --color-prettylights-syntax-carriage-return-text: #f0f6fc;
+    --color-prettylights-syntax-comment: #9198a1;
+    --color-prettylights-syntax-constant: #79c0ff;
+    --color-prettylights-syntax-constant-other-reference-link: #a5d6ff;
+    --color-prettylights-syntax-entity: #d2a8ff;
+    --color-prettylights-syntax-entity-tag: #7ee787;
+    --color-prettylights-syntax-keyword: #ff7b72;
+    --color-prettylights-syntax-markup-bold: #f0f6fc;
+    --color-prettylights-syntax-markup-changed-bg: #5a1e02;
+    --color-prettylights-syntax-markup-changed-text: #ffdfb6;
+    --color-prettylights-syntax-markup-deleted-bg: #67060c;
+    --color-prettylights-syntax-markup-deleted-text: #ffdcd7;
+    --color-prettylights-syntax-markup-heading: #1f6feb;
+    --color-prettylights-syntax-markup-ignored-bg: #1158c7;
+    --color-prettylights-syntax-markup-ignored-text: #f0f6fc;
+    --color-prettylights-syntax-markup-inserted-bg: #033a16;
+    --color-prettylights-syntax-markup-inserted-text: #aff5b4;
+    --color-prettylights-syntax-markup-italic: #f0f6fc;
+    --color-prettylights-syntax-markup-list: #f2cc60;
+    --color-prettylights-syntax-meta-diff-range: #d2a8ff;
+    --color-prettylights-syntax-storage-modifier-import: #f0f6fc;
+    --color-prettylights-syntax-string: #a5d6ff;
+    --color-prettylights-syntax-string-regexp: #7ee787;
+    --color-prettylights-syntax-sublimelinter-gutter-mark: #3d444d;
+    --color-prettylights-syntax-variable: #ffa657;
+    --fgColor-attention: #d29922;
+    --fgColor-danger: #f85149;
+    --fgColor-default: #f0f6fc;
+    --fgColor-done: #ab7df8;
+    --fgColor-muted: #9198a1;
+    --fgColor-success: #3fb950;
+    --borderColor-muted: #3d444db3;
+    --color-prettylights-syntax-invalid-illegal-bg: var(--bgColor-danger-muted);
+    --color-prettylights-syntax-invalid-illegal-text: var(--fgColor-danger);
+    --focus-outlineColor: var(--borderColor-accent-emphasis);
+    --borderColor-neutral-muted: var(--borderColor-muted);
+  }
+}
+@media (prefers-color-scheme: light) {
+  .markdown-body, [data-theme="light"] {
+    /*light */
+    color-scheme: light;
+    --fgColor-danger: #d1242f;
+    --bgColor-attention-muted: #fff8c5;
+    --bgColor-muted: #f6f8fa;
+    --bgColor-neutral-muted: #818b981f;
+    --borderColor-accent-emphasis: #0969da;
+    --borderColor-attention-emphasis: #9a6700;
+    --borderColor-danger-emphasis: #cf222e;
+    --borderColor-default: #d1d9e0;
+    --borderColor-done-emphasis: #8250df;
+    --borderColor-success-emphasis: #1a7f37;
+    --color-prettylights-syntax-brackethighlighter-angle: #59636e;
+    --color-prettylights-syntax-brackethighlighter-unmatched: #82071e;
+    --color-prettylights-syntax-carriage-return-bg: #cf222e;
+    --color-prettylights-syntax-carriage-return-text: #f6f8fa;
+    --color-prettylights-syntax-comment: #59636e;
+    --color-prettylights-syntax-constant: #0550ae;
+    --color-prettylights-syntax-constant-other-reference-link: #0a3069;
+    --color-prettylights-syntax-entity: #6639ba;
+    --color-prettylights-syntax-entity-tag: #0550ae;
+    --color-prettylights-syntax-invalid-illegal-text: var(--fgColor-danger);
+    --color-prettylights-syntax-keyword: #cf222e;
+    --color-prettylights-syntax-markup-changed-bg: #ffd8b5;
+    --color-prettylights-syntax-markup-changed-text: #953800;
+    --color-prettylights-syntax-markup-deleted-bg: #ffebe9;
+    --color-prettylights-syntax-markup-deleted-text: #82071e;
+    --color-prettylights-syntax-markup-heading: #0550ae;
+    --color-prettylights-syntax-markup-ignored-bg: #0550ae;
+    --color-prettylights-syntax-markup-ignored-text: #d1d9e0;
+    --color-prettylights-syntax-markup-inserted-bg: #dafbe1;
+    --color-prettylights-syntax-markup-inserted-text: #116329;
+    --color-prettylights-syntax-markup-list: #3b2300;
+    --color-prettylights-syntax-meta-diff-range: #8250df;
+    --color-prettylights-syntax-string: #0a3069;
+    --color-prettylights-syntax-string-regexp: #116329;
+    --color-prettylights-syntax-sublimelinter-gutter-mark: #818b98;
+    --color-prettylights-syntax-variable: #953800;
+    --fgColor-accent: #0969da;
+    --fgColor-attention: #9a6700;
+    --fgColor-done: #8250df;
+    --fgColor-muted: #59636e;
+    --fgColor-success: #1a7f37;
+    --bgColor-default: #ffffff;
+    --borderColor-muted: #d1d9e0b3;
+    --color-prettylights-syntax-invalid-illegal-bg: var(--bgColor-danger-muted);
+    --color-prettylights-syntax-markup-bold: #1f2328;
+    --color-prettylights-syntax-markup-italic: #1f2328;
+    --color-prettylights-syntax-storage-modifier-import: #1f2328;
+    --fgColor-default: #1f2328;
+    --focus-outlineColor: var(--borderColor-accent-emphasis);
+    --borderColor-neutral-muted: var(--borderColor-muted);
+  }
+}
+
+.markdown-body {
+  /** CSS default easing. Use for hover state changes and micro-interactions. */
+  /** Accelerating motion. Use for elements exiting the viewport (moving off-screen). */
+  /** Smooth acceleration and deceleration. Use for elements moving or morphing within the viewport. */
+  /** Decelerating motion. Use for elements entering the viewport or appearing on screen. */
+  /** Constant motion with no acceleration. Use for continuous animations like progress bars or loaders. */
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  margin: 0;
+  font-weight: var(--base-text-weight-normal, 400);
+  color: var(--fgColor-default);
+  background-color: var(--bgColor-default);
+  font-family: var(--fontStack-sansSerif, -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji");
+  font-size: 16px;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+.markdown-body a {
+  text-decoration: underline;
+  text-underline-offset: .2rem;
+}
+
+.markdown-body .octicon {
+  display: inline-block;
+  fill: currentColor;
+  vertical-align: text-bottom;
+}
+
+.markdown-body h1:hover .anchor .octicon-link:before,
+.markdown-body h2:hover .anchor .octicon-link:before,
+.markdown-body h3:hover .anchor .octicon-link:before,
+.markdown-body h4:hover .anchor .octicon-link:before,
+.markdown-body h5:hover .anchor .octicon-link:before,
+.markdown-body h6:hover .anchor .octicon-link:before {
+  width: 16px;
+  height: 16px;
+  content: ' ';
+  display: inline-block;
+  background-color: currentColor;
+  -webkit-mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' version='1.1' aria-hidden='true'><path fill-rule='evenodd' d='M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z'></path></svg>");
+  mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' version='1.1' aria-hidden='true'><path fill-rule='evenodd' d='M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z'></path></svg>");
+}
+
+.markdown-body details,
+.markdown-body figcaption,
+.markdown-body figure {
+  display: block;
+}
+
+.markdown-body summary {
+  display: list-item;
+}
+
+.markdown-body [hidden] {
+  display: none !important;
+}
+
+.markdown-body a {
+  background-color: rgba(0,0,0,0);
+  color: var(--fgColor-accent);
+  text-decoration: none;
+}
+
+.markdown-body abbr[title] {
+  border-bottom: none;
+  -webkit-text-decoration: underline dotted;
+  text-decoration: underline dotted;
+}
+
+.markdown-body b,
+.markdown-body strong {
+  font-weight: var(--base-text-weight-semibold, 600);
+}
+
+.markdown-body dfn {
+  font-style: italic;
+}
+
+.markdown-body h1 {
+  margin: .67em 0;
+  font-weight: var(--base-text-weight-semibold, 600);
+  padding-bottom: .3em;
+  font-size: 2em;
+  border-bottom: 1px solid var(--borderColor-muted);
+}
+
+.markdown-body mark {
+  background-color: var(--bgColor-attention-muted);
+  color: var(--fgColor-default);
+}
+
+.markdown-body small {
+  font-size: 90%;
+}
+
+.markdown-body sub,
+.markdown-body sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+.markdown-body sub {
+  bottom: -0.25em;
+}
+
+.markdown-body sup {
+  top: -0.5em;
+}
+
+.markdown-body img {
+  border-style: none;
+  max-width: 100%;
+  box-sizing: content-box;
+}
+
+.markdown-body code,
+.markdown-body kbd,
+.markdown-body pre,
+.markdown-body samp {
+  font-family: monospace;
+  font-size: 1em;
+}
+
+.markdown-body figure {
+  margin: 1em var(--base-size-40);
+}
+
+.markdown-body hr {
+  box-sizing: content-box;
+  overflow: hidden;
+  background: rgba(0,0,0,0);
+  border-bottom: 1px solid var(--borderColor-muted);
+  height: .25em;
+  padding: 0;
+  margin: var(--base-size-24) 0;
+  background-color: var(--borderColor-default);
+  border: 0;
+}
+
+.markdown-body input {
+  font: inherit;
+  margin: 0;
+  overflow: visible;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.markdown-body [type=button],
+.markdown-body [type=reset],
+.markdown-body [type=submit] {
+  -webkit-appearance: button;
+  appearance: button;
+}
+
+.markdown-body [type=checkbox],
+.markdown-body [type=radio] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.markdown-body [type=number]::-webkit-inner-spin-button,
+.markdown-body [type=number]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+.markdown-body [type=search]::-webkit-search-cancel-button,
+.markdown-body [type=search]::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.markdown-body ::-webkit-input-placeholder {
+  color: inherit;
+  opacity: .54;
+}
+
+.markdown-body ::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  appearance: button;
+  font: inherit;
+}
+
+.markdown-body a:hover {
+  text-decoration: underline;
+}
+
+.markdown-body ::placeholder {
+  color: var(--fgColor-muted);
+  opacity: 1;
+}
+
+.markdown-body hr::before {
+  display: table;
+  content: "";
+}
+
+.markdown-body hr::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.markdown-body table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow: auto;
+  font-variant: tabular-nums;
+}
+
+.markdown-body td,
+.markdown-body th {
+  padding: 0;
+}
+
+.markdown-body details summary {
+  cursor: pointer;
+}
+
+.markdown-body a:focus,
+.markdown-body [role=button]:focus,
+.markdown-body input[type=radio]:focus,
+.markdown-body input[type=checkbox]:focus {
+  outline: 2px solid var(--focus-outlineColor);
+  outline-offset: -2px;
+  box-shadow: none;
+}
+
+.markdown-body a:focus:not(:focus-visible),
+.markdown-body [role=button]:focus:not(:focus-visible),
+.markdown-body input[type=radio]:focus:not(:focus-visible),
+.markdown-body input[type=checkbox]:focus:not(:focus-visible) {
+  outline: solid 1px rgba(0,0,0,0);
+}
+
+.markdown-body a:focus-visible,
+.markdown-body [role=button]:focus-visible,
+.markdown-body input[type=radio]:focus-visible,
+.markdown-body input[type=checkbox]:focus-visible {
+  outline: 2px solid var(--focus-outlineColor);
+  outline-offset: -2px;
+  box-shadow: none;
+}
+
+.markdown-body a:not([class]):focus,
+.markdown-body a:not([class]):focus-visible,
+.markdown-body input[type=radio]:focus,
+.markdown-body input[type=radio]:focus-visible,
+.markdown-body input[type=checkbox]:focus,
+.markdown-body input[type=checkbox]:focus-visible {
+  outline-offset: 0;
+}
+
+.markdown-body kbd {
+  display: inline-block;
+  padding: var(--base-size-4);
+  font: 11px var(--fontStack-monospace, ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace);
+  line-height: 10px;
+  color: var(--fgColor-default);
+  vertical-align: middle;
+  background-color: var(--bgColor-muted);
+  border: solid 1px var(--borderColor-neutral-muted);
+  border-bottom-color: var(--borderColor-neutral-muted);
+  border-radius: 6px;
+  box-shadow: inset 0 -1px 0 var(--borderColor-neutral-muted);
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  margin-top: var(--base-size-24);
+  margin-bottom: var(--base-size-16);
+  font-weight: var(--base-text-weight-semibold, 600);
+  line-height: 1.25;
+}
+
+.markdown-body h2 {
+  font-weight: var(--base-text-weight-semibold, 600);
+  padding-bottom: .3em;
+  font-size: 1.5em;
+  border-bottom: 1px solid var(--borderColor-muted);
+}
+
+.markdown-body h3 {
+  font-weight: var(--base-text-weight-semibold, 600);
+  font-size: 1.25em;
+}
+
+.markdown-body h4 {
+  font-weight: var(--base-text-weight-semibold, 600);
+  font-size: 1em;
+}
+
+.markdown-body h5 {
+  font-weight: var(--base-text-weight-semibold, 600);
+  font-size: .875em;
+}
+
+.markdown-body h6 {
+  font-weight: var(--base-text-weight-semibold, 600);
+  font-size: .85em;
+  color: var(--fgColor-muted);
+}
+
+.markdown-body p {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.markdown-body blockquote {
+  margin: 0;
+  padding: 0 1em;
+  color: var(--fgColor-muted);
+  border-left: .25em solid var(--borderColor-default);
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 2em;
+}
+
+.markdown-body ol ol,
+.markdown-body ul ol {
+  list-style-type: lower-roman;
+}
+
+.markdown-body ul ul ol,
+.markdown-body ul ol ol,
+.markdown-body ol ul ol,
+.markdown-body ol ol ol {
+  list-style-type: lower-alpha;
+}
+
+.markdown-body dd {
+  margin-left: 0;
+}
+
+.markdown-body tt,
+.markdown-body code,
+.markdown-body samp {
+  font-family: var(--fontStack-monospace, ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace);
+  font-size: 12px;
+}
+
+.markdown-body pre {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: var(--fontStack-monospace, ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace);
+  font-size: 12px;
+  word-wrap: normal;
+}
+
+.markdown-body .octicon {
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-body input::-webkit-outer-spin-button,
+.markdown-body input::-webkit-inner-spin-button {
+  margin: 0;
+  appearance: none;
+}
+
+.markdown-body .mr-2 {
+  margin-right: var(--base-size-8, 8px) !important;
+}
+
+.markdown-body::before {
+  display: table;
+  content: "";
+}
+
+.markdown-body::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.markdown-body>*:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+.markdown-body a:not([href]) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.markdown-body .absent {
+  color: var(--fgColor-danger);
+}
+
+.markdown-body .anchor {
+  float: left;
+  padding-right: var(--base-size-4);
+  margin-left: -20px;
+  line-height: 1;
+}
+
+.markdown-body .anchor:focus {
+  outline: none;
+}
+
+.markdown-body p,
+.markdown-body blockquote,
+.markdown-body ul,
+.markdown-body ol,
+.markdown-body dl,
+.markdown-body table,
+.markdown-body pre,
+.markdown-body details {
+  margin-top: 0;
+  margin-bottom: var(--base-size-16);
+}
+
+.markdown-body blockquote>:first-child {
+  margin-top: 0;
+}
+
+.markdown-body blockquote>:last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body h1 .octicon-link,
+.markdown-body h2 .octicon-link,
+.markdown-body h3 .octicon-link,
+.markdown-body h4 .octicon-link,
+.markdown-body h5 .octicon-link,
+.markdown-body h6 .octicon-link {
+  color: var(--fgColor-default);
+  vertical-align: middle;
+  visibility: hidden;
+}
+
+.markdown-body h1:hover .anchor,
+.markdown-body h2:hover .anchor,
+.markdown-body h3:hover .anchor,
+.markdown-body h4:hover .anchor,
+.markdown-body h5:hover .anchor,
+.markdown-body h6:hover .anchor {
+  text-decoration: none;
+}
+
+.markdown-body h1:hover .anchor .octicon-link,
+.markdown-body h2:hover .anchor .octicon-link,
+.markdown-body h3:hover .anchor .octicon-link,
+.markdown-body h4:hover .anchor .octicon-link,
+.markdown-body h5:hover .anchor .octicon-link,
+.markdown-body h6:hover .anchor .octicon-link {
+  visibility: visible;
+}
+
+.markdown-body h1 tt,
+.markdown-body h1 code,
+.markdown-body h2 tt,
+.markdown-body h2 code,
+.markdown-body h3 tt,
+.markdown-body h3 code,
+.markdown-body h4 tt,
+.markdown-body h4 code,
+.markdown-body h5 tt,
+.markdown-body h5 code,
+.markdown-body h6 tt,
+.markdown-body h6 code {
+  padding: 0 .2em;
+  font-size: inherit;
+}
+
+.markdown-body summary h1,
+.markdown-body summary h2,
+.markdown-body summary h3,
+.markdown-body summary h4,
+.markdown-body summary h5,
+.markdown-body summary h6 {
+  display: inline-block;
+}
+
+.markdown-body summary h1 .anchor,
+.markdown-body summary h2 .anchor,
+.markdown-body summary h3 .anchor,
+.markdown-body summary h4 .anchor,
+.markdown-body summary h5 .anchor,
+.markdown-body summary h6 .anchor {
+  margin-left: -40px;
+}
+
+.markdown-body summary h1,
+.markdown-body summary h2 {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.markdown-body ul.no-list,
+.markdown-body ol.no-list {
+  padding: 0;
+  list-style-type: none;
+}
+
+.markdown-body ol[type="a s"] {
+  list-style-type: lower-alpha;
+}
+
+.markdown-body ol[type="A s"] {
+  list-style-type: upper-alpha;
+}
+
+.markdown-body ol[type="i s"] {
+  list-style-type: lower-roman;
+}
+
+.markdown-body ol[type="I s"] {
+  list-style-type: upper-roman;
+}
+
+.markdown-body ol[type="1"] {
+  list-style-type: decimal;
+}
+
+.markdown-body div>ol:not([type]) {
+  list-style-type: decimal;
+}
+
+.markdown-body ul ul,
+.markdown-body ul ol,
+.markdown-body ol ol,
+.markdown-body ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body li>p {
+  margin-top: var(--base-size-16);
+}
+
+.markdown-body li+li {
+  margin-top: .25em;
+}
+
+.markdown-body dl {
+  padding: 0;
+}
+
+.markdown-body dl dt {
+  padding: 0;
+  margin-top: var(--base-size-16);
+  font-size: 1em;
+  font-style: italic;
+  font-weight: var(--base-text-weight-semibold, 600);
+}
+
+.markdown-body dl dd {
+  padding: 0 var(--base-size-16);
+  margin-bottom: var(--base-size-16);
+}
+
+.markdown-body table th {
+  font-weight: var(--base-text-weight-semibold, 600);
+}
+
+.markdown-body table th,
+.markdown-body table td {
+  padding: 6px 13px;
+  border: 1px solid var(--borderColor-default);
+}
+
+.markdown-body table td>:last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body table tr {
+  background-color: var(--bgColor-default);
+  border-top: 1px solid var(--borderColor-muted);
+}
+
+.markdown-body table tr:nth-child(2n) {
+  background-color: var(--bgColor-muted);
+}
+
+.markdown-body table img {
+  background-color: rgba(0,0,0,0);
+}
+
+.markdown-body img[align=right] {
+  padding-left: 20px;
+}
+
+.markdown-body img[align=left] {
+  padding-right: 20px;
+}
+
+.markdown-body .emoji {
+  max-width: none;
+  vertical-align: text-top;
+  background-color: rgba(0,0,0,0);
+}
+
+.markdown-body span.frame {
+  display: block;
+  overflow: hidden;
+}
+
+.markdown-body span.frame>span {
+  display: block;
+  float: left;
+  width: auto;
+  padding: 7px;
+  margin: 13px 0 0;
+  overflow: hidden;
+  border: 1px solid var(--borderColor-default);
+}
+
+.markdown-body span.frame span img {
+  display: block;
+  float: left;
+}
+
+.markdown-body span.frame span span {
+  display: block;
+  padding: 5px 0 0;
+  clear: both;
+  color: var(--fgColor-default);
+}
+
+.markdown-body span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+.markdown-body span.align-center>span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: center;
+}
+
+.markdown-body span.align-center span img {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.markdown-body span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+.markdown-body span.align-right>span {
+  display: block;
+  margin: 13px 0 0;
+  overflow: hidden;
+  text-align: right;
+}
+
+.markdown-body span.align-right span img {
+  margin: 0;
+  text-align: right;
+}
+
+.markdown-body span.float-left {
+  display: block;
+  float: left;
+  margin-right: 13px;
+  overflow: hidden;
+}
+
+.markdown-body span.float-left span {
+  margin: 13px 0 0;
+}
+
+.markdown-body span.float-right {
+  display: block;
+  float: right;
+  margin-left: 13px;
+  overflow: hidden;
+}
+
+.markdown-body span.float-right>span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: right;
+}
+
+.markdown-body code,
+.markdown-body tt {
+  padding: .2em .4em;
+  margin: 0;
+  font-size: 85%;
+  white-space: break-spaces;
+  background-color: var(--bgColor-neutral-muted);
+  border-radius: 6px;
+}
+
+.markdown-body code br,
+.markdown-body tt br {
+  display: none;
+}
+
+.markdown-body del code {
+  text-decoration: inherit;
+}
+
+.markdown-body samp {
+  font-size: 85%;
+}
+
+.markdown-body pre code {
+  font-size: 100%;
+}
+
+.markdown-body pre>code {
+  padding: 0;
+  margin: 0;
+  word-break: normal;
+  white-space: pre;
+  background: rgba(0,0,0,0);
+  border: 0;
+}
+
+.markdown-body .highlight {
+  margin-bottom: var(--base-size-16);
+}
+
+.markdown-body .highlight pre {
+  margin-bottom: 0;
+  word-break: normal;
+}
+
+.markdown-body .highlight pre,
+.markdown-body pre {
+  padding: var(--base-size-16);
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  color: var(--fgColor-default);
+  background-color: var(--bgColor-muted);
+  border-radius: 6px;
+}
+
+.markdown-body pre code,
+.markdown-body pre tt {
+  display: inline;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: rgba(0,0,0,0);
+  border: 0;
+}
+
+.markdown-body .csv-data td,
+.markdown-body .csv-data th {
+  padding: 5px;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.markdown-body .csv-data .blob-num {
+  padding: 10px var(--base-size-8) 9px;
+  text-align: right;
+  background: var(--bgColor-default);
+  border: 0;
+}
+
+.markdown-body .csv-data tr {
+  border-top: 0;
+}
+
+.markdown-body .csv-data th {
+  font-weight: var(--base-text-weight-semibold, 600);
+  background: var(--bgColor-muted);
+  border-top: 0;
+}
+
+.markdown-body [data-footnote-ref]::before {
+  content: "[";
+}
+
+.markdown-body [data-footnote-ref]::after {
+  content: "]";
+}
+
+.markdown-body .footnotes {
+  font-size: 12px;
+  color: var(--fgColor-muted);
+  border-top: 1px solid var(--borderColor-default);
+}
+
+.markdown-body .footnotes ol {
+  padding-left: var(--base-size-16);
+}
+
+.markdown-body .footnotes ol ul {
+  display: inline-block;
+  padding-left: var(--base-size-16);
+  margin-top: var(--base-size-16);
+}
+
+.markdown-body .footnotes li {
+  position: relative;
+}
+
+.markdown-body .footnotes li:target::before {
+  position: absolute;
+  top: calc(var(--base-size-8)*-1);
+  right: calc(var(--base-size-8)*-1);
+  bottom: calc(var(--base-size-8)*-1);
+  left: calc(var(--base-size-24)*-1);
+  pointer-events: none;
+  content: "";
+  border: 2px solid var(--borderColor-accent-emphasis);
+  border-radius: 6px;
+}
+
+.markdown-body .footnotes li:target {
+  color: var(--fgColor-default);
+}
+
+.markdown-body .footnotes .data-footnote-backref g-emoji {
+  font-family: monospace;
+}
+
+.markdown-body .pl-c {
+  color: var(--color-prettylights-syntax-comment);
+}
+
+.markdown-body .pl-c1,
+.markdown-body .pl-s .pl-v {
+  color: var(--color-prettylights-syntax-constant);
+}
+
+.markdown-body .pl-e,
+.markdown-body .pl-en {
+  color: var(--color-prettylights-syntax-entity);
+}
+
+.markdown-body .pl-smi,
+.markdown-body .pl-s .pl-s1 {
+  color: var(--color-prettylights-syntax-storage-modifier-import);
+}
+
+.markdown-body .pl-ent {
+  color: var(--color-prettylights-syntax-entity-tag);
+}
+
+.markdown-body .pl-k {
+  color: var(--color-prettylights-syntax-keyword);
+}
+
+.markdown-body .pl-s,
+.markdown-body .pl-pds,
+.markdown-body .pl-s .pl-pse .pl-s1,
+.markdown-body .pl-sr,
+.markdown-body .pl-sr .pl-cce,
+.markdown-body .pl-sr .pl-sre,
+.markdown-body .pl-sr .pl-sra {
+  color: var(--color-prettylights-syntax-string);
+}
+
+.markdown-body .pl-v,
+.markdown-body .pl-smw {
+  color: var(--color-prettylights-syntax-variable);
+}
+
+.markdown-body .pl-bu {
+  color: var(--color-prettylights-syntax-brackethighlighter-unmatched);
+}
+
+.markdown-body .pl-ii {
+  color: var(--color-prettylights-syntax-invalid-illegal-text);
+  background-color: var(--color-prettylights-syntax-invalid-illegal-bg);
+}
+
+.markdown-body .pl-c2 {
+  color: var(--color-prettylights-syntax-carriage-return-text);
+  background-color: var(--color-prettylights-syntax-carriage-return-bg);
+}
+
+.markdown-body .pl-sr .pl-cce {
+  font-weight: bold;
+  color: var(--color-prettylights-syntax-string-regexp);
+}
+
+.markdown-body .pl-ml {
+  color: var(--color-prettylights-syntax-markup-list);
+}
+
+.markdown-body .pl-mh,
+.markdown-body .pl-mh .pl-en,
+.markdown-body .pl-ms {
+  font-weight: bold;
+  color: var(--color-prettylights-syntax-markup-heading);
+}
+
+.markdown-body .pl-mi {
+  font-style: italic;
+  color: var(--color-prettylights-syntax-markup-italic);
+}
+
+.markdown-body .pl-mb {
+  font-weight: bold;
+  color: var(--color-prettylights-syntax-markup-bold);
+}
+
+.markdown-body .pl-md {
+  color: var(--color-prettylights-syntax-markup-deleted-text);
+  background-color: var(--color-prettylights-syntax-markup-deleted-bg);
+}
+
+.markdown-body .pl-mi1 {
+  color: var(--color-prettylights-syntax-markup-inserted-text);
+  background-color: var(--color-prettylights-syntax-markup-inserted-bg);
+}
+
+.markdown-body .pl-mc {
+  color: var(--color-prettylights-syntax-markup-changed-text);
+  background-color: var(--color-prettylights-syntax-markup-changed-bg);
+}
+
+.markdown-body .pl-mi2 {
+  color: var(--color-prettylights-syntax-markup-ignored-text);
+  background-color: var(--color-prettylights-syntax-markup-ignored-bg);
+}
+
+.markdown-body .pl-mdr {
+  font-weight: bold;
+  color: var(--color-prettylights-syntax-meta-diff-range);
+}
+
+.markdown-body .pl-ba {
+  color: var(--color-prettylights-syntax-brackethighlighter-angle);
+}
+
+.markdown-body .pl-sg {
+  color: var(--color-prettylights-syntax-sublimelinter-gutter-mark);
+}
+
+.markdown-body .pl-corl {
+  text-decoration: underline;
+  color: var(--color-prettylights-syntax-constant-other-reference-link);
+}
+
+.markdown-body [role=button]:focus:not(:focus-visible),
+.markdown-body [role=tabpanel][tabindex="0"]:focus:not(:focus-visible),
+.markdown-body button:focus:not(:focus-visible),
+.markdown-body summary:focus:not(:focus-visible),
+.markdown-body a:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+.markdown-body [tabindex="0"]:focus:not(:focus-visible),
+.markdown-body details-dialog:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.markdown-body g-emoji {
+  display: inline-block;
+  min-width: 1ch;
+  font-family: "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-size: 1em;
+  font-style: normal !important;
+  font-weight: var(--base-text-weight-normal, 400);
+  line-height: 1;
+  vertical-align: -0.075em;
+}
+
+.markdown-body g-emoji img {
+  width: 1em;
+  height: 1em;
+}
+
+.markdown-body a:has(>p,>div,>pre,>blockquote) {
+  display: block;
+}
+
+.markdown-body a:has(>p,>div,>pre,>blockquote):not(:has(.snippet-clipboard-content,>pre)) {
+  width: fit-content;
+}
+
+.markdown-body a:has(>p,>div,>pre,>blockquote):has(.snippet-clipboard-content,>pre):focus-visible {
+  outline: 2px solid var(--focus-outlineColor);
+  outline-offset: 2px;
+}
+
+.markdown-body .task-list-item {
+  list-style-type: none;
+}
+
+.markdown-body .task-list-item label {
+  font-weight: var(--base-text-weight-normal, 400);
+}
+
+.markdown-body .task-list-item.enabled label {
+  cursor: pointer;
+}
+
+.markdown-body .task-list-item+.task-list-item {
+  margin-top: var(--base-size-4);
+}
+
+.markdown-body .task-list-item .handle {
+  display: none;
+}
+
+.markdown-body .task-list-item-checkbox {
+  margin: 0 .2em .25em -1.4em;
+  vertical-align: middle;
+}
+
+.markdown-body ul:dir(rtl) .task-list-item-checkbox {
+  margin: 0 -1.6em .25em .2em;
+}
+
+.markdown-body ol:dir(rtl) .task-list-item-checkbox {
+  margin: 0 -1.6em .25em .2em;
+}
+
+.markdown-body .contains-task-list:hover .task-list-item-convert-container,
+.markdown-body .contains-task-list:focus-within .task-list-item-convert-container {
+  display: block;
+  width: auto;
+  height: 24px;
+  overflow: visible;
+  clip-path: none;
+}
+
+.markdown-body ::-webkit-calendar-picker-indicator {
+  filter: invert(50%);
+}
+
+.markdown-body .markdown-alert {
+  padding: var(--base-size-8) var(--base-size-16);
+  margin-bottom: var(--base-size-16);
+  color: inherit;
+  border-left: .25em solid var(--borderColor-default);
+}
+
+.markdown-body .markdown-alert>:first-child {
+  margin-top: 0;
+}
+
+.markdown-body .markdown-alert>:last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body .markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: var(--base-text-weight-medium, 500);
+  align-items: center;
+  line-height: 1;
+}
+
+.markdown-body .markdown-alert.markdown-alert-note {
+  border-left-color: var(--borderColor-accent-emphasis);
+}
+
+.markdown-body .markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--fgColor-accent);
+}
+
+.markdown-body .markdown-alert.markdown-alert-important {
+  border-left-color: var(--borderColor-done-emphasis);
+}
+
+.markdown-body .markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--fgColor-done);
+}
+
+.markdown-body .markdown-alert.markdown-alert-warning {
+  border-left-color: var(--borderColor-attention-emphasis);
+}
+
+.markdown-body .markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--fgColor-attention);
+}
+
+.markdown-body .markdown-alert.markdown-alert-tip {
+  border-left-color: var(--borderColor-success-emphasis);
+}
+
+.markdown-body .markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--fgColor-success);
+}
+
+.markdown-body .markdown-alert.markdown-alert-caution {
+  border-left-color: var(--borderColor-danger-emphasis);
+}
+
+.markdown-body .markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--fgColor-danger);
+}
+
+.markdown-body>*:first-child>.heading-element:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body .highlight pre:has(+.zeroclipboard-container) {
+  min-height: 52px;
+}
+
+html{color-scheme:light dark}
+body{box-sizing:border-box;min-width:200px;max-width:980px;margin:0 auto;padding:45px;background:Canvas;color:CanvasText}
+@media (max-width:767px){body{padding:15px}}
+</style></head><body><article class="markdown-body">
+<h1>Waza｜スマートグラス越しのライブ実技指導</h1>
+<h2>どんなサービスか</h2>
+<p><strong>エレベーターピッチ：</strong> 誰でも、どこからでも、スマートグラスをかければ身体を使う実技スキルを遠隔のガイドから学べる、双方向のマーケットプレイス。ガイドは学習者の手元をリアルタイムで見ながら、作業中にその場で修正を入れる。教える場所は自宅の厨房・スタジオ・工房で、そこから収入を得る。学習者はセッションごとに支払い、ガイドは何年もかけて世界中の生徒層を築き上げる。すべてのセッションは同意のうえで録画される。2030年までに、人間が手を使って何かを学ぶときの第一の選択肢として、YouTubeチュートリアル（目の前のものを見られない）と対面ワークショップ（高価で、希少で、地理に縛られる）に取って代わる存在になる。</p>
+<p><strong>仕組み：</strong> サンフランシスコの学習者が、大阪の寿司ガイドのセッションを予約する。学習者はスマートグラス（Meta Ray-Ban Display など）をかけ、レンズ越しに自分の手元を見ながら作業する。ガイドの手元はピクチャーインピクチャーで隣に浮かぶ。ガイドは学習者の一人称視点フィードを見ながら、作業に合わせて声をかける。英語と日本語のライブ翻訳が双方向に字幕で表示される。ガイドはリアルタイムで修正する。「刃を5度回して、肩を落として」。学習者は必要に応じてガイドの手元と音声の直近30秒を巻き戻し、納得するまで何度でも再生できる。多くの学習者は数か月にわたって同じガイドのもとへ戻ってくる。そして相応の割合の人が、最終的に大阪・京都・あるいはガイドの工房がある土地まで足を運び、週末を作業台の前で過ごす。同意のうえで、すべてのセッションは記録される。学習者の一人称視点の手元映像、ガイドの音声修正、結果の評価が、ガイド自身のコーパスに加わっていく。やがてそのコーパスを学習素材として、ガイドのAI版が育っていく。学習者はライブセッションの合間にこのAIを練習相手として使う。ガイドのカレンダーが許す範囲を超えて、ガイドの届く先が広がっていく。</p>
+<h2>何が問題なのか</h2>
+<p>身体を使う知識、つまり人間が身体と道具を使ってやることすべては、インターネット上で最も記録の薄いカテゴリーだ。AIはテキストで知り得る分野ではすでに有能なチューターになっている。しかし、包丁の角度がなぜ間違っているのかは教えられない。誰も、初心者の手元が修正されていく一人称視点動画を100万本もAIに見せていないからだ。</p>
+<p>今日、寿司の包丁さばき・木組み・轆轤を学びたい趣味人には現実的に3つの選択肢しかない。学習者の手元の誤りが見えないYouTube動画、4,000ドルかけて行く東京のワークショップ、地元にたまたま師匠がいる一握りのスキル、のどれかだ。同じ希少性が、あらゆる熟練職に共通のボトルネックになっている。新人の電気工は一人の親方に同行して学ぶ。地方の外科研修医は一人の専門医の手技しか見られない。「正しい手元を見る」ことのコストの高さが、その文化圏で生まれた工芸まるごとを絶滅の危機に追いやる。</p>
+<h2>なぜ今なのか</h2>
+<p><em>（2026年5月時点）</em></p>
+<ul>
+<li><strong>2025年、スマートグラスは消費者規模に到達した。ディスプレイ搭載モデルも初登場。</strong> Meta と EssilorLuxottica は2025年に AI グラスを700万本以上販売し、過去2年間の合計の3倍を超えた <em>(2026年2月)</em>。カテゴリは2025年下半期に前年比139%成長し、Meta がシェア82%を握った <em>(2025年下半期)</em>（<a href="https://www.cnbc.com/2026/02/11/ray-ban-maker-essilorluxottica-triples-sales-of-meta-ai-glasses.html" rel="nofollow">CNBC</a>、<a href="https://displaydaily.com/smart-glasses-shipments-doubled-in-second-half-of-2025-with-meta-commanding-82-of-the-market/" rel="nofollow">Display Daily</a>）。799ドルの Meta Ray-Ban Display は2025年9月に発売 <em>(2025年9月)</em>。米国内の需要があまりに強く、海外展開は2026年に持ち越された <em>(2026年1月)</em>（<a href="https://www.cnbc.com/2026/01/06/meta-ray-ban-display-ai-glasses-pause.html" rel="nofollow">CNBC</a>）。生産は2026年に2,000万台超へ倍増される見通しだ <em>(Bloomberg via CNBC, 2026年1月)</em>（<a href="https://www.cnbc.com/2026/02/11/ray-ban-maker-essilorluxottica-triples-sales-of-meta-ai-glasses.html" rel="nofollow">CNBC</a>）。学習者はいまや、自分のレンズの中にピクチャーインピクチャーでガイドの手元を見られる。</li>
+<li><strong>ハードウェアは外部チームにも作れる土台になった。</strong> Snap は2026年後半に消費者向け「Specs」を投入し、同時に Qualcomm Snapdragon との複数年提携を発表 <em>(2026年4月)</em>（<a href="https://investor.snap.com/news/news-details/2025/Snap-to-Launch-New-Lightweight-Immersive-Specs-in-2026/default.aspx" rel="nofollow">Snap Investor</a>、<a href="https://www.roadtovr.com/snap-qualcomm-partnership-specs-2026-ar-glasses/" rel="nofollow">Road to VR</a>）。Spectacles 5 開発キットと Snap OS 2.0 はすでに、カメラ・ASR（40言語以上）・WebXR の API を第三者に開放しており、Snap の Remote Service Gateway を介して OpenAI と Gemini も統合できる <em>(2025年9月)</em>（<a href="https://www.lowpass.cc/p/snap-spectacles-webxr-native-apps" rel="nofollow">Lowpass</a>）。独立系のチームでも今日からスマートグラス上で実験ができ、年末には消費者向けハードが出荷される。</li>
+<li><strong>ライブ翻訳は実用ラインを超えた。</strong> スタンドアロンの AR 翻訳グラスは100言語以上を500ms 未満のレイテンシで処理して市販されている <em>(CES, 2026年1月)</em>（<a href="https://www2.prnewswire.com/news-releases/llvision-introduces-leion-hey2-the-worlds-first-professional-ar-translation-glasses-launching-in-the-united-states-at-ces-2026-302654009.html" rel="nofollow">PR Newswire・LLVISION</a>）。API側では、OpenAI が Realtime API に <strong>GPT-Realtime-Translate</strong> を投入。1分あたり0.034ドル、入力70言語以上・出力13言語、話す速度並みのレイテンシで、Vimeo は再生中のライブ製品紹介動画を視聴者の選んだ言語へリアルタイム翻訳するデモを披露した <em>(2026年5月)</em>（<a href="https://openai.com/index/advancing-voice-intelligence-with-new-models-in-the-api/" rel="nofollow">OpenAI</a>）。</li>
+<li><strong>遠隔アシストの仕組みは、すでにスケールで実証済みだ。</strong> TeamViewer Frontline は DHL Supply Chain の新人オンボーディングを50〜70%短縮した <em>(2026年5月)</em>（<a href="https://teamviewer.com/en-us/products/frontline/platform" rel="nofollow">TeamViewer</a>）。Help Lightning は80か国以上で4,300万件以上の企業向けヘルプセッションを実行してきた <em>(2026年5月)</em>（<a href="https://helplightning.com/solutions/" rel="nofollow">Help Lightning</a>）。「専門家が作業者の見ているものを見て、その手元を導く」という型は、すでに動くと知られているパターンだ。</li>
+</ul>
+<h2>他に誰がやっているか</h2>
+<ul>
+<li><strong>産業向け AR 遠隔アシスト（仕組みとして最も近い類似だが B2B に閉じている）。</strong> 中心プレイヤー：<strong><a href="https://teamviewer.com/en-us/products/frontline/platform" rel="nofollow">TeamViewer Frontline</a></strong>。他に <a href="https://helplightning.com/solutions/" rel="nofollow">Help Lightning</a>、<a href="https://www.augmentir.com/product/industrial-collaboration" rel="nofollow">Augmentir</a>、TeamViewer Frontline Assist など。販売先は製造・物流・フィールドサービスの法人で、契約は企業契約、購買は IT 主導、ハードは Vuzix や RealWear といった認証グラスにロックインされている。仕組みは実運用で動いている。ただし買い手・価格帯・ブランドのいずれも、消費者やプロシューマー向けの実技指導には噛み合わない。</li>
+<li><strong>クラフト教育のサブスクライブラリ（フェーズ1の供給品質に最も近い）。</strong> 中心プレイヤー：<strong><a href="https://live.bonsaimirai.com/pricing" rel="nofollow">Bonsai Mirai Live</a></strong>（月額9.99〜29.99ドル）。1対多の録画動画、単一ジャンル、学習者自身の手元への双方向フィードバックはない。コンテンツの質は高いが、これは雑誌であってチューターではない。</li>
+<li><strong>オンラインのライブ家庭教師マーケットプレイス（フェーズ1のマーケットプレイスの形に最も近い）。</strong> 中心プレイヤー：<strong><a href="https://www.italki.com/en/teachers/japanese" rel="nofollow">italki</a></strong>（日本語講師1,159名、お試し価格5〜30ドル、語学特化）、<a href="https://preply.com" rel="nofollow">Preply</a>、<a href="https://cafetalk.com" rel="nofollow">Cafetalk</a>、K-12 の少人数クラス向けには <a href="https://outschool.com" rel="nofollow">Outschool</a>。いずれも「カメラは先生に向ける」設計の上に作られている。先生の顔か画面が、見るべき正しい対象だからだ。実技スキルは、カメラを<em>学習者の</em>手元に向ける必要がある。だからこれらをグラスファーストに移すのは機能追加ではなく、作り直しになる。</li>
+<li><strong>録画コース型プラットフォーム。</strong> 中心プレイヤー：<strong><a href="https://www.masterclass.com/sessions" rel="nofollow">MasterClass</a></strong>（年額換算で月10ポンドから、講師200名以上）、<a href="https://www.skillshare.com/pricing" rel="nofollow">Skillshare</a>（年167.88ドル、クリエイティブ会員1,100万人以上、講師9,000名以上）、<a href="https://udemy.com" rel="nofollow">Udemy</a>、<a href="https://coursera.org" rel="nofollow">Coursera</a>。いずれもスケールする1対多の録画動画。MasterClass はブランドとスター講師、Skillshare はクリエイターのロングテールが強み。これらの経済性は、録画コンテンツを無限に再利用できることに依存している。ライブの双方向マーケットプレイスは別物のビジネスだ。ユニットエコノミクスも、供給網も、プロダクトも違う。</li>
+</ul>
+<p><strong>どこに穴があるか：</strong> 上のすべてのカテゴリは、実技指導に対しては形が間違っている。産業向けARは仕組みは合っているが買い手が違う。クラフト系ライブラリは一方向動画。レッスンマーケットプレイスはカメラが先生に向いている。クリエイター主導のプラットフォームは録画放送だ。カメラが<em>学習者の</em>手元に向き、ガイドが遠隔にいる双方向マーケットプレイスを作っているところはない。それを消費者レベルで身体的に無理なく実現する端末が、ようやく出荷され始めたばかりだからだ。</p>
+<h2>なぜ自分たちか</h2>
+<ul>
+<li><strong>グローバル需要への接続力。</strong> 英語・フランス語・日本語に堪能で、日本に10年、米国に8年いる。東京・京都・大阪で職人サプライをコールドスタートでき、かつ北米・欧州で消費者需要を獲得できる。</li>
+<li><strong>双方向マーケットプレイスのオペレーター経験。</strong> Amazon Fashion で5年。Chief of Staff・カテゴリーマネジメント・プロダクトマネジメントを経験し、この仕組みで動く最大級のEC領域を内側から見てきた。</li>
+<li><strong>AI 評価のリード経験。</strong> Amazon で2年、AI 評価のリードを務めた。録画セッションから何のデータが必要か、それをどう活用してモデルを編成・ファインチューニングし学習者を支えるかを理解する専門性がある。</li>
+<li><strong>コーディングエージェントを使って一人で出荷できる。</strong> CSとAIの基礎があり、エンドツーエンドで作るのに抵抗はない。現実的に作れる包丁さばきのデモは、採用を待たずに動く成果物まで届く。</li>
+</ul>
+<h2>顧客は誰か</h2>
+<ul>
+<li><strong>学習者：</strong> 趣味人。日本の寿司YouTuberを6人ほど追っている家庭料理人。ガレージで箪笥を作っている木工愛好家。英語の盆栽フォーラムを読みつつ、隣で剪定してくれる師匠を持ったことがない庭師。
+<ul>
+<li><strong>プロフィール：</strong> 35〜55歳、世帯年収10万ドル以上、北米・欧州・豪州・シンガポール在住、過去1年間にクラフト趣味の用具に500ドル以上を費やしている。</li>
+<li><strong>エコノミクス：</strong> D2C、調達ループなし。初回購入のACVは80〜200ドル（1〜3セッション）。リピート購入のACVは年400〜1,200ドル。</li>
+<li><strong>ICP：</strong> (a) 対象クラフトのYouTubeチュートリアルを3本以上試し、カメラの位置が違うと感じた経験がある。(b) 地元で師匠を見つけられたことがない。(c) 60分のレッスンに80ドル以上を払う意思がある。(d) スマートグラス相当のハードを持っている、もしくは立ち上げ期は Ray-Ban Meta と作業台に置いたスマホでの代替運用を受け入れる。</li>
+</ul>
+</li>
+<li><strong>ガイド：</strong> 1〜5名のアトリエを営む独立した師匠で、店内での指導に加えて海外の生徒を教えたい人。
+<ul>
+<li><strong>プロフィール：</strong> 料理・陶芸・木工・造園の職人。すでに国際的な指導を多少手がけている（Zoom、ときどき来訪、文書のやり取り）が、移動と対面で受け入れられる人数に頭打ちになっている。</li>
+<li><strong>エコノミクス：</strong> 取り分20%として、1セッションあたり手取り64〜160ドル。週5本の録画セッションなら、移動なしで月1,400〜3,500ドルの追加収入になる。オンラインのセッションは対面来訪の入り口にもなる。遠隔でガイドに惹かれた学習者は、対面で学ぶために飛んでくる確率が上がる。これが高利益率な店内予約として上乗せされる。</li>
+<li><strong>ICP：</strong> (a) 海外指導をすでに少しやっているが移動に頭打ちになっている。(b) ギルドレベルではなく、セッションごと・ガイドごとの同意ベースで録画されることに抵抗がない。</li>
+</ul>
+</li>
+<li><strong>対象外の顧客：</strong>
+<ul>
+<li><strong>同意：</strong> <a href="https://en.wikipedia.org/wiki/Iemoto" rel="nofollow">家元</a>制で守られる文化芸術（茶道、生け花、古典書道など）。録画への同意はガイドごとではなくギルドレベルの会話になる。後で踏み込む可能性はあるが、ここから始めはしない。</li>
+<li><strong>責任：</strong> 規制された接触を伴う領域（医療、徒手療法、ボディワーク系）。フェーズ2の領域であり、立ち上げ対象ではない。</li>
+</ul>
+</li>
+</ul>
+<h2>どこから入るか</h2>
+<p>立ち上げは、独立した職人（日本のクラフトマスター）が教える、日本由来の4つの活動のバスケットを提案する。1) 寿司の包丁さばき、2) 陶芸の轆轤、3) 組子細工、4) 日本庭園・剪定。</p>
+<ul>
+<li><strong>寿司包丁：</strong> 「あなたの包丁さばきをレビュー」（120ドル）。ガイドが3カット分の刃の角度を見て、リアルタイムで修正する。<em>（東京の対面クラスは53〜130ドル：<a href="https://www.tokyosushischool.com/" rel="nofollow">Tokyo Sushi School</a>、<a href="https://www.tokyosushimaking.com/" rel="nofollow">NOBU Sushi Making</a>）</em></li>
+<li><strong>陶芸の轆轤：</strong> 「センタリングと最初の引き上げ」（90ドル）。ガイドが轆轤の前の学習者の手元を見て、回転と指圧をライブで修正する。<em>（東京のグループクラスは37ドルから、本格的な1対1は247ドル前後：<a href="https://en.activityjapan.com/feature/tokyo-ceramics-plan/" rel="nofollow">ActivityJapan</a>、<a href="https://www.uzumakotougei.com/private-class/" rel="nofollow">Uzumako Ceramic Art School</a>）</em></li>
+<li><strong>組子細工：</strong> 「最初の組子柄の相欠き継ぎ」（180ドル）。ガイドがレイアウト・墨付け・1か所の鑿入れに伴走し、各カットで道具の角度を見る。<em>（東京の組子プライベート体験は280ドル、富山の上級コースは100ドル：<a href="https://www.deeperjapan.com/tokyo/p/edo-kumiko-woodcrafting" rel="nofollow">Deeper Japan</a>、<a href="https://www.toyamashi-kankoukyoukai.jp/en/experience/kumikoza/" rel="nofollow">Kumikoza Toyama</a>）</em></li>
+<li><strong>造園・剪定（盆栽寄り）：</strong> 「この木のどこを切るか」（80ドル）。学習者は一人称カメラでガイドを庭に案内する。ガイドが構造的な問題を指摘し、剪定箇所を提案する。<em>（東京の盆栽ワークショップは74〜128ドル：<a href="https://www.japan-experience.com/activities/tokyo/bonsai-workshop-in-the-heart-of-tokyo" rel="nofollow">Japan Experience</a>、<a href="https://veronikasadventure.com/tokyo-bonsai-making-experience-with-bonsai-master/" rel="nofollow">Shunkaen Bonsai Museum</a>）</em></li>
+</ul>
+<p>この4つは<strong>シグナルの形の多様性</strong>を狙って選んでいる。食材に当てる刃、轆轤に固定された工芸、木に当てる工具、屋外の空間推論。最近のエンボディドAI研究では、コーパスサイズ単独よりも、シーン・物体・実演者の多様性のほうが汎化を駆動すると示されている（<a href="https://arxiv.org/abs/2604.07607" rel="nofollow">EgoVerse, arXiv 2604.07607</a>）。だから小さなフェーズ1のコーパスでも、すでに4つのモダリティをまたぐ。4つはいずれも非・家元系でもある。茶道・生け花・古典書道・香道・伝統舞踊・伝統音楽・武道などを律する家元制度の外側にある。録画への同意はガイドごとの会話で、ギルドレベルの会話ではない。最後に、<strong>需要は大きく、英語話者ベースだ</strong>。Redditコミュニティだけでも合計数百万人。r/Pottery 26.3万、r/Bonsai 36万、r/sushi 58.3万、r/woodworking 610万。英語圏のYouTube供給も主要どころが揃う。Hiroyuki Terada 210万（寿司）、Florian Gadsby 180万（陶芸）、ISHITANI Furniture 60.5万（日本の木工）、Bonsai Mirai は600本以上の動画で「52か国の数千人の愛好家」に届いている。</p>
+<p><strong>素材。</strong> 各SKUの詳細ページには、セッションに必要なもの（包丁の種類、粘土の等級、鑿のサイズ）が並ぶ。北米・欧州・英国・日本・豪州の学習者向けに、Amazonでの具体的な購入候補が提示される。これらの地域以外の学習者には仕様リストだけ渡し、現地で調達してもらう。在庫なし、キット出荷なし、配送リスクなし。アフィリエイト収益は副次的な上振れで、本来の狙いは顧客の利便性だ。未解決の問いは、各地域のAmazonカタログが日本水準の組子・包丁の仕様を許容できる品質で扱っているかどうかだ。</p>
+<h2>どうやって稼ぐか</h2>
+<p>ユニットエコノミクスの物語はフェーズで変わる。<strong>フェーズ1</strong>は、立ち上げの楔として、日本サプライ／海外需要の非対称性に乗る。東京のガイドの労働コストは時給1万〜1万5,000円（65〜100ドル）で、店内指導のレートを上回りつつ、海外学習者の80〜200ドル／セッションのWTPには十分収まる。<strong>フェーズ2</strong>は同じ形を、現地の専門家の時給が海外学習者のWTPを下回るあらゆる場所に広げる（ベトナムの木工、インドの外科指導、東欧の職人技、フランスの製菓）。マーケットプレイスが日本の外まで職人を引き込んだ後の話だ。<strong>フェーズ3</strong>は、ライブマーケットプレイスの上に、ガイドごとのクローン講師を重ねる。各ガイドは、自分のWaza学習済みAI版にライセンスを与え、やり取りごとにロイヤリティを得る。練習時間あたりの限界費用は急激に下がり、資産はセッションごとの取り分から、ガイドごとのコーパスと、年単位で各ガイドが抱える生徒へとシフトする。収益の柱は2つだ。</p>
+<ul>
+<li><strong>マーケットプレイスの取り分（フェーズ1〜2）。</strong> 80〜200ドルのセッションに対して20%。1セッションあたり総額16〜40ドル、Stripe・動画・AI翻訳のコストを引いた貢献利益は10〜30ドル前後。比較対象：<a href="https://support.italki.com/hc/en-us/articles/206352068-How-does-italki-charge-a-commission" rel="nofollow">italki 15〜21%</a>。現地の専門家の時給が海外学習者のWTPを下回る場所であれば、レンジの上限近くで防御できる。日本の時給1万〜1万5,000円はその出発点にすぎない。同じ算術は、北米外の専門家市場全般で成立する。</li>
+<li><strong>AI拡張ガイド（フェーズ3）。</strong> トップガイドはそれぞれ、自分の名前を冠した Waza 学習済みクローンにライセンスを与える。ライブセッションの合間の練習や、ライブ枠を確保できない学習者の対応に使われる。学習者・ガイドのペアごとに月30〜200ドルで、ガイドは相応のロイヤリティ分配を受け取る。文化的な類比は、汎用AI家庭教師のSaaSではなく、ストリーミングプラットフォームのアーティスト印税だ。B2Bの裾野として、コーパスやモデルチェックポイントをAIラボやエンボディドAIベンダーにライセンスする手もある。コーパスが十分育つまでは深追いしない。</li>
+</ul>
+<h2>何が防御の壁になるか</h2>
+<p>防御の壁は時間とともに移っていく。</p>
+<ul>
+<li><strong>双方向ネットワーク効果（フェーズ1〜2）。</strong> ある活動あたりの供給密度が100を超えたあたりから、マーケットプレイスは<em>デフォルトの行き先</em>になる。italki のロングテール言語は、単一ニッチ規模でこの閾値が現実に効くことを示している（<a href="https://www.italki.com/en/teachers/vietnamese" rel="nofollow">ベトナム語77名</a>）。Preply は同じフライホイールが12億ドル EBITDA 黒字規模まで複利で効くことを示した（<a href="https://techcrunch.com/2026/01/21/language-learning-marketplace-preplys-unicorn-status-embodies-ukrainian-resilience/" rel="nofollow">TechCrunch</a>）。さらに深い層が、<em>ガイドごとの</em>関係密度だ。ある職人と20時間の修正付き練習を積んだ学習者は、もう乗り換えない。ガイドあたりの年単位リテンションが、注視すべき指標になる。</li>
+<li><strong>ガイドごとに整理された録画コーパス（フェーズ3）。</strong> 同意のうえで記録される各セッションは、（一人称の手元映像、ガイドの修正、結果評価）の三つ組を捉える。ガイドごとのクローン講師を学習させるのに、まさに必要なアノテーションの形だ。量だけでは代替にならない。最先端のオープンデータセット（<a href="https://docs.ego-exo4d-data.org/" rel="nofollow">Ego-Exo4D</a>、約1,400時間、15機関のコンソーシアム、構築に2年）は、3年で10万〜30万セッションを積み上げる Waza のランプには遠く及ばない。同じモダリティで70〜215倍の差になる。ガイドごとの構造は、各クローンを「ガイド本人が所有するプロダクト」にする。フロンティアラボが横取りできる汎用データセットではなくなる。</li>
+<li><strong>カテゴリーブランド（2030年まで）。</strong> 「手を使って何かを学びたい」と思った消費者にとっての、デフォルトの答えになる。「Xを観たい」と思ったときの YouTube のように。後発のOEMやコンテンツプラットフォームは、コーパスとネットワーク効果の壁の上に、認知のギャップまで上乗せして直面する。エレベーターピッチに掲げた2030年の野心、それ自体が3つ目の壁になる。</li>
+</ul>
+<h2>何がテーゼを揺さぶるか</h2>
+<ol>
+<li><strong>2027年末までにスマートグラスは世界で5,000万台以上の消費者規模に届く。</strong> Meta の生産ガイダンスが2026年に1,500万を下回るか、海外展開が2027年上半期を越えて停滞するか（<a href="https://www.cnbc.com/2026/01/06/meta-ray-ban-display-ai-glasses-pause.html" rel="nofollow">CNBC</a>）、EU 規制が常時オンの消費者向けカメラを潰すと、揺らぐ。<em>手立て：</em> 学習者側はスマホ＋スタンドの代替運用を立ち上げから24か月走らせ、グラスのTAMが現実になるまでフェーズ2を保留する。</li>
+<li><strong>ライブ翻訳が、旅行フレーズだけでなく工芸の専門用語と方言でもセッション品質を維持する。</strong> 立ち上げ後、クロス言語セッションの30%超で「翻訳が重要な修正を壊した」と報告されると、揺らぐ。<em>手立て：</em> ベースMTの上に活動ごとの語彙ファインチューニング、ガイド承認の用語集、韻律を考慮した音声スコアリング。十中八九、ここに最も深い壁が居つく。</li>
+<li><strong>サプライ側のコールドスタートが機能する：6か月で4活動にわたり50名のガイド。</strong> 職人が録画を拒む（IP・著作者人格権・家元制度に近い規範）か、取り分が対面教育のレートを上回らないか、世代が高すぎてスマートグラスに馴染まない場合、揺らぐ。<em>手立て：</em> 既に Zoom で海外指導をしているガイドから始める。録画は早期に収益分配し、フェーズ3のクローン印税を複利の上振れとして提示する。ガイドごとに日本語堪能なオペレーションパートナーを置く。</li>
+<li><strong>録画セッションが、ガイドごとのクローン講師を学習させるのに十分なシグナルを捕える。</strong> 暗い厨房や屋外の庭で、手元距離の一人称映像が動きブレで荒く、細かな修正ラベルを取れないか、セッション末の評価がノイズだらけになる場合、揺らぐ。<em>手立て：</em> 手元距離の映像がボトルネックになる活動では、デュアルストリーム取得（グラス＋作業台の広角カメラ）。セッション単位ではなく、修正単位で評価UXを設計する。</li>
+<li><strong>既存勢（Apple／Meta／Google）がこのアーキテクチャに追いつくまでの猶予は18か月前後で持つ。</strong> OEM が6〜12か月で「専門家を探す」ネイティブ機能を出すか、リアルタイム生成動画が、評判密度が積み上がる前にレンズ越しに偽職人を本物と見分けがつかなくするか、スマートグラスの普及が停滞して窓が36か月超に伸びる（先行プレミアムが蒸発する）と、揺らぐ。<em>手立て：</em> ガイドごとのブランドと同意済みクローンを実質的な壁として握る。マーケットプレイスの表層自体は汎用化されうる。立ち上げ時点で双方の人間検証（World ID、認証済み約1,800万人、MEDIROM 経由で日本の3,000拠点に展開中。<a href="https://world.org/blog/announcements/world-id-full-stack-proof-of-human" rel="nofollow">World</a>、<a href="https://www.globenewswire.com/news-release/2026/01/23/3225091/0/en/MEDIROM-Forms-New-Special-Mission-Team-to-Drive-World-ID-Adoption-Across-3-000-Locations-Through-Partnership-with-Tools-for-Humanity.html" rel="nofollow">MEDIROM</a>）が、ディープフェイクと一次的な模倣の両方に対する信頼の錨になる。資金計画はタイトな前提に寄せる。窓がそれより広く出れば、コーパス品質が複利で効く。</li>
+</ol>
+<h2>V0実験</h2>
+<p><strong>検証すべき荷重前提：</strong> 学習者の手元の一人称視点は、遠隔の先生が修正できる対象を実質的に変えるのか。そして、手元視点と顔視点の流動的な切り替えは、実演と説明の両方を支えるのに自然と感じられるのか。翻訳・マーケットプレイス・決済・サプライはすべて下流の問いだ。この核となる主張が成立しなければ、何ひとつ意味を持たない。</p>
+<p><strong>セットアップ。</strong> 双方にスマホ1台、額固定ストラップ、カウンタースタンドを用意する。スマホは最初スタンドに立て、対面のセットアップと会話に使う。レッスンが必要とするときに、どちらかがストラップに移して自分の手元の一人称視点に切り替える。アイコンタクトを戻したいときはまたスタンドへ。音声は常時開きっぱなし。Meta Ray-Ban Display がやがてグラス上でネイティブに行うこと、つまり「相手の手元が見える」と「相手の顔が見える」のシームレスな切り替えに、今日において最も近い物理的な類比がこれだ。</p>
+<p><strong>活動。</strong> 並行調理。ヴィンセントと、その技法を実際に知っている友人が、それぞれのキッチンで同じ料理を同時に作る。友人は講義をするのではなく、自分も並行して作りながら、ヴィンセントのフィードに何か違和感があれば自然に修正する。レシピはヴィンセントが本当に知らないものを選ぶ。</p>
+<p><strong>計測項目。</strong> 友人が入れたすべての修正をタイムスタンプ付きで、フィード上で何を見て修正に至ったかのメモと一緒に記録する。最後に判定するための、写真撮影できる物理的な成果物（カットの精度、盛り付け、生地の形）を一つ。</p>
+<p><strong>セッション末の質問</strong>（一字一句このまま、録音して残す）：<br>
+<em>「私の手元視点から、手で持ったスマホ動画やYouTube式の一方向動画では拾えなかった、何が見えて、何を修正できましたか？」</em></p>
+<p><strong>合格：</strong> 友人が、一人称視点だからこそ可能になった具体的な修正を3つ以上挙げる。ふわっとではなく、具体的な瞬間として。<br>
+<strong>不合格：</strong> 友人が一人称視点固有の修正を挙げられない、もしくは一般的なもの（「よく見えた」など）しか挙げられない。<br>
+<strong>工数：</strong> エンドツーエンドで2日。機材調達、1セッション実施、書き起こしまで。<br>
+<strong>V0が合格したら、</strong> V1で本物の日本人ガイドを相手に、翻訳（GPT-Realtime-Translate）を重ねる。</p>
+</article></body></html>
