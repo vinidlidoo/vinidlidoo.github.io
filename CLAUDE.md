@@ -70,6 +70,7 @@ Enable per-post with `katex = true` in `[extra]`. Limitations:
 - `\mathrm{}` doesn't render inside `<details>` blocks—use plain text instead
 - `\begin{cases}` can be flaky—use inline prose for piecewise definitions
 - Standard commands (`\frac`, `\sqrt`, `\sum`, `\left`, `\right`) work fine
+- Two `$` in the same paragraph (e.g. `$25 ... $49`) get parsed as a math pair. Markdown escapes (`\$`, `\\$`) don't work cleanly with tabi's bundled auto-render. Fix: insert an empty `<span></span>` between the two `$`s to split the text node. Single `$` alone in a paragraph is safe.
 
 ## Footnotes
 
