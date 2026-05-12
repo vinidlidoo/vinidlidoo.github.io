@@ -259,3 +259,23 @@
 {"type":"mapping","en":"outcome (measurable result)","ja":"成果物 / 結果","avoid":"アウトカム","notes":"アウトカム is opaque loanword; 成果物 for tangible artifacts, 結果 for measured outcomes"}
 {"type":"mapping","en":"extinction-prone (cultural)","ja":"絶滅の危機","avoid":"絶滅危惧種","notes":"絶滅危惧種 is the formal biology term for endangered species; for figurative cultural-extinction risk, 絶滅の危機 is more natural"}
 {"type":"style","en":"em dash bracketing parenthetical","rule":"For 'X — Y — Z' patterns where Y is a parenthetical/restatement, replace dashes with つまり、 or split into a separate sentence with 。. Em dashes (――) must not appear in the final JA text even when the EN uses them for emphasis bracketing.","avoid":"――Y――"}
+{"type":"mapping","en":"voice-pilled (idiom)","ja":"完全に音声入力派と言い切れる","avoid":"音声入力派と言い切れるほどだ","notes":"'pilled' as a definitive identity statement; direct assertion preferred over hedged ほどだ"}
+{"type":"mapping","en":"lined up with what I was seeing","ja":"〜とぴったり重なる","avoid":"〜と一致していた","notes":"一致 is stiff for personal experience matching; 重なる reads more natural"}
+{"type":"mapping","en":"in-app version","ja":"アプリ内版","avoid":"アプリ内バージョン","notes":"バージョン is verbose loanword when 版 fits"}
+{"type":"mapping","en":"watched happen (consequential shift)","ja":"目撃した","avoid":"起きた","notes":"目撃した preserves the first-person witnessing nuance of 'watched happen'"}
+{"type":"mapping","en":"on its way out (default)","ja":"退場しつつある","domain":"general","notes":"natural for fading-out technology"}
+{"type":"mapping","en":"a chunk of (informal quantity)","ja":"少なくない部分","avoid":"かなりの部分","notes":"少なくない has slightly more nuance of 'non-trivial amount' than かなりの"}
+{"type":"mapping","en":"latency crept up","ja":"レイテンシが少しずつ伸びてきて","avoid":"レイテンシが上がってきて","notes":"crept up implies gradual increase; 少しずつ伸びる captures the gradualness"}
+{"type":"mapping","en":"reach for the shortcut","ja":"ショートカットに手を伸ばす","avoid":"ショートカットに手が伸びる","notes":"active 手を伸ばす matches first-person agency better than passive 手が伸びる"}
+{"type":"mapping","en":"turn (speech segment)","ja":"数文ぶんの発話","avoid":"ターン / ひと区切り","domain":"ai","notes":"ターン is jargon for chat turns; for spoken phrase-level units, 数文ぶんの発話 reads more concretely"}
+{"type":"mapping","en":"smart enough to follow","ja":"〜を追える程度には賢く","avoid":"〜を追従できる程度には賢く","notes":"追従 is mechanical/literal; 追える is the natural verb for 'follow' a prompt or argument"}
+{"type":"mapping","en":"hold up under (degraded audio)","ja":"〜にも耐えるよう作られている","avoid":"〜でも持ちこたえるように作られている","notes":"持ちこたえる has emergency-survival nuance; 耐える is the standard JA verb for engineering robustness"}
+{"type":"mapping","en":"speech-to-text model","ja":"音声認識モデル","avoid":"音声テキスト変換モデル","domain":"ai","notes":"音声認識 is the established JA term for speech-to-text/ASR; 音声テキスト変換 is a literal calque"}
+{"type":"mapping","en":"the developer you can reach","ja":"開発者に直接連絡できる","notes":"natural rendering; avoids 連絡が取れる passive feel"}
+{"type":"mapping","en":"acknowledged (bug report)","ja":"把握され","avoid":"認識され / 受け止められ","notes":"把握 captures 'recognized and understood' for technical issue triage; 受け止め has emotional nuance, 認識 is too cognitive-only"}
+{"type":"mapping","en":"build (verb, software product)","ja":"作る","avoid":"構築する","domain":"business","notes":"構築する is corporate/heavy; for startup product framing 作る reads more like Vincent's voice"}
+{"type":"mapping","en":"steepening curve","ja":"勾配を増していくカーブ","avoid":"急峻になりつつあるカーブ","notes":"急峻 is geographic (cliffs); 勾配を増す is the natural JA phrase for curves and rates"}
+{"type":"mapping","en":"helpful reminder","ja":"忘れずにおきたいのは","avoid":"忘れずに思い出したいのは","notes":"思い出す implies recalling something forgotten; 忘れずにおく captures 'keep in mind' more naturally"}
+{"type":"mapping","en":"muscle memory","ja":"指先の感覚","avoid":"筋肉の記憶","notes":"筋肉の記憶 is a literal calque; for keyboard-typing context, 指先の感覚 (the feel of the fingertips) reads natural in JA"}
+{"type":"mapping","en":"skip the layout","ja":"レイアウトの問題そのものを飛ばせる","avoid":"レイアウトをすっ飛ばせる","notes":"すっ飛ばす is too colloquial; 飛ばす keeps casual register without slang"}
+{"type":"style","en":"BYOK and similar acronym-as-feature","rule":"When EN frames an acronym followed by colon ('BYOK: you bring your own keys'), do not split into two short sentences. Use 「BYOK方式でもあり、〜」 or 「BYOK方式でもある。〜」to connect the gloss to the noun-phrase frame.","avoid":"BYOKでもある。使うモデルのAPIキーを自分で持ち込む形だ。"}
