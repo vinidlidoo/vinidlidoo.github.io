@@ -2,7 +2,7 @@
 name: transcript-researcher
 description: Parses conversation transcripts to produce prioritized briefs for
   blog post outline writers. Use when source material is too large for main context.
-tools: Read, Grep, Glob
+tools: Read, Write, Grep, Glob
 model: opus
 ---
 
@@ -15,6 +15,7 @@ writer what to cover and in what order.
 ## Input
 
 You'll be given:
+
 - A **high-level topic** for the blog post being planned
 - A **path to a transcript file** in `drafts/transcripts/`
 
