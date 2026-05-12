@@ -244,3 +244,18 @@
 {"type":"mapping","en":"SNARK family (leave the X family)","ja":"SNARKの枠組み","avoid":"SNARK族 / SNARKの系統","domain":"cryptography","notes":"'family' as a conceptual grouping of cryptographic constructions; 枠組み (framework) reads more natural than literal 族 or 系統 in technical Japanese"}
 {"type":"mapping","en":"modern ZK proof systems","ja":"現代のZK証明システム","domain":"cryptography","notes":"使う際は同段落内の 実運用のZKシステム と区別: 証明システム = theoretical constructions (Groth16/PLONK/STARK), ZKシステム = deployed real-world systems"}
 {"type":"mapping","en":"SNARK proof","ja":"SNARK証明","domain":"cryptography","notes":"matches existing ZK証明 pattern; do not katakanize as SNARKプルーフ"}
+{"type":"mapping","en":"anti-customer (segment)","ja":"対象外の顧客","avoid":"アンチカスタマー","domain":"business","notes":"unnecessary loanword; 対象外の顧客 reads naturally in JA business writing"}
+{"type":"mapping","en":"vertical (e-commerce)","ja":"領域 / カテゴリー","avoid":"バーティカル","domain":"business","notes":"バーティカル is unnecessary loanword in business prose; 領域 or カテゴリー is natural"}
+{"type":"mapping","en":"closing demand (sales)","ja":"需要を獲得する","avoid":"需要をクロージングする","domain":"business","notes":"クロージング is jargon; 獲得する captures the meaning naturally"}
+{"type":"mapping","en":"top-of-funnel","ja":"入り口","avoid":"トップオブファネル","domain":"business","notes":"loanword 'top-of-funnel' is opaque in JA; 入り口 conveys the funnel-entry meaning natively"}
+{"type":"mapping","en":"glossary (live translation context)","ja":"用語集","avoid":"グロッサリー","notes":"unnecessary loanword"}
+{"type":"mapping","en":"upside (financial)","ja":"上振れ / 副次的な上振れ","avoid":"アップサイド","domain":"business","notes":"アップサイド loanword can usually be replaced with 上振れ in JA business prose"}
+{"type":"mapping","en":"interaction (per-use)","ja":"やり取り","avoid":"インタラクション","notes":"インタラクション is jargon; やり取り fits per-use AI/marketplace contexts"}
+{"type":"mapping","en":"launch (verb, startup)","ja":"立ち上げ / 立ち上げる","avoid":"ローンチ","domain":"business","notes":"ローンチ is unnecessary loanword for startup launches; 立ち上げ is the natural JA business verb"}
+{"type":"mapping","en":"rate-limited by (capacity)","ja":"〜に頭打ちになっている","avoid":"〜に律速されている","notes":"律速 is chemistry/engineering jargon; for capacity-limited business contexts (travel, classroom seats), 頭打ち is more natural"}
+{"type":"mapping","en":"ergonomic (consumer-level)","ja":"身体的に無理なく","avoid":"エルゴノミック","notes":"エルゴノミック as a katakana adjective reads as marketing jargon; 身体的に無理なく conveys the functional meaning"}
+{"type":"mapping","en":"commoditizable (technology)","ja":"汎用化されうる","avoid":"商品化されうる","domain":"business","notes":"商品化 means 'turned into a product' (positive); commoditize in tech business context means 'becomes interchangeable / loses differentiation' = 汎用化"}
+{"type":"mapping","en":"noisy (data)","ja":"ノイズだらけ","avoid":"ノイジー","domain":"data","notes":"ノイジー is conversational English calque; ノイズだらけ or ノイズが多い are natural JA"}
+{"type":"mapping","en":"outcome (measurable result)","ja":"成果物 / 結果","avoid":"アウトカム","notes":"アウトカム is opaque loanword; 成果物 for tangible artifacts, 結果 for measured outcomes"}
+{"type":"mapping","en":"extinction-prone (cultural)","ja":"絶滅の危機","avoid":"絶滅危惧種","notes":"絶滅危惧種 is the formal biology term for endangered species; for figurative cultural-extinction risk, 絶滅の危機 is more natural"}
+{"type":"style","en":"em dash bracketing parenthetical","rule":"For 'X — Y — Z' patterns where Y is a parenthetical/restatement, replace dashes with つまり、 or split into a separate sentence with 。. Em dashes (――) must not appear in the final JA text even when the EN uses them for emphasis bracketing.","avoid":"――Y――"}
