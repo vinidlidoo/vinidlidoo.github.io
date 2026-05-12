@@ -1,6 +1,6 @@
 +++
 title = "Just Dictation"
-date = 2026-05-05
+date = 2026-05-11
 updated = 2026-05-11
 description = "How a $25 indie Mac app replaced my keyboard. No subscription, no voice OS required."
 
