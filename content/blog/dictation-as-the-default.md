@@ -1,7 +1,7 @@
 +++
 title = "Just Dictation"
 date = 2026-05-11
-updated = 2026-05-11
+updated = 2026-05-12
 description = "How a $25 indie Mac app replaced my keyboard. No subscription, no voice OS required."
 
 [taxonomies]
@@ -14,7 +14,7 @@ social_media_card = "img/dictation-as-the-default-banner.webp"
 
 ![A vintage keyboard sits behind glass on a wooden desk with a brass plaque reading 1984–2026, while a modern cardioid condenser microphone, recording light glowing red, stands sharply lit in the foreground.](/img/dictation-as-the-default-banner.webp)
 
-I started experimenting with dictation on macOS last summer. Apple's native dictation had been bothering me for a while, and ChatGPT's in-app version made it pretty clear the underlying tech was well ahead of what Apple was shipping. I'd done some ASR benchmarking at Amazon a few years back, which lined up with what I was seeing: state-of-the-art was moving quickly, and OS-native dictation wasn't keeping up.
+I started experimenting with dictation on macOS last summer. Apple's native dictation had been bothering me for a while, and ChatGPT's in-app version made it pretty clear the underlying tech was well ahead of what Apple was shipping. I'd done some Automatic Speech Recognition (ASR) benchmarking at Amazon a few years back, which lined up with what I was seeing: state-of-the-art was moving quickly, and OS-native dictation wasn't keeping up.
 
 So I started looking around. Like most people, I evaluated Wispr Flow and the other popular Mac dictation apps before landing on VoiceInk. For most of the year, I used it sporadically and was happy enough with it. About a month ago, that changed, and my usage went up sharply. So much so that at this point I'm officially, completely voice-pilled. And I'm glad I picked [VoiceInk](https://tryvoiceink.com/) when I did.
 
@@ -58,16 +58,16 @@ The other thing you get with VoiceInk is a developer you can reach. When VoiceIn
 
 ## Beyond dictation
 
-This is where "dictation" becomes too small a word.
+Though at this point, calling VoiceInk 'dictation' software is already too small a word.
 
 Take the trigger words. I have one mapped to "assistant": when a dictation starts with the word, VoiceInk routes the transcript to a different prompt that tells Gemini to *answer* the question rather than transcribe it. So "assistant, what is the time difference between London and Tokyo?" pastes the answer where my cursor sits, no chat window or copy-paste round trip. The dictation shortcut doubles as a one-shot LLM shortcut.
 
-Or the custom prompt that handles most of my utterances. One line in mine reads: *"If my dictation ends with 'Fix my rambling,' treat everything before it as a rough draft and return a streamlined version of what I meant."* When I'm thinking out loud and the output isn't tight enough, I tack on "fix my rambling" and the model rewrites its own first pass. What lands in my editor reads closer to what I would have typed if I'd taken the time. Another line, added last week: *"If my dictation ends with 'in LaTeX,' write the math in LaTeX surrounded by $."* So I can say "sum from i equals zero to n of x sub i, in LaTeX" and get `$\sum_{i=0}^n x_i$` pasted where my cursor is. That closed a gap I'd been working around for a year.
+Or the custom prompt that handles most of my utterances. One line: *"If my dictation ends with 'Fix my rambling,' treat everything before it as a rough draft and return a streamlined version of what I meant."* When the output isn't tight enough, I tack on "fix my rambling" and the model rewrites its first pass into something closer to what I would have typed if I'd taken the time. Another line, added last week: *"If my dictation ends with 'in LaTeX,' write the math in LaTeX surrounded by $."* So "sum from i equals zero to n of x sub i, in LaTeX" pastes `$\sum_{i=0}^n x_i$` where my cursor sits.
 
 ![Two-row diagram titled "Same Shortcut, Different Outputs". Row 1 shows a rambling spoken draft ending with the trigger phrase "fix my rambling" being cleaned up into a tight two-sentence message in a macOS editor window. Row 2 shows the spoken phrase "sum from i equals zero to n of x sub i, in LaTeX" rendering as the mathematical summation notation in an editor window.](/img/dictation-as-the-default-triggers.webp)
 
-Or the multilingual capture. The transcription model figures out which of English, French, and Japanese I'm speaking on its own. My keyboard can only print one layout and the other two live in muscle memory; dictating skips the layout entirely.
+Or the multilingual capture. The transcription model figures out which of English, French, and Japanese I'm speaking on its own. My keyboard can only print one layout and the other two live in muscle memory, whereas dictating skips the layout entirely.
 
-It's not all there yet. One rough patch I keep hitting is the long tail of names and acronyms specific to my world. VoiceInk has a custom dictionary, but I have to populate it word by word, and what I'd want is for the app to flag the words it likely didn't understand and let me confirm them in a batch later.
+It's not all there yet. One rough patch I keep hitting is the long tail of names and acronyms specific to my world. VoiceInk has a custom dictionary, but I have to populate it word by word, and what I'd want is for the app to flag the words it likely didn't understand and let me confirm them in a batch later. Then there's latency. One to two seconds is great, don't get me wrong, but it's not yet fast enough that I stop noticing the wait.  
 
-I expect the remaining latency and accuracy gaps to close fast, and dictation to fold into a bigger category whose name is still up for grabs (Voice AI, AI-first computing?). The whole stack is on a steepening curve. As with everything in AI right now, the helpful reminder is: what we're using today is the worst version we'll ever use.
+I expect the remaining latency and accuracy gaps to close fast, and dictation to fold into a bigger category whose name is still up for grabs (Voice AI, Voice computing?). The whole stack is on a steepening curve. Two demos from the past couple of weeks hint at what might come next: OpenAI's gpt-realtime-1.5 [controlling an app's UI by voice](https://x.com/OpenAIDevs/status/2048871260512473385), and Google DeepMind's [Gemini-powered pointer](https://x.com/GoogleDeepMind/status/2054246119635300451) driven by motion and speech. As with everything in AI right now, a helpful reminder is what we're using today is the worst version we'll ever use. And that's already really good.
