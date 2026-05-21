@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Shared pages</title>
+<title>Ray-Ban Meta — what I learned this afternoon</title>
 <style>
 .markdown-body {
   --base-size-16: 1rem;
@@ -1253,13 +1253,47 @@
 html{color-scheme:light dark}
 body{box-sizing:border-box;min-width:200px;max-width:980px;margin:0 auto;padding:45px;background:Canvas;color:CanvasText}
 @media (max-width:767px){body{padding:15px}}
-.meta{opacity:.6;font-size:.9em}
 </style></head><body><article class="markdown-body">
-<h1>Shared pages</h1>
+<h1>Ray-Ban Meta — what I learned this afternoon</h1>
+<p>After our chat this morning, I spent a few hours digging into Meta's developer SDK, its distribution path, and its terms of service. Three findings. References at the bottom if you want to pull on any of these threads.</p>
+<h2>1. What the third-party developer platform actually lets you do today</h2>
+<p>Meta shipped the <strong>Wearables Device Access Toolkit</strong> (DAT) in September 2025 as a developer preview. The iOS and Android SDKs are public on GitHub. The most useful proof point I found is a small third-party iOS app called <strong>Streamhand</strong>, currently shipping via TestFlight, which bridges the glasses camera into an RTMP stream (Twitch / YouTube / TikTok). I installed it this afternoon and confirmed it works end-to-end.</p>
+<p>The distribution picture as it stands:</p>
 <ul>
-<li><a href="waza-glasses-deep-dive.html">Ray-Ban Meta — what I learned this afternoon</a> <span class="meta">— 2026-05-21</span></li>
-<li><a href="waza-ja.html">Waza</a> <span class="meta">— 2026-05-07</span></li>
-<li><a href="smart-glasses-landscape-2026.html">Smart Glasses Landscape 2026</a> <span class="meta">— 2026-05-07</span></li>
-<li><a href="prediction-markets-comparison.html">How Prediction Markets Get Born — Polymarket vs Kalshi</a> <span class="meta">— 2026-05-06</span></li>
+<li><strong>Select partners</strong> (Disney parks, 18Birdies, Logitech's Streamlabs, Twitch's own forthcoming app) ship with no extra friction. Negotiated case-by-case with Meta.</li>
+<li><strong>Public third-party apps</strong> can reach general users, but the user has to enable "Developer Mode" in the Meta AI app once before pairing. One-time toggle, real friction at consumer scale.</li>
+<li><strong>Internal-only preview builds</strong> is where most developers sit today, via Meta's release channels.</li>
+</ul>
+<p>The earlier concern that DAT-based iOS apps couldn't pass Apple's App Store / MFi review at all appears partly resolved — Streamhand exists in TestFlight, which suggests the underlying SDK is no longer guaranteed to fail Apple review.</p>
+<h2>2. Transport — Bluetooth Classic on the public path, Wi-Fi an open question</h2>
+<p>Meta's docs say the public DAT path runs over <strong>Bluetooth Classic</strong>, capped at 720×1280 portrait with adaptive compression. I confirmed by running Streamhand with my iPhone in airplane mode plus Bluetooth-only. The glasses camera preview kept streaming. 720p portrait on a phone-sized screen looks pretty good in practice.</p>
+<p>What I still don't know: whether <strong>WhatsApp's mid-call glasses video</strong> uses the same Bluetooth path or a separate privileged Wi-Fi data plane. My earlier assumption that WhatsApp used Wi-Fi came from extrapolating Niels Hofmans' 2023 reverse-engineering of Ray-Ban Stories, but Hofmans was looking at photo / video <em>offload</em>, not live calls. Easy test to run — WhatsApp call on cellular only, switch camera to glasses, see if the feed continues. I'll do that later this week.</p>
+<h2>3. Meta's posture on data ownership</h2>
+<p>The most consequential read of the afternoon. Meta's Wearables Developer Terms (last updated October 2025) define "Technology Data" extremely broadly — every video frame, audio sample, and anything derived from them (embeddings, model weights, aggregate statistics). Permitted uses are a closed list of two, the load-bearing one being:</p>
+<blockquote>
+<p><em>Running, supporting and maintaining your Integration in order to securely provide or improve the experience requested by <strong>the end user from whom the Technology Data was collected</strong>.</em></p>
+</blockquote>
+<p>Cross-user training — using Person A's sessions to build a model that helps Person B — does not fit that carve-out under a strict reading. Specific prohibitions:</p>
+<ul>
+<li><strong>No selling, licensing, purchasing, or renting Technology Data.</strong></li>
+<li><strong>No processing for purposes outside the permitted list.</strong></li>
+<li><strong>Right-to-be-forgotten extends to derivative models</strong> under a strict reading. A user who deletes their account can demand deletion of their data and arguably of model weights trained on it.</li>
+</ul>
+<p>Four paths remain open:</p>
+<ol>
+<li><strong>Within-user retention</strong> — personalizing the experience for the same user across their own sessions is permitted.</li>
+<li><strong>Negotiated partner-level addendum</strong> — Meta has contractual machinery to grant per-partner extensions; an existing Healthcare Addendum template shows how it works. Same channel that privileged sensor access (Wi-Fi data plane, etc.) probably flows through.</li>
+<li><strong>Express user-directed sharing</strong> with documented consent — useful for narrow delegation like translation or transcription.</li>
+<li><strong>Dual-capture outside DAT</strong> — data captured by a separate bench camera or a learner-side phone falls entirely outside these terms. Meta has no contractual claim. Architecturally, the live interactive layer can run on DAT while a separate sensor builds whatever persistent corpus the product wants.</li>
+</ol>
+<p>Worth keeping in mind: Meta is one platform option among several. Snap Spectacles, Android XR glasses from Samsung / XREAL, and Apple's expected first-gen will each land somewhere different on both the openness curve and the data-ownership spectrum. The Meta read is a useful early data point, not a constraint on the project's design.</p>
+<h2>References</h2>
+<ul>
+<li><a href="https://developers.meta.com/blog/introducing-meta-wearables-device-access-toolkit/" rel="nofollow">Meta Wearables Device Access Toolkit blog</a> — Sept 2025 announcement, updated Dec 2025</li>
+<li><a href="https://wearables.developer.meta.com/terms/" rel="nofollow">Meta Wearables Developer Terms</a> — the contract, last updated Oct 2025</li>
+<li><a href="https://thestreamhand.com/guides/meta-glasses" rel="nofollow">Streamhand — Stream from Ray-Ban Meta to Any Platform</a> — the public-third-party iOS exemplar</li>
+<li><a href="https://www.logitech.com/blog/2025/09/18/streaming-beyond-the-screen-what-ai-glasses-mean-for-creators/" rel="nofollow">Logitech blog — Streamlabs + Meta Wearables DAT</a> — select-partner integration</li>
+<li><a href="https://blog.twitch.tv/en/2025/10/17/ten-years-of-twitchcon-here-s-what-we-announced-in-san-diego/" rel="nofollow">Twitch blog — TwitchCon SD 2025 announcements</a> — Twitch's own first-party glasses streaming roadmap</li>
+<li><a href="https://code-byter.com/2023/09/24/rayban-hacking.html" rel="nofollow">Niels Hofmans — Ray-Ban Stories reverse-engineering (2023)</a> — the original Wi-Fi / HTTPS-server work on the predecessor product</li>
 </ul>
 </article></body></html>
