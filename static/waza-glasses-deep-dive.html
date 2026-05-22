@@ -1269,28 +1269,28 @@ body{box-sizing:border-box;min-width:200px;max-width:980px;margin:0 auto;padding
 <p>Meta's docs say the public DAT path runs over <strong>Bluetooth Classic</strong>, capped at 720×1280 portrait with adaptive compression. I confirmed by running Streamhand with my iPhone in airplane mode plus Bluetooth-only. The glasses camera preview kept streaming. 720p portrait on a phone-sized screen looks pretty good in practice.</p>
 <p>What I still don't know: whether <strong>WhatsApp's mid-call glasses video</strong> uses the same Bluetooth path or a separate privileged Wi-Fi data plane. My earlier assumption that WhatsApp used Wi-Fi came from extrapolating Niels Hofmans' 2023 reverse-engineering of Ray-Ban Stories, but Hofmans was looking at photo / video <em>offload</em>, not live calls. Easy test to run — WhatsApp call on cellular only, switch camera to glasses, see if the feed continues. I'll do that later this week.</p>
 <h2>3. Meta's posture on data ownership</h2>
-<p>The most consequential read of the afternoon. Meta's Wearables Developer Terms (last updated October 2025) define "Technology Data" extremely broadly — every video frame, audio sample, and anything derived from them (embeddings, model weights, aggregate statistics). Permitted uses are a closed list of two, the load-bearing one being:</p>
+<p>The part I revised most after re-reading the terms. Meta's Wearables Developer Terms (last updated October 2025) define "Technology Data" broadly — every video frame, audio sample, and anything derived from them (embeddings, model weights, aggregate statistics). The headline permitted use in Section 5.1.1 is:</p>
 <blockquote>
 <p><em>Running, supporting and maintaining your Integration in order to securely provide or improve the experience requested by <strong>the end user from whom the Technology Data was collected</strong>.</em></p>
 </blockquote>
-<p>Cross-user training — using Person A's sessions to build a model that helps Person B — does not fit that carve-out under a strict reading. Specific prohibitions:</p>
+<p>That clause is ambiguous. A strict per-user reading says User A's data can only flow into User A's experience — cross-user training is foreclosed. A service-improvement reading says the trailing qualifier just identifies the data <em>source</em> (it has to come from users of the Integration), and improvements can benefit other users — which is how every commercial-software ML clause gets drafted. Meta wrote it both ways. Section 5.2.1 ("any purpose other than those described in the Terms") is the backstop that lets them arbitrate which reading applies after the fact, and they retain audit rights to enforce.</p>
+<p>So it splits into <strong>categorical vs. gray</strong>:</p>
 <ul>
-<li><strong>No selling, licensing, purchasing, or renting Technology Data.</strong></li>
-<li><strong>No processing for purposes outside the permitted list.</strong></li>
-<li><strong>Right-to-be-forgotten extends to derivative models</strong> under a strict reading. A user who deletes their account can demand deletion of their data and arguably of model weights trained on it.</li>
+<li><strong>Categorical</strong>: no selling, licensing, or renting of Technology Data or models derived from it (5.2.2); no re-identification of pseudonymized data; no HIPAA-class data without a separate addendum; raw user data deleted on request or account deletion.</li>
+<li><strong>Gray</strong>: cross-user model training — plausibly permitted under the service-improvement reading, exposed under the strict one. Long-term retention of derivative model weights after a user leaves depends on whether the model can be linked back to individual users; federated learning, aggregation, and differential privacy help, memorization-prone training hurts.</li>
 </ul>
-<p>Four paths remain open:</p>
+<p>Paths that stay clean regardless of which way Meta reads its own terms:</p>
 <ol>
-<li><strong>Within-user retention</strong> — personalizing the experience for the same user across their own sessions is permitted.</li>
-<li><strong>Negotiated partner-level addendum</strong> — Meta has contractual machinery to grant per-partner extensions; an existing Healthcare Addendum template shows how it works. Same channel that privileged sensor access (Wi-Fi data plane, etc.) probably flows through.</li>
-<li><strong>Express user-directed sharing</strong> with documented consent — useful for narrow delegation like translation or transcription.</li>
-<li><strong>Dual-capture outside DAT</strong> — data captured by a separate bench camera or a learner-side phone falls entirely outside these terms. Meta has no contractual claim. Architecturally, the live interactive layer can run on DAT while a separate sensor builds whatever persistent corpus the product wants.</li>
+<li><strong>Capture outside DAT.</strong> A bench camera or learner's phone is the user's data, not Meta's Technology Data, and sits entirely outside these terms. A dual-capture architecture (glasses POV for the live experience + bench camera for the persistent corpus) is the strongest architectural hedge.</li>
+<li><strong>Negotiated partner addendum.</strong> Meta has the contractual machinery (the Healthcare Addendum is the existing template) to convert gray into written permission for partners that need it.</li>
+<li><strong>Within-user retention.</strong> Storing a user's history to improve their own future experience is permitted under either reading.</li>
 </ol>
-<p>Worth keeping in mind: Meta is one platform option among several. Snap Spectacles, Android XR glasses from Samsung / XREAL, and Apple's expected first-gen will each land somewhere different on both the openness curve and the data-ownership spectrum. The Meta read is a useful early data point, not a constraint on the project's design.</p>
+<p>Meta is one platform option among several, and Apple's regime works differently. App Store Review Guideline 5.1.2 regulates the <em>process</em> — disclosure, consent, deletion — but Apple doesn't claim ownership over the content of user data or enumerate permitted purposes. Under Apple, anything is permissible with sufficient disclosure and opt-in. Under Meta WDAT, even with consent, the use has to fit a permitted purpose that Meta gets to interpret. Snap Spectacles, Android XR glasses, and Apple's expected first-gen will each land somewhere different on both the openness curve and the data-ownership spectrum. The Meta read is a useful early data point, not a constraint on the project's design.</p>
 <h2>References</h2>
 <ul>
 <li><a href="https://developers.meta.com/blog/introducing-meta-wearables-device-access-toolkit/" rel="nofollow">Meta Wearables Device Access Toolkit blog</a> — Sept 2025 announcement, updated Dec 2025</li>
 <li><a href="https://wearables.developer.meta.com/terms/" rel="nofollow">Meta Wearables Developer Terms</a> — the contract, last updated Oct 2025</li>
+<li><a href="https://developer.apple.com/app-store/review/guidelines/#privacy" rel="nofollow">Apple App Store Review Guidelines — Section 5.1 (Privacy)</a> — the Apple-side comparison point</li>
 <li><a href="https://thestreamhand.com/guides/meta-glasses" rel="nofollow">Streamhand — Stream from Ray-Ban Meta to Any Platform</a> — the public-third-party iOS exemplar</li>
 <li><a href="https://www.logitech.com/blog/2025/09/18/streaming-beyond-the-screen-what-ai-glasses-mean-for-creators/" rel="nofollow">Logitech blog — Streamlabs + Meta Wearables DAT</a> — select-partner integration</li>
 <li><a href="https://blog.twitch.tv/en/2025/10/17/ten-years-of-twitchcon-here-s-what-we-announced-in-san-diego/" rel="nofollow">Twitch blog — TwitchCon SD 2025 announcements</a> — Twitch's own first-party glasses streaming roadmap</li>
