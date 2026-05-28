@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NavigateAI — Company Profile</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --bg-elev: #161b22;
+    --bg-card: #1c2128;
+    --border: #30363d;
+    --text: #e6edf3;
+    --text-dim: #8b949e;
+    --hard-hat: #ffd23f;
+    --safety: #ff6b35;
+    --ai-purple: #b388ff;
+    --ai-cyan: #06d6a0;
+    --warn: #ff5c8a;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 32px 24px 80px; }
+
+  .hero {
+    position: relative;
+    padding: 56px 36px;
+    border-radius: 24px;
+    background:
+      radial-gradient(circle at 0% 0%, rgba(179,136,255,0.25), transparent 50%),
+      radial-gradient(circle at 100% 100%, rgba(255,107,53,0.22), transparent 50%),
+      linear-gradient(135deg, #1a1f2e, #14182a);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    margin-bottom: 36px;
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(45deg, transparent 48%, rgba(255,210,63,0.04) 49%, rgba(255,210,63,0.04) 51%, transparent 52%);
+    background-size: 24px 24px;
+    pointer-events: none;
+  }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,210,63,0.12);
+    color: var(--hard-hat);
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border: 1px solid rgba(255,210,63,0.3);
+  }
+  .eyebrow .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--hard-hat);
+    box-shadow: 0 0 8px var(--hard-hat);
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+  h1.title {
+    font-size: clamp(40px, 7vw, 68px);
+    margin: 20px 0 8px;
+    line-height: 1.05;
+    background: linear-gradient(120deg, #fff 30%, var(--ai-purple) 70%, var(--safety) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  .tagline {
+    font-size: 20px;
+    color: var(--text-dim);
+    max-width: 720px;
+    margin: 0 0 28px;
+  }
+  .hero-chips { display: flex; flex-wrap: wrap; gap: 10px; }
+  .chip {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    color: var(--text);
+  }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 14px;
+    margin-bottom: 48px;
+  }
+  .stat {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .stat:hover { transform: translateY(-2px); border-color: var(--ai-purple); }
+  .stat .label { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
+  .stat .value { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; }
+  .stat .sub { font-size: 12px; color: var(--text-dim); margin-top: 4px; }
+  .stat.accent-purple .value { color: var(--ai-purple); }
+  .stat.accent-cyan .value { color: var(--ai-cyan); }
+  .stat.accent-orange .value { color: var(--safety); }
+  .stat.accent-yellow .value { color: var(--hard-hat); }
+
+  h2 {
+    font-size: 28px;
+    margin: 56px 0 20px;
+    letter-spacing: -0.01em;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  h2::before {
+    content: "";
+    width: 4px; height: 24px;
+    border-radius: 2px;
+    background: var(--ai-purple);
+  }
+  h2.orange::before { background: var(--safety); }
+  h2.yellow::before { background: var(--hard-hat); }
+  h2.cyan::before { background: var(--ai-cyan); }
+  h3 { font-size: 18px; margin: 24px 0 12px; color: var(--text); }
+  p { margin: 0 0 14px; }
+  a { color: var(--ai-cyan); }
+
+  .tldr {
+    background: linear-gradient(135deg, rgba(179,136,255,0.12), rgba(6,214,160,0.06));
+    border: 1px solid rgba(179,136,255,0.3);
+    border-radius: 16px;
+    padding: 24px 28px;
+    margin-bottom: 40px;
+  }
+  .tldr .lbl { font-size: 11px; letter-spacing: 0.12em; color: var(--ai-purple); font-weight: 700; text-transform: uppercase; }
+  .tldr p { font-size: 17px; margin: 10px 0 0; }
+
+  .timeline { position: relative; padding-left: 32px; margin: 24px 0; }
+  .timeline::before {
+    content: "";
+    position: absolute; left: 8px; top: 8px; bottom: 8px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--ai-purple), var(--safety));
+  }
+  .t-item { position: relative; margin-bottom: 22px; }
+  .t-item::before {
+    content: "";
+    position: absolute; left: -32px; top: 6px;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 3px solid var(--ai-purple);
+  }
+  .t-item.orange::before { border-color: var(--safety); }
+  .t-item.cyan::before { border-color: var(--ai-cyan); }
+  .t-item.yellow::before { border-color: var(--hard-hat); }
+  .t-year { display: inline-block; font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 4px; background: var(--bg-card); border: 1px solid var(--border); color: var(--text-dim); margin-bottom: 4px; }
+  .t-title { font-weight: 600; margin-bottom: 4px; }
+  .t-body { color: var(--text-dim); font-size: 14px; }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+    margin: 16px 0;
+  }
+  .product-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    border-top: 3px solid var(--ai-cyan);
+  }
+  .product-card:nth-child(2) { border-top-color: var(--ai-purple); }
+  .product-card:nth-child(3) { border-top-color: var(--safety); }
+  .product-card:nth-child(4) { border-top-color: var(--hard-hat); }
+  .product-card .icon { font-size: 22px; margin-bottom: 8px; }
+  .product-card .name { font-weight: 700; margin-bottom: 6px; }
+  .product-card .desc { font-size: 14px; color: var(--text-dim); }
+
+  .moat-stack { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
+  .moat-layer {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--ai-purple);
+    border-radius: 10px;
+    padding: 16px 20px;
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+  .moat-layer:nth-child(1) { border-left-color: var(--hard-hat); }
+  .moat-layer:nth-child(2) { border-left-color: var(--ai-cyan); }
+  .moat-layer:nth-child(3) { border-left-color: var(--ai-purple); }
+  .moat-layer:nth-child(4) { border-left-color: var(--safety); }
+  .moat-layer:nth-child(5) { border-left-color: var(--warn); }
+  .moat-num {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 16px;
+    color: var(--text);
+  }
+  .moat-title { font-weight: 600; margin-bottom: 6px; }
+  .moat-body { color: var(--text-dim); font-size: 14px; }
+
+  blockquote.pull {
+    margin: 28px 0;
+    padding: 24px 28px;
+    background: rgba(255,107,53,0.06);
+    border-left: 4px solid var(--safety);
+    border-radius: 0 14px 14px 0;
+    font-size: 19px;
+    font-style: italic;
+    color: var(--text);
+  }
+  blockquote.pull cite {
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    font-style: normal;
+    color: var(--text-dim);
+  }
+
+  .investors {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    margin: 16px 0;
+  }
+  .inv-bucket {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+  }
+  .inv-bucket .ttl { font-size: 11px; letter-spacing: 0.08em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 8px; font-weight: 700; }
+  .inv-bucket ul { list-style: none; padding: 0; margin: 0; }
+  .inv-bucket li { font-size: 13px; padding: 3px 0; color: var(--text); }
+
+  .drivers { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin: 16px 0; }
+  .driver { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 18px; text-align: center; }
+  .driver .ico { font-size: 36px; margin-bottom: 8px; }
+  .driver .ttl { font-weight: 700; margin-bottom: 6px; }
+  .driver .sub { font-size: 13px; color: var(--text-dim); }
+
+  .refs { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 20px 28px; margin-top: 40px; }
+  .refs h2 { margin-top: 0; font-size: 18px; }
+  .refs h2::before { background: var(--text-dim); height: 18px; }
+  .refs ul { padding-left: 18px; margin: 0; }
+  .refs li { padding: 4px 0; font-size: 14px; }
+
+  footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    color: var(--text-dim);
+    font-size: 12px;
+    text-align: center;
+  }
+
+  @media (max-width: 640px) {
+    .wrap { padding: 16px 14px 60px; }
+    .hero { padding: 36px 22px; border-radius: 18px; }
+    h2 { font-size: 22px; margin-top: 40px; }
+    blockquote.pull { padding: 18px 20px; font-size: 17px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <section class="hero">
+    <span class="eyebrow"><span class="dot"></span>Launched May 26, 2026</span>
+    <h1 class="title">NavigateAI</h1>
+    <p class="tagline">The AI copilot for the physical world — vertical AI for construction trades, built by Opendoor's Eric Wu.</p>
+    <div class="hero-chips">
+      <span class="chip">🏗️ Construction Tech</span>
+      <span class="chip">🤖 Applied AI</span>
+      <span class="chip">🥽 Meta Smart Glasses</span>
+      <span class="chip">🇺🇸 San Francisco</span>
+    </div>
+  </section>
+
+  <div class="tldr">
+    <span class="lbl">TL;DR</span>
+    <p>Eric Wu's act 2 after Opendoor. NavigateAI puts a real-time AI coach on every trades worker's phone (and Meta glasses), post-trained on each client's standards — Lennar's QC checklist, Tishman's specs, AIM's apprentice curriculum. $25M seed at a $225M post, led by Elad Gil. Origin story: Wu spent Opendoor's peak managing 10,000 subcontractors and $750M/yr of renovations and decided the labor problem was the real unlock.</p>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat accent-purple">
+      <div class="label">Seed Round</div>
+      <div class="value">$25M</div>
+      <div class="sub">at $225M post-money</div>
+    </div>
+    <div class="stat accent-cyan">
+      <div class="label">Lead Investor</div>
+      <div class="value">Elad Gil</div>
+      <div class="sub">solo capitalist</div>
+    </div>
+    <div class="stat accent-orange">
+      <div class="label">Market Size</div>
+      <div class="value">$2.2T</div>
+      <div class="sub">US construction / yr</div>
+    </div>
+    <div class="stat accent-yellow">
+      <div class="label">Labor Shortage</div>
+      <div class="value">500K</div>
+      <div class="sub">→ projected 2M</div>
+    </div>
+  </div>
+
+  <h2 class="orange">Eric Wu's path here</h2>
+  <p>From a $110K Tucson rental at 19 to a meme-stock SPAC bookend — and now a vertical-AI bet built on the operational scars of Opendoor.</p>
+
+  <div class="timeline">
+    <div class="t-item yellow">
+      <div class="t-year">~2002</div>
+      <div class="t-title">First rental at age 19</div>
+      <div class="t-body">Used scholarship money for the down payment on a $110K Tucson home. Refinanced into more. Owned ~25 properties by graduation. Self-taught coder on the side.</div>
+    </div>
+    <div class="t-item">
+      <div class="t-year">2008–2011</div>
+      <div class="t-title">RentAdvisor → Movity → Trulia</div>
+      <div class="t-body">RentAdvisor raised $7M (acquired by Apartment List). Movity (geo-data) went through Y Combinator, acquired by Trulia in 2011. Ran geo/social products at Trulia until 2013.</div>
+    </div>
+    <div class="t-item cyan">
+      <div class="t-year">2014</div>
+      <div class="t-title">Co-founded Opendoor</div>
+      <div class="t-body">With Keith Rabois and Ian Wong. $10M Series A led by Khosla. Pioneered the iBuying model — algorithmic instant cash offers for single-family homes.</div>
+    </div>
+    <div class="t-item orange">
+      <div class="t-year">Dec 2020</div>
+      <div class="t-title">SPAC IPO via Chamath</div>
+      <div class="t-body">Merged with Social Capital Hedosophia II. Closed first day near $18B. Wu's 6% stake minted him a billionaire on paper.</div>
+    </div>
+    <div class="t-item">
+      <div class="t-year">2022–2024</div>
+      <div class="t-title">Stepped down, then fully departed</div>
+      <div class="t-body">CFO Carrie Wheeler took over as CEO in Dec 2022. Wu announced full exit in Dec 2023, effective Jan 1, 2024. Stock dropped >10% on the news.</div>
+    </div>
+    <div class="t-item yellow">
+      <div class="t-year">2024–2025</div>
+      <div class="t-title">Brain Co + incubation in Gil's office</div>
+      <div class="t-body">Co-founded Brain Co with Elad Gil and Jared Kushner (AI for healthcare, gov, oil & gas). NavigateAI hatched in parallel inside Gil's SF office.</div>
+    </div>
+    <div class="t-item orange">
+      <div class="t-year">May 26, 2026</div>
+      <div class="t-title">NavigateAI launch</div>
+      <div class="t-body">$25M seed at $225M post. Lennar, Tishman Speyer, Roofstock, AIM as launch partners. Meta partnership for smart glasses.</div>
+    </div>
+  </div>
+
+  <h2 class="yellow">The Opendoor bookend</h2>
+  <div class="stat-grid">
+    <div class="stat accent-cyan">
+      <div class="label">Peak homes / month</div>
+      <div class="value">5,000</div>
+      <div class="sub">at full velocity</div>
+    </div>
+    <div class="stat accent-purple">
+      <div class="label">Subcontractors</div>
+      <div class="value">10,000+</div>
+      <div class="sub">tradespeople managed</div>
+    </div>
+    <div class="stat accent-orange">
+      <div class="label">Renovation spend</div>
+      <div class="value">$750M</div>
+      <div class="sub">/ year</div>
+    </div>
+    <div class="stat accent-yellow">
+      <div class="label">2025 net loss</div>
+      <div class="value">−$1.3B</div>
+      <div class="sub">housing correction</div>
+    </div>
+  </div>
+  <p>Founding/IPO: category-defining success — minted multiple billionaires, named an entire proptech category. Durable business: the iBuying thesis cratered after 2022. Stock was meme-rallied ~500% last year while facing NYSE delisting risk. A notable bookend to the SPAC era — and the operational pain that became NavigateAI's thesis.</p>
+
+  <h2 class="cyan">Why now: four demand drivers</h2>
+  <div class="drivers">
+    <div class="driver">
+      <div class="ico">🖥️</div>
+      <div class="ttl">Data centers</div>
+      <div class="sub">AGI race needs faster buildout</div>
+    </div>
+    <div class="driver">
+      <div class="ico">🏠</div>
+      <div class="ttl">Housing</div>
+      <div class="sub">Affordability crisis driven by construction cost</div>
+    </div>
+    <div class="driver">
+      <div class="ico">⚡</div>
+      <div class="ttl">The grid</div>
+      <div class="sub">Rebuild for EVs, AI compute, electrification</div>
+    </div>
+    <div class="driver">
+      <div class="ico">🏭</div>
+      <div class="ttl">Reshoring</div>
+      <div class="sub">Surge of unplanned manufacturing labor demand</div>
+    </div>
+  </div>
+
+  <h2>Product: four capabilities</h2>
+  <p>Runs in real time on any phone camera. Hands-free on Meta smart glasses (via a Meta partnership). >1B frames processed to date.</p>
+
+  <div class="product-grid">
+    <div class="product-card">
+      <div class="icon">🎓</div>
+      <div class="name">AI Upskilling & Coaching</div>
+      <div class="desc">Real-time on-the-job guidance — an expert "coach" for the specific trade.</div>
+    </div>
+    <div class="product-card">
+      <div class="icon">📋</div>
+      <div class="name">AI Project Scoping</div>
+      <div class="desc">Generates full scope of work, materials list, and cost estimate from inputs.</div>
+    </div>
+    <div class="product-card">
+      <div class="icon">✅</div>
+      <div class="name">AI Quality Control</div>
+      <div class="desc">Checks installed work against code, spec, and original scope <em>at point-of-work</em> — defects caught immediately, not at final inspection.</div>
+    </div>
+    <div class="product-card">
+      <div class="icon">📚</div>
+      <div class="name">AI Knowledge On-Demand</div>
+      <div class="desc">Query building codes, spec sheets, manufacturer manuals, and the client's own playbooks; answers in seconds.</div>
+    </div>
+  </div>
+
+  <blockquote class="pull">
+    "You can't ask ChatGPT today, 'is this in line with Lennar standards?' when you install something as a construction worker."
+    <cite>— Eric Wu, founder &amp; CEO</cite>
+  </blockquote>
+
+  <h2 class="orange">The moat stack vs. ChatGPT</h2>
+  <p>The "ChatGPT can't do this" framing is partly true (RAG could approximate it). The defensibility is the stack of overlapping layers — not any single one of them:</p>
+
+  <div class="moat-stack">
+    <div class="moat-layer">
+      <div class="moat-num">1</div>
+      <div>
+        <div class="moat-title">Client-specific post-training</div>
+        <div class="moat-body">Models post-trained on each client's standards, playbooks, spec sheets, regulatory requirements — plus relevant local municipal codes and blueprints.</div>
+      </div>
+    </div>
+    <div class="moat-layer">
+      <div class="moat-num">2</div>
+      <div>
+        <div class="moat-title">Vertical knowledge corpus</div>
+        <div class="moat-body">Structured for narrow point-of-work queries — torque specs, fitting compatibility, code references. Answer quality depends on the right corpus indexed, not raw model size.</div>
+      </div>
+    </div>
+    <div class="moat-layer">
+      <div class="moat-num">3</div>
+      <div>
+        <div class="moat-title">Form factor + multimodal capture</div>
+        <div class="moat-body">Phone camera real-time = "a second pair of eyes." Meta smart glasses = hands-free, sees what the worker sees. Can't be delivered through a ChatGPT tab. &gt;1B frames processed hints the vision pipeline is where most engineering goes.</div>
+      </div>
+    </div>
+    <div class="moat-layer">
+      <div class="moat-num">4</div>
+      <div>
+        <div class="moat-title">Workflow integration</div>
+        <div class="moat-body">Scoping, real-time QC against spec, documentation automation are workflow products — not chat. Defect catch at point-of-work is where rework costs actually live.</div>
+      </div>
+    </div>
+    <div class="moat-layer">
+      <div class="moat-num">5</div>
+      <div>
+        <div class="moat-title">Distribution as moat</div>
+        <div class="moat-body">Launch partners aren't logos — they're design partners contributing proprietary training data and installed base. AIM trade-school integration means future workers arrive pre-trained on the system.</div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="cyan">Cap table</h2>
+  <div class="investors">
+    <div class="inv-bucket">
+      <div class="ttl">Lead</div>
+      <ul><li>Elad Gil</li></ul>
+    </div>
+    <div class="inv-bucket">
+      <div class="ttl">VCs</div>
+      <ul>
+        <li>Khosla Ventures</li>
+        <li>Fifth Wall</li>
+      </ul>
+    </div>
+    <div class="inv-bucket">
+      <div class="ttl">Strategics</div>
+      <ul>
+        <li>Lennar</li>
+        <li>Tishman Speyer</li>
+        <li>Helix Electric</li>
+      </ul>
+    </div>
+    <div class="inv-bucket">
+      <div class="ttl">Founder angels</div>
+      <ul>
+        <li>Tony Xu (DoorDash)</li>
+        <li>Brian Armstrong (Coinbase)</li>
+        <li>Logan Green (Lyft)</li>
+        <li>Apoorva Mehta (Instacart)</li>
+        <li>Zach Frankel (Ramp)</li>
+        <li>Winston Weinberg (Harvey)</li>
+        <li>Jesse Zhang (Decagon)</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2 class="yellow">Launch partners</h2>
+  <div class="drivers">
+    <div class="driver">
+      <div class="ico">🏘️</div>
+      <div class="ttl">Lennar</div>
+      <div class="sub">Homebuilding</div>
+    </div>
+    <div class="driver">
+      <div class="ico">🏢</div>
+      <div class="ttl">Tishman Speyer</div>
+      <div class="sub">Commercial RE</div>
+    </div>
+    <div class="driver">
+      <div class="ico">🔑</div>
+      <div class="ttl">Roofstock</div>
+      <div class="sub">SFR / property mgmt</div>
+    </div>
+    <div class="driver">
+      <div class="ico">⚙️</div>
+      <div class="ttl">AIM</div>
+      <div class="sub">Electrical trade school</div>
+    </div>
+  </div>
+
+  <h2>Wu's broader framing</h2>
+  <blockquote class="pull">
+    AI delivery is shifting "from text to video and from phone to wearables," eventually to robotics — with NavigateAI as the workforce-transition layer between today's labor shortage and a future where trades work is partly automated.
+    <cite>— paraphrased from launch coverage</cite>
+  </blockquote>
+
+  <div class="refs">
+    <h2>References</h2>
+    <ul>
+      <li><a href="https://www.forbes.com/sites/annatong/2026/05/26/opendoor-co-founder-eric-wu-launches-ai-for-construction-venture/" target="_blank" rel="noopener">Forbes (Anna Tong, 2026-05-26) — Opendoor Co-Founder Eric Wu Launches AI For Construction Venture</a></li>
+      <li><a href="https://www.inman.com/2026/05/26/eric-wu-opendoor-navigateai-construction-copilot-startup/" target="_blank" rel="noopener">Inman (2026-05-26) — Opendoor Co-Founder Eric Wu Launches AI Construction "Copilot" Startup</a></li>
+      <li><a href="https://www.marketnewsdesk.com/index.php/navigateai-launches-to-build-the-ai-copilot-for-the-physical-world/" target="_blank" rel="noopener">GlobeNewswire (2026-05-26) — NavigateAI Launches to Build the AI Copilot for the Physical World</a></li>
+      <li><a href="https://navigate.ai" target="_blank" rel="noopener">navigate.ai</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/Eric_Wu_(founder)" target="_blank" rel="noopener">Eric Wu (businessperson) — Wikipedia</a></li>
+      <li><a href="https://therealdeal.com/magazine/national-october-2020/this-man-wants-to-make-your-home-a-commodity/" target="_blank" rel="noopener">The Real Deal (Oct 2020) — Opendoor's Eric Wu Aims to Make iBuying Homes the Norm</a></li>
+    </ul>
+  </div>
+
+  <footer>Research brief compiled May 27, 2026 · Static page, no tracking</footer>
+</div>
+</body>
+</html>
