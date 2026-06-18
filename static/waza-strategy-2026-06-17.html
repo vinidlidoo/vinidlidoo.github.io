@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Shared pages</title>
+<title>Waza — Strategy</title>
 <style>
 .markdown-body {
   --base-size-16: 1rem;
@@ -1253,15 +1253,136 @@
 html{color-scheme:light dark}
 body{box-sizing:border-box;min-width:200px;max-width:980px;margin:0 auto;padding:45px;background:Canvas;color:CanvasText}
 @media (max-width:767px){body{padding:15px}}
-.meta{opacity:.6;font-size:.9em}
 </style></head><body><article class="markdown-body">
-<h1>Shared pages</h1>
+<h1>Waza — Strategy</h1>
+<blockquote>
+<p>Living strategy doc. Forked from the original seed one-pager Waza Proto (now an idea-stage record in <code class="notranslate">Protos/</code>); this is the version that evolves. Backward-looking findings live in Waza — V0 Build Retro (June 2026); fold their forward-looking implications into the relevant sections here. Hub: MOC - Waza.</p>
+</blockquote>
+<h2>What is it?</h2>
+<p><strong>Elevator pitch:</strong> Waza is a live hands-on skill-learning platform. You put on smart glasses (or just prop your phone) and a remote <strong>guide</strong> watches your hands in real time and corrects you as you work, while an <strong>AI coach</strong> handles the rote, already-taught steps so the guide's attention goes where only a human can help. And guides don't just teach: they <strong>author</strong> their skills on Waza with AI assistance, and the platform learns which steps trip learners up and helps the guide tighten the lesson. Learners pay as they go; guides build a global student base and earn from their own workshop, studio, or bench. We enter through professionals and businesses that already train people in person, the customers who pay today, and grow toward the everyday learner as smart glasses go mainstream. By 2030, Waza is the default place humans go to learn anything they do with their hands, displacing the YouTube tutorial (which can't see what's in front of you) and the in-person workshop (expensive, rare, geography-gated).</p>
+<p><strong>How it works:</strong> A learner wants to replace the swollen battery in their laptop, the kind of repair where one slip on a ribbon connector kills the board, and a YouTube video is useless because it can't see the board in front of you. They prop a phone over the bench (or wear glasses), and a guide watches their hands in real time: "lift that connector straight up, not at an angle; you're about to tear the flex cable." For the routine steps the guide has walked a hundred learners through, the AI coach takes over; when the learner stalls, the guide can have it surface a short demo clip of <em>exactly</em> that step on their screen, so the guide's time goes to the corrections only a human can make. Every session is recorded with consent, and the platform flags which steps learners keep failing and helps the guide refine the lesson for next time. Over months the learner stays with the same guide, and eventually that guide can license an <strong>AI clone</strong> of themselves, trained on their own corrected sessions, for learners to practice with between live ones.</p>
+<h2>What's the problem?</h2>
+<p>Hands-on knowledge, anything humans do with bodies and tools, is the worst-documented category on the internet. AI is already a competent tutor for text-knowable subjects; it cannot tell you why your knife angle is wrong, because no one has shown it the million first-person videos of beginner hands being corrected that would teach it.</p>
+<p>Learning a physical skill well comes down to one thing: someone who knows watching your hands and correcting you in the moment. That kind of attention is scarce, expensive, and gated by geography. A hobbyist's options are a one-way video that can't see what they're doing wrong, or a rare and pricey in-person class. The same bottleneck runs through skilled trades and professions: an apprentice electrician learns by riding shotgun with a single journeyman, a junior clinician sees only the one local specialist's technique. The cost of watching the right hands is what keeps hands-on skill hard to come by, whether it's a weekend hobby or a high-stakes professional technique.</p>
+<h2>Why now?</h2>
+<p><em>(as of June 2026)</em></p>
 <ul>
-<li><a href="waza-strategy-2026-06-17.html">Waza — Strategy</a> <span class="meta">— 2026-06-17</span></li>
-<li><a href="navigateai-profile.html">NavigateAI — Company Profile</a> <span class="meta">— 2026-05-27</span></li>
-<li><a href="waza-glasses-deep-dive.html">Ray-Ban Meta — what I learned this afternoon</a> <span class="meta">— 2026-05-21</span></li>
-<li><a href="waza-ja.html">Waza</a> <span class="meta">— 2026-05-07</span></li>
-<li><a href="smart-glasses-landscape-2026.html">Smart Glasses Landscape 2026</a> <span class="meta">— 2026-05-07</span></li>
-<li><a href="prediction-markets-comparison.html">How Prediction Markets Get Born — Polymarket vs Kalshi</a> <span class="meta">— 2026-05-06</span></li>
+<li><strong>Smart glasses hit consumer scale, and it's accelerating.</strong> Meta + EssilorLuxottica sold 7M+ AI glasses in 2025, more than triple the prior two years combined, and the momentum carried into 2026: IDC reports displayless smart glasses up 167% year-over-year in Q1 2026 (~2.25M units in a single quarter, roughly the entire 2024 category), and Meta says daily smart-glasses usage tripled year-over-year (<a href="https://www.idc.com/resource-center/blog/smart-glasses-surge-the-xr-market-is-rewriting-its-own-rules/" rel="nofollow">IDC</a>). The $799 Meta Ray-Ban Display launched September 2025 with US demand so heavy that international rollout was paused into 2026 (<a href="https://www.cnbc.com/2026/01/06/meta-ray-ban-display-ai-glasses-pause.html" rel="nofollow">CNBC</a>); production is being doubled toward 20M+ units this year, with Meta targeting 10M wearables in H2 alone. A learner can now see the guide's hand picture-in-picture in their own lens.</li>
+<li><strong>The hardware is now buildable for outside teams.</strong> Snap shipped its first consumer AR Specs (preorders June 16, 2026, shipping this fall) on an open Snap OS, and its Spectacles 5 dev kit and Remote Service Gateway already expose camera, ASR, and WebXR APIs plus OpenAI and Gemini integrations to third parties (<a href="https://www.theverge.com/tech/950492/snap-specs-ar-glasses-launch-date-preorder" rel="nofollow">The Verge</a>). Independent teams can build real glasses experiences today. The honest caveat is price: at $2,195 the Specs drew a falling stock and "too expensive for mainstream" reviews, so developer-ready hardware is here well before mass-market true-AR is.</li>
+<li><strong>Real-time voice AI crossed the practical bar.</strong> On May 7, 2026 OpenAI took its Realtime API to general availability with GPT-Realtime-2 (GPT-5-class reasoning, 128K context) for production-grade speech-to-speech, the model layer a live AI coach runs on, and shipped GPT-Realtime-Translate at $0.034/minute across 70+ input languages (<a href="https://openai.com/index/advancing-voice-intelligence-with-new-models-in-the-api/" rel="nofollow">OpenAI</a>). Standalone AR translation glasses now run sub-second across 60–100+ languages (<a href="https://www2.prnewswire.com/news-releases/llvision-introduces-leion-hey2-the-worlds-first-professional-ar-translation-glasses-launching-in-the-united-states-at-ces-2026-302654009.html" rel="nofollow">CES coverage</a>). Cross-language guide-to-learner sessions are newly practical.</li>
+<li><strong>The remote-assist mechanic is proven at scale.</strong> TeamViewer Frontline cuts new-hire onboarding ~50% at DHL Supply Chain (<a href="https://teamviewer.com/en-us/products/frontline/platform" rel="nofollow">TeamViewer</a>), and Help Lightning has run millions of enterprise help sessions across 80+ countries (<a href="https://helplightning.com/solutions/" rel="nofollow">Help Lightning</a>). "Expert sees what the worker sees, guides their hands" is a known, working pattern.</li>
 </ul>
+<h2>Who else is doing this?</h2>
+<p>Each category owns one piece of this; none owns the combination.</p>
+<table role="table">
+<thead>
+<tr>
+<th>Category</th>
+<th>Closest players</th>
+<th>Has</th>
+<th>Missing for hands-on learning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Industrial AR remote-assist</td>
+<td><a href="https://teamviewer.com/en-us/products/frontline/platform" rel="nofollow">TeamViewer Frontline</a>, EON Reality</td>
+<td>the see-and-guide mechanic, in production</td>
+<td>built for enterprise field-service, not learners</td>
+</tr>
+<tr>
+<td>Live-tutoring marketplaces</td>
+<td><a href="https://www.italki.com/en/teachers/japanese" rel="nofollow">italki</a>, <a href="https://preply.com" rel="nofollow">Preply</a></td>
+<td>live human + AI + marketplace</td>
+<td>camera's on the teacher; language/academic</td>
+</tr>
+<tr>
+<td>Recorded video</td>
+<td><a href="https://www.masterclass.com" rel="nofollow">MasterClass</a>, <a href="https://live.bonsaimirai.com/pricing" rel="nofollow">Bonsai Mirai</a></td>
+<td>scale and brand</td>
+<td>one-way; can't see your hands</td>
+</tr>
+<tr>
+<td>AI form coaches</td>
+<td><a href="https://www.sportsbox.ai/" rel="nofollow">Sportsbox</a>/SAMI, <a href="https://asensei.ai/" rel="nofollow">asensei</a></td>
+<td>AI that watches your body</td>
+<td>single-vertical; no guide, no marketplace</td>
+</tr>
+<tr>
+<td>Expert clones</td>
+<td><a href="https://www.delphi.ai/" rel="nofollow">Delphi</a>, <a href="https://onix.life/" rel="nofollow">Onix</a></td>
+<td>clone + marketplace + royalty</td>
+<td>chat only; no live hands-on coaching</td>
+</tr>
+<tr>
+<td>Glasses assistants</td>
+<td><a href="https://blog.google/products-and-platforms/products/gemini/gemini-live-updates-august-2025/" rel="nofollow">Google Gemini Live</a>, <a href="https://patents.google.com/patent/US20260140568A1/en" rel="nofollow">Meta</a></td>
+<td>commodity live vision</td>
+<td>no experts, marketplace, or authoring</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Where the opening is:</strong> the capability everyone is racing toward, an AI that watches your task, is commoditizing fast. No one combines live correction of the learner's own hands, a human guide for what AI can't yet do, and a marketplace of AI-authored skills. That combination, not any single piece, is the opening.</p>
+<h2>Why us?</h2>
+<ul>
+<li><strong>Cross-market fluency.</strong> EN/FR/JA fluent, 10 years in Japan and 8 in the US, reaching across major supply and demand geographies.</li>
+<li><strong>Two-sided marketplace operator.</strong> 5 years at Amazon Fashion across chief of staff, category management, and product management; inside view of a large e-commerce vertical running on this mechanic.</li>
+<li><strong>B2B technical sales.</strong> 4 years at Siemens Healthcare (now Siemens Healthineers) selling medical imaging equipment to professional buyers, so early proofs-of-concept in business settings don't require standing up a sales org first.</li>
+<li><strong>AI-evaluation lead.</strong> 2 years leading AI evals at Amazon, relevant to the data and model-evaluation work recorded sessions will require.</li>
+<li><strong>Ships solo with coding agents.</strong> CS/AI depth, comfortable building end-to-end: the V0 glasses → LiveKit → real-time AI-coach loop was built solo in ~6 days.</li>
+</ul>
+<h2>Who is the customer?</h2>
+<p>Two horizons: who we sell to first, and who the platform ultimately serves.</p>
+<ul>
+<li><strong>Early customer: a business or professional already delivering hands-on training or technical instruction in person.</strong> They pay for early access and shape the product as it forms. We keep these engagements light on data-privacy and compliance burden and broadly applicable, so what we learn generalizes rather than locking us into a single vertical.</li>
+<li><strong>Destination, the learner (prosumer):</strong> someone learning a valuable, hands-on skill who has hit the ceiling of one-way video (it can't see their hands) and can't easily find live expert correction nearby.
+<ul>
+<li><em>Signals of fit:</em> has tried multiple tutorials and felt the camera was in the wrong place; will pay for live, first-person correction; has a phone (glasses optional early on).</li>
+</ul>
+</li>
+<li><strong>Destination, the guide:</strong> an expert in a hands-on skill, rate-limited by how many learners they can reach in person, who teaches live <em>and</em> authors and refines their skills on the platform with AI assistance. Remote sessions also feed in-person demand: learners who connect remotely are likelier to visit.</li>
+<li><strong>Anti-customer:</strong>
+<ul>
+<li><strong>Regulated practice:</strong> performing medical procedures, manual therapy, bodywork. Training <em>as a complement</em> to existing systems may be lighter, but we don't take on heavy clinical or industry-specific compliance.</li>
+<li><strong>Collective-consent arts:</strong> traditions where consent to record is a guild- or community-level decision rather than a per-person one.</li>
+</ul>
+</li>
+</ul>
+<h2>Where do we enter?</h2>
+<p>We enter through professionals and businesses that already train people on hands-on skills in person, not a consumer catalog. That setting has customers who pay today, a clear reason to adopt (reach more learners at lower cost), and tight feedback from people who teach for a living. We choose entry skills by criteria, not by category:</p>
+<ul>
+<li><strong>Discrete-step.</strong> Gradeable from one or a few frames, so the AI coach can handle them today; continuous-motion skills, where the difficulty lives in the motion itself, come later.</li>
+<li><strong>POV-native.</strong> Both hands busy, work happening where the eyes look; a held phone can't help and one-way video can't see it.</li>
+<li><strong>Real stakes.</strong> A mistake is costly or competence is verifiable, so the value is obvious to the learner.</li>
+<li><strong>Light, broadly-applicable compliance.</strong> Minimal data-privacy or regulatory burden, with learnings that generalize across skills.</li>
+<li><strong>A willing teaching partner.</strong> An expert or business that already trains people and will build alongside us.</li>
+</ul>
+<p>Skills that fit this shape range from device and electronics repair to technical procedures taught inside businesses. A Japan-sourced craft catalog (sushi, pottery, joinery, gardening) is one possible supply source for the later consumer phase, not a defining bet.</p>
+<h2>How it could make money?</h2>
+<p>The AI coach and the human guide are priced separately, because their costs differ: every AI-coach minute is real marginal cost (model inference, streaming, recording), while a guide's time is the guide's to price. Four revenue lines:</p>
+<ul>
+<li><strong>AI coaching.</strong> ~$0.50/min pay-as-you-go against a cost of ~$0.25/min; ~$0.10/min of that is paid to whoever authored the skill (below), leaving ~$0.15/min net, widening as model prices fall. Cheaper per minute on subscription <strong>credits</strong>, with a tightly capped <strong>free tier</strong> to seed the base. Our own product, billed directly.</li>
+<li><strong>Booked 1:1 guide session.</strong> The guide sets the price for a fixed-length slot with full, undivided attention; we take ~30% (above pure-match marketplaces' 15–21%, since we supply the coach, tooling, recording, and demand, not just the match). The premium, scheduled format.</li>
+<li><strong>On-demand "get a human now."</strong> The learner escalates from an AI session to a live guide at a dynamic, surge-style rate (up when guides are scarce, down when plentiful): a 5-minute minimum, then per-minute, same ~30% take. The escalation goes first to the guide who authored the skill, then to a guide vetted on it; whoever answers picks up the method the AI was teaching, so the live help continues the same approach instead of starting over. The matched guide and rate hold for about an hour, so a learner who needs five minutes now and five more later gets the same person, same price, and kept context, without rebooking.</li>
+<li><strong>Professional &amp; business contracts.</strong> The bundled contract for the businesses we enter through: seat access (authoring tooling included), committed session-hours (AI + guide), hardware (glasses lumped in), and incremental features. Bundling the glasses turns the learner-side hardware barrier into part of the deal.</li>
+</ul>
+<p><strong>Who writes the skills, and how they're paid.</strong> The skill the coach runs (the prompt, reference success/fail frames, demo clips) is authored by guides, largely as a byproduct of teaching: their own paid sessions auto-draft it through review-and-approve tooling. They earn <strong>~$0.10/min whenever the coach runs their skill</strong>, paid like a back-catalog royalty that keeps earning even when they go inactive, plus first call on the live escalations their skill generates. It pays a guide for the rote, repeatable teaching they can't physically scale to in person. To keep it simple and dispute-free: one skill, one owner; guides who teach the same thing author separate competing skills rather than co-editing one, and routing favors the skills with the best learner outcomes (the same success/fail detection the coach already runs), so payout concentrates on what works and spam earns nothing. A personalized AI "clone" of a guide is a richer-rate premium tier of the same idea, left for later.</p>
+<p>Through-line: the AI coach does the bulk of the minutes (cheap, high-margin, our own product) while humans are summoned only for the moments that need them. Most of each learner's time runs on our highest-margin line, and scarce human attention is reserved for where it's worth most.</p>
+<h2>What makes it defensible?</h2>
+<p>Three moats, each feeding the next:</p>
+<ul>
+<li><strong>Network effects.</strong> More guides author more skills, which draw more learners, which draw more guides. The authoring royalty is the engine: a published skill is an owned asset that keeps paying its author, so the catalog only grows and never has to be re-won, and outcome-ranked routing pushes demand onto the skills that actually work. The lock-in is relational, not just structural. A learner with twenty corrected hours on one guide's method doesn't switch, and a guide drawing a back-catalog royalty has no reason to leave. A competitor can't just match a feature; they have to rebuild a skill library that took years and thousands of paid sessions to accumulate, and the royalty relationships holding it together.</li>
+<li><strong>Data.</strong> This is data no one can scrape, buy, or synthesize, because it only exists if you run the business. Three layers stack over time. The <strong>skill artifacts</strong> (prompts, success/fail reference frames, demo clips) organized per skill and guide. The <strong>recorded sessions</strong> that pair first-person hand video with the guide's correction and the outcome, the exact annotation triplet coaching needs and a proprietary record of which methods produce learner success at scale, generated continuously by paying learners rather than assembled by a research consortium. And the <strong>models fine-tuned on all of it</strong>: sharper coaching first, personalized clones later. Each layer feeds the coach, the coach pulls more learners, and more learners deepen the data. Neither a pure-match marketplace nor a pure-AI tutor produces this loop.</li>
+<li><strong>Category brand.</strong> By 2030, the default answer to "I want to learn something I do with my hands," the way YouTube became the default for watching. Once you are the answer to the question, a late mover fights a recognition gap on top of the network and the data.</li>
+</ul>
+<p>The three compound: the network generates the data, the data sharpens the product, the product builds the brand, and the brand pulls the next wave of guides and learners back into the network.</p>
+<h2>What would pressure the thesis?</h2>
+<ol>
+<li><strong>The AI coach generalizes past discrete-step tasks.</strong> Today's image-to-text coaching grades discrete-step tasks (necktie, furoshiki) from a few frames; continuous-motion tasks (knife angle, pottery centring) have no per-frame ground truth and aren't solved yet. <em>Pressured if</em> the set of valuable skills is mostly continuous-motion, or discrete-step demand alone is too thin to sustain a business. <em>Lever:</em> prove the discrete-step category first; pose-geometry error detectors are the deliberate next step into motion, not a capability we assume.</li>
+<li><strong>Experts will author and teach.</strong> <em>Pressured if</em> experts won't author skills (effort, IP concerns), the royalty plus take don't beat their existing alternatives, or authoring can't be made a byproduct of teaching. <em>Lever:</em> recruit experts already teaching remotely; auto-draft skills from their own sessions; the back-catalog royalty as compounding upside; hand-author the first skills ourselves.</li>
+<li><strong>The consumer-glasses install base arrives.</strong> This is now load-bearing for the consumer destination, and freshly pressured: Snap's $2,195 consumer-AR launch landed flat, a sign that mass-market true-AR glasses may be further out than the displayless-glasses growth curve implies. <em>Lever:</em> the app already runs on phone screencast plus phone cameras, so learners and professional proofs-of-concept are served today; glasses adoption is acceleration, not a prerequisite.</li>
+<li><strong>The professional bridge funds the wait without turning us into a B2B org.</strong> <em>Pressured if</em> proofs-of-concept demand heavy vertical compliance, drag the roadmap into a single vertical, or can't sustain the company until consumer timing arrives. <em>Lever:</em> filter for light, broadly-applicable compliance; hold R&amp;D-with-revenue discipline; sort every learning into generalizes-to-prosumer versus vertical-specific.</li>
+<li><strong>The window before incumbents holds.</strong> Google and Meta already ship "AI watches your task," so the bare vision capability is commoditizing. <em>Pressured if</em> an OEM ships a native expert-marketplace surface, or generative video makes fake experts indistinguishable on lens before we have reputation density. <em>Lever:</em> the moat is the guide, the authoring marketplace, the data flywheel, and verified-human-on-both-sides, not the vision layer anyone can call.</li>
+<li><strong>Stage-3 embodied AI stays far enough out.</strong> The lifecycle runs from humans teaching humans, to AI teaching humans, to embodied AI doing the work itself; the third stage eventually competes with the teaching business, and a funded sector (Human Archive, Physical Intelligence, Skild) already collects the same first-person manipulation video to train robots. <em>Pressured if</em> embodied AI erodes the "humans still need to learn this" market before we have built the data and brand lead. <em>Lever:</em> our corpus has independent license value, the teaching market is large and early, and leaning into the live human-plus-AI loop is what pure data-collection can't copy.</li>
+</ol>
 </article></body></html>
