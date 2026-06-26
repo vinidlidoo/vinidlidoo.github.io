@@ -1,0 +1,7512 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Waza Skill-Demand Report</title>
+<style>
+.markdown-body {
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-4: 0.25rem;
+  --base-size-40: 2.5rem;
+  --base-size-8: 0.5rem;
+  --base-text-weight-medium: 500;
+  --base-text-weight-normal: 400;
+  --base-text-weight-semibold: 600;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  --fontStack-sansSerif: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  --fgColor-accent: Highlight;
+}
+@media (prefers-color-scheme: dark) {
+  .markdown-body, [data-theme="dark"] {
+    /*dark */
+    color-scheme: dark;
+    --fgColor-accent: #4493f8;
+    --bgColor-attention-muted: #bb800926;
+    --bgColor-default: #0d1117;
+    --bgColor-muted: #151b23;
+    --bgColor-neutral-muted: #656c7633;
+    --borderColor-accent-emphasis: #1f6feb;
+    --borderColor-attention-emphasis: #9e6a03;
+    --borderColor-danger-emphasis: #da3633;
+    --borderColor-default: #3d444d;
+    --borderColor-done-emphasis: #8957e5;
+    --borderColor-success-emphasis: #238636;
+    --color-prettylights-syntax-brackethighlighter-angle: #9198a1;
+    --color-prettylights-syntax-brackethighlighter-unmatched: #f85149;
+    --color-prettylights-syntax-carriage-return-bg: #b62324;
+    --color-prettylights-syntax-carriage-return-text: #f0f6fc;
+    --color-prettylights-syntax-comment: #9198a1;
+    --color-prettylights-syntax-constant: #79c0ff;
+    --color-prettylights-syntax-constant-other-reference-link: #a5d6ff;
+    --color-prettylights-syntax-entity: #d2a8ff;
+    --color-prettylights-syntax-entity-tag: #7ee787;
+    --color-prettylights-syntax-keyword: #ff7b72;
+    --color-prettylights-syntax-markup-bold: #f0f6fc;
+    --color-prettylights-syntax-markup-changed-bg: #5a1e02;
+    --color-prettylights-syntax-markup-changed-text: #ffdfb6;
+    --color-prettylights-syntax-markup-deleted-bg: #67060c;
+    --color-prettylights-syntax-markup-deleted-text: #ffdcd7;
+    --color-prettylights-syntax-markup-heading: #1f6feb;
+    --color-prettylights-syntax-markup-ignored-bg: #1158c7;
+    --color-prettylights-syntax-markup-ignored-text: #f0f6fc;
+    --color-prettylights-syntax-markup-inserted-bg: #033a16;
+    --color-prettylights-syntax-markup-inserted-text: #aff5b4;
+    --color-prettylights-syntax-markup-italic: #f0f6fc;
+    --color-prettylights-syntax-markup-list: #f2cc60;
+    --color-prettylights-syntax-meta-diff-range: #d2a8ff;
+    --color-prettylights-syntax-storage-modifier-import: #f0f6fc;
+    --color-prettylights-syntax-string: #a5d6ff;
+    --color-prettylights-syntax-string-regexp: #7ee787;
+    --color-prettylights-syntax-sublimelinter-gutter-mark: #3d444d;
+    --color-prettylights-syntax-variable: #ffa657;
+    --fgColor-attention: #d29922;
+    --fgColor-danger: #f85149;
+    --fgColor-default: #f0f6fc;
+    --fgColor-done: #ab7df8;
+    --fgColor-muted: #9198a1;
+    --fgColor-success: #3fb950;
+    --borderColor-muted: #3d444db3;
+    --color-prettylights-syntax-invalid-illegal-bg: var(--bgColor-danger-muted);
+    --color-prettylights-syntax-invalid-illegal-text: var(--fgColor-danger);
+    --focus-outlineColor: var(--borderColor-accent-emphasis);
+    --borderColor-neutral-muted: var(--borderColor-muted);
+  }
+}
+@media (prefers-color-scheme: light) {
+  .markdown-body, [data-theme="light"] {
+    /*light */
+    color-scheme: light;
+    --fgColor-danger: #d1242f;
+    --bgColor-attention-muted: #fff8c5;
+    --bgColor-muted: #f6f8fa;
+    --bgColor-neutral-muted: #818b981f;
+    --borderColor-accent-emphasis: #0969da;
+    --borderColor-attention-emphasis: #9a6700;
+    --borderColor-danger-emphasis: #cf222e;
+    --borderColor-default: #d1d9e0;
+    --borderColor-done-emphasis: #8250df;
+    --borderColor-success-emphasis: #1a7f37;
+    --color-prettylights-syntax-brackethighlighter-angle: #59636e;
+    --color-prettylights-syntax-brackethighlighter-unmatched: #82071e;
+    --color-prettylights-syntax-carriage-return-bg: #cf222e;
+    --color-prettylights-syntax-carriage-return-text: #f6f8fa;
+    --color-prettylights-syntax-comment: #59636e;
+    --color-prettylights-syntax-constant: #0550ae;
+    --color-prettylights-syntax-constant-other-reference-link: #0a3069;
+    --color-prettylights-syntax-entity: #6639ba;
+    --color-prettylights-syntax-entity-tag: #0550ae;
+    --color-prettylights-syntax-invalid-illegal-text: var(--fgColor-danger);
+    --color-prettylights-syntax-keyword: #cf222e;
+    --color-prettylights-syntax-markup-changed-bg: #ffd8b5;
+    --color-prettylights-syntax-markup-changed-text: #953800;
+    --color-prettylights-syntax-markup-deleted-bg: #ffebe9;
+    --color-prettylights-syntax-markup-deleted-text: #82071e;
+    --color-prettylights-syntax-markup-heading: #0550ae;
+    --color-prettylights-syntax-markup-ignored-bg: #0550ae;
+    --color-prettylights-syntax-markup-ignored-text: #d1d9e0;
+    --color-prettylights-syntax-markup-inserted-bg: #dafbe1;
+    --color-prettylights-syntax-markup-inserted-text: #116329;
+    --color-prettylights-syntax-markup-list: #3b2300;
+    --color-prettylights-syntax-meta-diff-range: #8250df;
+    --color-prettylights-syntax-string: #0a3069;
+    --color-prettylights-syntax-string-regexp: #116329;
+    --color-prettylights-syntax-sublimelinter-gutter-mark: #818b98;
+    --color-prettylights-syntax-variable: #953800;
+    --fgColor-accent: #0969da;
+    --fgColor-attention: #9a6700;
+    --fgColor-done: #8250df;
+    --fgColor-muted: #59636e;
+    --fgColor-success: #1a7f37;
+    --bgColor-default: #ffffff;
+    --borderColor-muted: #d1d9e0b3;
+    --color-prettylights-syntax-invalid-illegal-bg: var(--bgColor-danger-muted);
+    --color-prettylights-syntax-markup-bold: #1f2328;
+    --color-prettylights-syntax-markup-italic: #1f2328;
+    --color-prettylights-syntax-storage-modifier-import: #1f2328;
+    --fgColor-default: #1f2328;
+    --focus-outlineColor: var(--borderColor-accent-emphasis);
+    --borderColor-neutral-muted: var(--borderColor-muted);
+  }
+}
+
+.markdown-body {
+  /** CSS default easing. Use for hover state changes and micro-interactions. */
+  /** Accelerating motion. Use for elements exiting the viewport (moving off-screen). */
+  /** Smooth acceleration and deceleration. Use for elements moving or morphing within the viewport. */
+  /** Decelerating motion. Use for elements entering the viewport or appearing on screen. */
+  /** Constant motion with no acceleration. Use for continuous animations like progress bars or loaders. */
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  margin: 0;
+  font-weight: var(--base-text-weight-normal, 400);
+  color: var(--fgColor-default);
+  background-color: var(--bgColor-default);
+  font-family: var(--fontStack-sansSerif, -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji");
+  font-size: 16px;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+.markdown-body a {
+  text-decoration: underline;
+  text-underline-offset: .2rem;
+}
+
+.markdown-body .octicon {
+  display: inline-block;
+  fill: currentColor;
+  vertical-align: text-bottom;
+}
+
+.markdown-body h1:hover .anchor .octicon-link:before,
+.markdown-body h2:hover .anchor .octicon-link:before,
+.markdown-body h3:hover .anchor .octicon-link:before,
+.markdown-body h4:hover .anchor .octicon-link:before,
+.markdown-body h5:hover .anchor .octicon-link:before,
+.markdown-body h6:hover .anchor .octicon-link:before {
+  width: 16px;
+  height: 16px;
+  content: ' ';
+  display: inline-block;
+  background-color: currentColor;
+  -webkit-mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' version='1.1' aria-hidden='true'><path fill-rule='evenodd' d='M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z'></path></svg>");
+  mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' version='1.1' aria-hidden='true'><path fill-rule='evenodd' d='M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z'></path></svg>");
+}
+
+.markdown-body details,
+.markdown-body figcaption,
+.markdown-body figure {
+  display: block;
+}
+
+.markdown-body summary {
+  display: list-item;
+}
+
+.markdown-body [hidden] {
+  display: none !important;
+}
+
+.markdown-body a {
+  background-color: rgba(0,0,0,0);
+  color: var(--fgColor-accent);
+  text-decoration: none;
+}
+
+.markdown-body abbr[title] {
+  border-bottom: none;
+  -webkit-text-decoration: underline dotted;
+  text-decoration: underline dotted;
+}
+
+.markdown-body b,
+.markdown-body strong {
+  font-weight: var(--base-text-weight-semibold, 600);
+}
+
+.markdown-body dfn {
+  font-style: italic;
+}
+
+.markdown-body h1 {
+  margin: .67em 0;
+  font-weight: var(--base-text-weight-semibold, 600);
+  padding-bottom: .3em;
+  font-size: 2em;
+  border-bottom: 1px solid var(--borderColor-muted);
+}
+
+.markdown-body mark {
+  background-color: var(--bgColor-attention-muted);
+  color: var(--fgColor-default);
+}
+
+.markdown-body small {
+  font-size: 90%;
+}
+
+.markdown-body sub,
+.markdown-body sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+.markdown-body sub {
+  bottom: -0.25em;
+}
+
+.markdown-body sup {
+  top: -0.5em;
+}
+
+.markdown-body img {
+  border-style: none;
+  max-width: 100%;
+  box-sizing: content-box;
+}
+
+.markdown-body code,
+.markdown-body kbd,
+.markdown-body pre,
+.markdown-body samp {
+  font-family: monospace;
+  font-size: 1em;
+}
+
+.markdown-body figure {
+  margin: 1em var(--base-size-40);
+}
+
+.markdown-body hr {
+  box-sizing: content-box;
+  overflow: hidden;
+  background: rgba(0,0,0,0);
+  border-bottom: 1px solid var(--borderColor-muted);
+  height: .25em;
+  padding: 0;
+  margin: var(--base-size-24) 0;
+  background-color: var(--borderColor-default);
+  border: 0;
+}
+
+.markdown-body input {
+  font: inherit;
+  margin: 0;
+  overflow: visible;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.markdown-body [type=button],
+.markdown-body [type=reset],
+.markdown-body [type=submit] {
+  -webkit-appearance: button;
+  appearance: button;
+}
+
+.markdown-body [type=checkbox],
+.markdown-body [type=radio] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.markdown-body [type=number]::-webkit-inner-spin-button,
+.markdown-body [type=number]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+.markdown-body [type=search]::-webkit-search-cancel-button,
+.markdown-body [type=search]::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.markdown-body ::-webkit-input-placeholder {
+  color: inherit;
+  opacity: .54;
+}
+
+.markdown-body ::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  appearance: button;
+  font: inherit;
+}
+
+.markdown-body a:hover {
+  text-decoration: underline;
+}
+
+.markdown-body ::placeholder {
+  color: var(--fgColor-muted);
+  opacity: 1;
+}
+
+.markdown-body hr::before {
+  display: table;
+  content: "";
+}
+
+.markdown-body hr::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.markdown-body table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow: auto;
+  font-variant: tabular-nums;
+}
+
+.markdown-body td,
+.markdown-body th {
+  padding: 0;
+}
+
+.markdown-body details summary {
+  cursor: pointer;
+}
+
+.markdown-body a:focus,
+.markdown-body [role=button]:focus,
+.markdown-body input[type=radio]:focus,
+.markdown-body input[type=checkbox]:focus {
+  outline: 2px solid var(--focus-outlineColor);
+  outline-offset: -2px;
+  box-shadow: none;
+}
+
+.markdown-body a:focus:not(:focus-visible),
+.markdown-body [role=button]:focus:not(:focus-visible),
+.markdown-body input[type=radio]:focus:not(:focus-visible),
+.markdown-body input[type=checkbox]:focus:not(:focus-visible) {
+  outline: solid 1px rgba(0,0,0,0);
+}
+
+.markdown-body a:focus-visible,
+.markdown-body [role=button]:focus-visible,
+.markdown-body input[type=radio]:focus-visible,
+.markdown-body input[type=checkbox]:focus-visible {
+  outline: 2px solid var(--focus-outlineColor);
+  outline-offset: -2px;
+  box-shadow: none;
+}
+
+.markdown-body a:not([class]):focus,
+.markdown-body a:not([class]):focus-visible,
+.markdown-body input[type=radio]:focus,
+.markdown-body input[type=radio]:focus-visible,
+.markdown-body input[type=checkbox]:focus,
+.markdown-body input[type=checkbox]:focus-visible {
+  outline-offset: 0;
+}
+
+.markdown-body kbd {
+  display: inline-block;
+  padding: var(--base-size-4);
+  font: 11px var(--fontStack-monospace, ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace);
+  line-height: 10px;
+  color: var(--fgColor-default);
+  vertical-align: middle;
+  background-color: var(--bgColor-muted);
+  border: solid 1px var(--borderColor-neutral-muted);
+  border-bottom-color: var(--borderColor-neutral-muted);
+  border-radius: 6px;
+  box-shadow: inset 0 -1px 0 var(--borderColor-neutral-muted);
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  margin-top: var(--base-size-24);
+  margin-bottom: var(--base-size-16);
+  font-weight: var(--base-text-weight-semibold, 600);
+  line-height: 1.25;
+}
+
+.markdown-body h2 {
+  font-weight: var(--base-text-weight-semibold, 600);
+  padding-bottom: .3em;
+  font-size: 1.5em;
+  border-bottom: 1px solid var(--borderColor-muted);
+}
+
+.markdown-body h3 {
+  font-weight: var(--base-text-weight-semibold, 600);
+  font-size: 1.25em;
+}
+
+.markdown-body h4 {
+  font-weight: var(--base-text-weight-semibold, 600);
+  font-size: 1em;
+}
+
+.markdown-body h5 {
+  font-weight: var(--base-text-weight-semibold, 600);
+  font-size: .875em;
+}
+
+.markdown-body h6 {
+  font-weight: var(--base-text-weight-semibold, 600);
+  font-size: .85em;
+  color: var(--fgColor-muted);
+}
+
+.markdown-body p {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.markdown-body blockquote {
+  margin: 0;
+  padding: 0 1em;
+  color: var(--fgColor-muted);
+  border-left: .25em solid var(--borderColor-default);
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 2em;
+}
+
+.markdown-body ol ol,
+.markdown-body ul ol {
+  list-style-type: lower-roman;
+}
+
+.markdown-body ul ul ol,
+.markdown-body ul ol ol,
+.markdown-body ol ul ol,
+.markdown-body ol ol ol {
+  list-style-type: lower-alpha;
+}
+
+.markdown-body dd {
+  margin-left: 0;
+}
+
+.markdown-body tt,
+.markdown-body code,
+.markdown-body samp {
+  font-family: var(--fontStack-monospace, ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace);
+  font-size: 12px;
+}
+
+.markdown-body pre {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: var(--fontStack-monospace, ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace);
+  font-size: 12px;
+  word-wrap: normal;
+}
+
+.markdown-body .octicon {
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-body input::-webkit-outer-spin-button,
+.markdown-body input::-webkit-inner-spin-button {
+  margin: 0;
+  appearance: none;
+}
+
+.markdown-body .mr-2 {
+  margin-right: var(--base-size-8, 8px) !important;
+}
+
+.markdown-body::before {
+  display: table;
+  content: "";
+}
+
+.markdown-body::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.markdown-body>*:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+.markdown-body a:not([href]) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.markdown-body .absent {
+  color: var(--fgColor-danger);
+}
+
+.markdown-body .anchor {
+  float: left;
+  padding-right: var(--base-size-4);
+  margin-left: -20px;
+  line-height: 1;
+}
+
+.markdown-body .anchor:focus {
+  outline: none;
+}
+
+.markdown-body p,
+.markdown-body blockquote,
+.markdown-body ul,
+.markdown-body ol,
+.markdown-body dl,
+.markdown-body table,
+.markdown-body pre,
+.markdown-body details {
+  margin-top: 0;
+  margin-bottom: var(--base-size-16);
+}
+
+.markdown-body blockquote>:first-child {
+  margin-top: 0;
+}
+
+.markdown-body blockquote>:last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body h1 .octicon-link,
+.markdown-body h2 .octicon-link,
+.markdown-body h3 .octicon-link,
+.markdown-body h4 .octicon-link,
+.markdown-body h5 .octicon-link,
+.markdown-body h6 .octicon-link {
+  color: var(--fgColor-default);
+  vertical-align: middle;
+  visibility: hidden;
+}
+
+.markdown-body h1:hover .anchor,
+.markdown-body h2:hover .anchor,
+.markdown-body h3:hover .anchor,
+.markdown-body h4:hover .anchor,
+.markdown-body h5:hover .anchor,
+.markdown-body h6:hover .anchor {
+  text-decoration: none;
+}
+
+.markdown-body h1:hover .anchor .octicon-link,
+.markdown-body h2:hover .anchor .octicon-link,
+.markdown-body h3:hover .anchor .octicon-link,
+.markdown-body h4:hover .anchor .octicon-link,
+.markdown-body h5:hover .anchor .octicon-link,
+.markdown-body h6:hover .anchor .octicon-link {
+  visibility: visible;
+}
+
+.markdown-body h1 tt,
+.markdown-body h1 code,
+.markdown-body h2 tt,
+.markdown-body h2 code,
+.markdown-body h3 tt,
+.markdown-body h3 code,
+.markdown-body h4 tt,
+.markdown-body h4 code,
+.markdown-body h5 tt,
+.markdown-body h5 code,
+.markdown-body h6 tt,
+.markdown-body h6 code {
+  padding: 0 .2em;
+  font-size: inherit;
+}
+
+.markdown-body summary h1,
+.markdown-body summary h2,
+.markdown-body summary h3,
+.markdown-body summary h4,
+.markdown-body summary h5,
+.markdown-body summary h6 {
+  display: inline-block;
+}
+
+.markdown-body summary h1 .anchor,
+.markdown-body summary h2 .anchor,
+.markdown-body summary h3 .anchor,
+.markdown-body summary h4 .anchor,
+.markdown-body summary h5 .anchor,
+.markdown-body summary h6 .anchor {
+  margin-left: -40px;
+}
+
+.markdown-body summary h1,
+.markdown-body summary h2 {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.markdown-body ul.no-list,
+.markdown-body ol.no-list {
+  padding: 0;
+  list-style-type: none;
+}
+
+.markdown-body ol[type="a s"] {
+  list-style-type: lower-alpha;
+}
+
+.markdown-body ol[type="A s"] {
+  list-style-type: upper-alpha;
+}
+
+.markdown-body ol[type="i s"] {
+  list-style-type: lower-roman;
+}
+
+.markdown-body ol[type="I s"] {
+  list-style-type: upper-roman;
+}
+
+.markdown-body ol[type="1"] {
+  list-style-type: decimal;
+}
+
+.markdown-body div>ol:not([type]) {
+  list-style-type: decimal;
+}
+
+.markdown-body ul ul,
+.markdown-body ul ol,
+.markdown-body ol ol,
+.markdown-body ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body li>p {
+  margin-top: var(--base-size-16);
+}
+
+.markdown-body li+li {
+  margin-top: .25em;
+}
+
+.markdown-body dl {
+  padding: 0;
+}
+
+.markdown-body dl dt {
+  padding: 0;
+  margin-top: var(--base-size-16);
+  font-size: 1em;
+  font-style: italic;
+  font-weight: var(--base-text-weight-semibold, 600);
+}
+
+.markdown-body dl dd {
+  padding: 0 var(--base-size-16);
+  margin-bottom: var(--base-size-16);
+}
+
+.markdown-body table th {
+  font-weight: var(--base-text-weight-semibold, 600);
+}
+
+.markdown-body table th,
+.markdown-body table td {
+  padding: 6px 13px;
+  border: 1px solid var(--borderColor-default);
+}
+
+.markdown-body table td>:last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body table tr {
+  background-color: var(--bgColor-default);
+  border-top: 1px solid var(--borderColor-muted);
+}
+
+.markdown-body table tr:nth-child(2n) {
+  background-color: var(--bgColor-muted);
+}
+
+.markdown-body table img {
+  background-color: rgba(0,0,0,0);
+}
+
+.markdown-body img[align=right] {
+  padding-left: 20px;
+}
+
+.markdown-body img[align=left] {
+  padding-right: 20px;
+}
+
+.markdown-body .emoji {
+  max-width: none;
+  vertical-align: text-top;
+  background-color: rgba(0,0,0,0);
+}
+
+.markdown-body span.frame {
+  display: block;
+  overflow: hidden;
+}
+
+.markdown-body span.frame>span {
+  display: block;
+  float: left;
+  width: auto;
+  padding: 7px;
+  margin: 13px 0 0;
+  overflow: hidden;
+  border: 1px solid var(--borderColor-default);
+}
+
+.markdown-body span.frame span img {
+  display: block;
+  float: left;
+}
+
+.markdown-body span.frame span span {
+  display: block;
+  padding: 5px 0 0;
+  clear: both;
+  color: var(--fgColor-default);
+}
+
+.markdown-body span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+.markdown-body span.align-center>span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: center;
+}
+
+.markdown-body span.align-center span img {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.markdown-body span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+.markdown-body span.align-right>span {
+  display: block;
+  margin: 13px 0 0;
+  overflow: hidden;
+  text-align: right;
+}
+
+.markdown-body span.align-right span img {
+  margin: 0;
+  text-align: right;
+}
+
+.markdown-body span.float-left {
+  display: block;
+  float: left;
+  margin-right: 13px;
+  overflow: hidden;
+}
+
+.markdown-body span.float-left span {
+  margin: 13px 0 0;
+}
+
+.markdown-body span.float-right {
+  display: block;
+  float: right;
+  margin-left: 13px;
+  overflow: hidden;
+}
+
+.markdown-body span.float-right>span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: right;
+}
+
+.markdown-body code,
+.markdown-body tt {
+  padding: .2em .4em;
+  margin: 0;
+  font-size: 85%;
+  white-space: break-spaces;
+  background-color: var(--bgColor-neutral-muted);
+  border-radius: 6px;
+}
+
+.markdown-body code br,
+.markdown-body tt br {
+  display: none;
+}
+
+.markdown-body del code {
+  text-decoration: inherit;
+}
+
+.markdown-body samp {
+  font-size: 85%;
+}
+
+.markdown-body pre code {
+  font-size: 100%;
+}
+
+.markdown-body pre>code {
+  padding: 0;
+  margin: 0;
+  word-break: normal;
+  white-space: pre;
+  background: rgba(0,0,0,0);
+  border: 0;
+}
+
+.markdown-body .highlight {
+  margin-bottom: var(--base-size-16);
+}
+
+.markdown-body .highlight pre {
+  margin-bottom: 0;
+  word-break: normal;
+}
+
+.markdown-body .highlight pre,
+.markdown-body pre {
+  padding: var(--base-size-16);
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  color: var(--fgColor-default);
+  background-color: var(--bgColor-muted);
+  border-radius: 6px;
+}
+
+.markdown-body pre code,
+.markdown-body pre tt {
+  display: inline;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: rgba(0,0,0,0);
+  border: 0;
+}
+
+.markdown-body .csv-data td,
+.markdown-body .csv-data th {
+  padding: 5px;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.markdown-body .csv-data .blob-num {
+  padding: 10px var(--base-size-8) 9px;
+  text-align: right;
+  background: var(--bgColor-default);
+  border: 0;
+}
+
+.markdown-body .csv-data tr {
+  border-top: 0;
+}
+
+.markdown-body .csv-data th {
+  font-weight: var(--base-text-weight-semibold, 600);
+  background: var(--bgColor-muted);
+  border-top: 0;
+}
+
+.markdown-body [data-footnote-ref]::before {
+  content: "[";
+}
+
+.markdown-body [data-footnote-ref]::after {
+  content: "]";
+}
+
+.markdown-body .footnotes {
+  font-size: 12px;
+  color: var(--fgColor-muted);
+  border-top: 1px solid var(--borderColor-default);
+}
+
+.markdown-body .footnotes ol {
+  padding-left: var(--base-size-16);
+}
+
+.markdown-body .footnotes ol ul {
+  display: inline-block;
+  padding-left: var(--base-size-16);
+  margin-top: var(--base-size-16);
+}
+
+.markdown-body .footnotes li {
+  position: relative;
+}
+
+.markdown-body .footnotes li:target::before {
+  position: absolute;
+  top: calc(var(--base-size-8)*-1);
+  right: calc(var(--base-size-8)*-1);
+  bottom: calc(var(--base-size-8)*-1);
+  left: calc(var(--base-size-24)*-1);
+  pointer-events: none;
+  content: "";
+  border: 2px solid var(--borderColor-accent-emphasis);
+  border-radius: 6px;
+}
+
+.markdown-body .footnotes li:target {
+  color: var(--fgColor-default);
+}
+
+.markdown-body .footnotes .data-footnote-backref g-emoji {
+  font-family: monospace;
+}
+
+.markdown-body .pl-c {
+  color: var(--color-prettylights-syntax-comment);
+}
+
+.markdown-body .pl-c1,
+.markdown-body .pl-s .pl-v {
+  color: var(--color-prettylights-syntax-constant);
+}
+
+.markdown-body .pl-e,
+.markdown-body .pl-en {
+  color: var(--color-prettylights-syntax-entity);
+}
+
+.markdown-body .pl-smi,
+.markdown-body .pl-s .pl-s1 {
+  color: var(--color-prettylights-syntax-storage-modifier-import);
+}
+
+.markdown-body .pl-ent {
+  color: var(--color-prettylights-syntax-entity-tag);
+}
+
+.markdown-body .pl-k {
+  color: var(--color-prettylights-syntax-keyword);
+}
+
+.markdown-body .pl-s,
+.markdown-body .pl-pds,
+.markdown-body .pl-s .pl-pse .pl-s1,
+.markdown-body .pl-sr,
+.markdown-body .pl-sr .pl-cce,
+.markdown-body .pl-sr .pl-sre,
+.markdown-body .pl-sr .pl-sra {
+  color: var(--color-prettylights-syntax-string);
+}
+
+.markdown-body .pl-v,
+.markdown-body .pl-smw {
+  color: var(--color-prettylights-syntax-variable);
+}
+
+.markdown-body .pl-bu {
+  color: var(--color-prettylights-syntax-brackethighlighter-unmatched);
+}
+
+.markdown-body .pl-ii {
+  color: var(--color-prettylights-syntax-invalid-illegal-text);
+  background-color: var(--color-prettylights-syntax-invalid-illegal-bg);
+}
+
+.markdown-body .pl-c2 {
+  color: var(--color-prettylights-syntax-carriage-return-text);
+  background-color: var(--color-prettylights-syntax-carriage-return-bg);
+}
+
+.markdown-body .pl-sr .pl-cce {
+  font-weight: bold;
+  color: var(--color-prettylights-syntax-string-regexp);
+}
+
+.markdown-body .pl-ml {
+  color: var(--color-prettylights-syntax-markup-list);
+}
+
+.markdown-body .pl-mh,
+.markdown-body .pl-mh .pl-en,
+.markdown-body .pl-ms {
+  font-weight: bold;
+  color: var(--color-prettylights-syntax-markup-heading);
+}
+
+.markdown-body .pl-mi {
+  font-style: italic;
+  color: var(--color-prettylights-syntax-markup-italic);
+}
+
+.markdown-body .pl-mb {
+  font-weight: bold;
+  color: var(--color-prettylights-syntax-markup-bold);
+}
+
+.markdown-body .pl-md {
+  color: var(--color-prettylights-syntax-markup-deleted-text);
+  background-color: var(--color-prettylights-syntax-markup-deleted-bg);
+}
+
+.markdown-body .pl-mi1 {
+  color: var(--color-prettylights-syntax-markup-inserted-text);
+  background-color: var(--color-prettylights-syntax-markup-inserted-bg);
+}
+
+.markdown-body .pl-mc {
+  color: var(--color-prettylights-syntax-markup-changed-text);
+  background-color: var(--color-prettylights-syntax-markup-changed-bg);
+}
+
+.markdown-body .pl-mi2 {
+  color: var(--color-prettylights-syntax-markup-ignored-text);
+  background-color: var(--color-prettylights-syntax-markup-ignored-bg);
+}
+
+.markdown-body .pl-mdr {
+  font-weight: bold;
+  color: var(--color-prettylights-syntax-meta-diff-range);
+}
+
+.markdown-body .pl-ba {
+  color: var(--color-prettylights-syntax-brackethighlighter-angle);
+}
+
+.markdown-body .pl-sg {
+  color: var(--color-prettylights-syntax-sublimelinter-gutter-mark);
+}
+
+.markdown-body .pl-corl {
+  text-decoration: underline;
+  color: var(--color-prettylights-syntax-constant-other-reference-link);
+}
+
+.markdown-body [role=button]:focus:not(:focus-visible),
+.markdown-body [role=tabpanel][tabindex="0"]:focus:not(:focus-visible),
+.markdown-body button:focus:not(:focus-visible),
+.markdown-body summary:focus:not(:focus-visible),
+.markdown-body a:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+.markdown-body [tabindex="0"]:focus:not(:focus-visible),
+.markdown-body details-dialog:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.markdown-body g-emoji {
+  display: inline-block;
+  min-width: 1ch;
+  font-family: "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-size: 1em;
+  font-style: normal !important;
+  font-weight: var(--base-text-weight-normal, 400);
+  line-height: 1;
+  vertical-align: -0.075em;
+}
+
+.markdown-body g-emoji img {
+  width: 1em;
+  height: 1em;
+}
+
+.markdown-body a:has(>p,>div,>pre,>blockquote) {
+  display: block;
+}
+
+.markdown-body a:has(>p,>div,>pre,>blockquote):not(:has(.snippet-clipboard-content,>pre)) {
+  width: fit-content;
+}
+
+.markdown-body a:has(>p,>div,>pre,>blockquote):has(.snippet-clipboard-content,>pre):focus-visible {
+  outline: 2px solid var(--focus-outlineColor);
+  outline-offset: 2px;
+}
+
+.markdown-body .task-list-item {
+  list-style-type: none;
+}
+
+.markdown-body .task-list-item label {
+  font-weight: var(--base-text-weight-normal, 400);
+}
+
+.markdown-body .task-list-item.enabled label {
+  cursor: pointer;
+}
+
+.markdown-body .task-list-item+.task-list-item {
+  margin-top: var(--base-size-4);
+}
+
+.markdown-body .task-list-item .handle {
+  display: none;
+}
+
+.markdown-body .task-list-item-checkbox {
+  margin: 0 .2em .25em -1.4em;
+  vertical-align: middle;
+}
+
+.markdown-body ul:dir(rtl) .task-list-item-checkbox {
+  margin: 0 -1.6em .25em .2em;
+}
+
+.markdown-body ol:dir(rtl) .task-list-item-checkbox {
+  margin: 0 -1.6em .25em .2em;
+}
+
+.markdown-body .contains-task-list:hover .task-list-item-convert-container,
+.markdown-body .contains-task-list:focus-within .task-list-item-convert-container {
+  display: block;
+  width: auto;
+  height: 24px;
+  overflow: visible;
+  clip-path: none;
+}
+
+.markdown-body ::-webkit-calendar-picker-indicator {
+  filter: invert(50%);
+}
+
+.markdown-body .markdown-alert {
+  padding: var(--base-size-8) var(--base-size-16);
+  margin-bottom: var(--base-size-16);
+  color: inherit;
+  border-left: .25em solid var(--borderColor-default);
+}
+
+.markdown-body .markdown-alert>:first-child {
+  margin-top: 0;
+}
+
+.markdown-body .markdown-alert>:last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body .markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: var(--base-text-weight-medium, 500);
+  align-items: center;
+  line-height: 1;
+}
+
+.markdown-body .markdown-alert.markdown-alert-note {
+  border-left-color: var(--borderColor-accent-emphasis);
+}
+
+.markdown-body .markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--fgColor-accent);
+}
+
+.markdown-body .markdown-alert.markdown-alert-important {
+  border-left-color: var(--borderColor-done-emphasis);
+}
+
+.markdown-body .markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--fgColor-done);
+}
+
+.markdown-body .markdown-alert.markdown-alert-warning {
+  border-left-color: var(--borderColor-attention-emphasis);
+}
+
+.markdown-body .markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--fgColor-attention);
+}
+
+.markdown-body .markdown-alert.markdown-alert-tip {
+  border-left-color: var(--borderColor-success-emphasis);
+}
+
+.markdown-body .markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--fgColor-success);
+}
+
+.markdown-body .markdown-alert.markdown-alert-caution {
+  border-left-color: var(--borderColor-danger-emphasis);
+}
+
+.markdown-body .markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--fgColor-danger);
+}
+
+.markdown-body>*:first-child>.heading-element:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body .highlight pre:has(+.zeroclipboard-container) {
+  min-height: 52px;
+}
+
+html{color-scheme:light dark}
+body{box-sizing:border-box;min-width:200px;max-width:980px;margin:0 auto;padding:45px;background:Canvas;color:CanvasText}
+@media (max-width:767px){body{padding:15px}}
+</style></head><body><article class="markdown-body">
+<h1 id="waza-skill-demand--report">Waza Skill-Demand — Report</h1>
+<p><em>ytdlp · view-sorted ∩ relevance → Haiku intent-classify · gravity = median views/yr over the top-15 <code class="notranslate">tutorial</code> videos aged ≥18mo · pool=30</em></p>
+<h2 id="1-demand-next-to-fit">1. Demand next to fit</h2>
+<h3 id="reference--anchor">Reference / anchor</h3>
+<table role="table">
+<thead>
+<tr>
+<th>Cluster</th>
+<th>Tutorial-audience size</th>
+<th>Tutorials (counted / found)</th>
+<th>Top tutorial</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#tie-a-tie----how-to-tie-a-necktie">Tie a tie</a></td>
+<td>3.1M /yr</td>
+<td>15 / 29</td>
+<td>8.9M/yr</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tier-1">Tier 1</h3>
+<table role="table">
+<thead>
+<tr>
+<th>Cluster</th>
+<th>Tutorial-audience size</th>
+<th>Tutorials (counted / found)</th>
+<th>Top tutorial</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#fiber-crafts-knittingcrochet----how-to-knit-for-beginners">Fiber crafts (knitting/crochet)</a></td>
+<td>778K /yr</td>
+<td>15 / 30</td>
+<td>4.9M/yr</td>
+</tr>
+<tr>
+<td><a href="#bicycle-mechanic----bicycle-repair-tutorial">Bicycle mechanic</a></td>
+<td>378K /yr</td>
+<td>15 / 24</td>
+<td>1.2M/yr</td>
+</tr>
+<tr>
+<td><a href="#electronics-assembly--soldering----how-to-solder-electronics-for-beginners">Electronics assembly &amp; soldering</a></td>
+<td>307K /yr</td>
+<td>15 / 28</td>
+<td>3.1M/yr</td>
+</tr>
+<tr>
+<td><a href="#device--microelectronics-repair----phone-screen-replacement">Device &amp; microelectronics repair</a></td>
+<td>197K /yr</td>
+<td>15 / 26</td>
+<td>973K/yr</td>
+</tr>
+<tr>
+<td><a href="#watch-repair----mechanical-watch-service-tutorial">Watch repair</a></td>
+<td>83K /yr</td>
+<td>14 / 14</td>
+<td>287K/yr</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tier-2">Tier 2</h3>
+<table role="table">
+<thead>
+<tr>
+<th>Cluster</th>
+<th>Tutorial-audience size</th>
+<th>Tutorials (counted / found)</th>
+<th>Top tutorial</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#sewing--garment-construction----sewing-machine-tutorial-for-beginners">Sewing / garment construction</a></td>
+<td>463K /yr</td>
+<td>15 / 26</td>
+<td>1.1M/yr</td>
+</tr>
+<tr>
+<td><a href="#automotive-bench-repair----how-to-replace-brake-pads">Automotive bench repair</a></td>
+<td>399K /yr</td>
+<td>15 / 24</td>
+<td>1.1M/yr</td>
+</tr>
+<tr>
+<td><a href="#instrument-setup--luthier----guitar-setup-tutorial">Instrument setup / luthier</a></td>
+<td>330K /yr</td>
+<td>15 / 23</td>
+<td>746K/yr</td>
+</tr>
+<tr>
+<td><a href="#model-building--miniature-painting----miniature-painting-tutorial">Model building &amp; miniature painting</a></td>
+<td>257K /yr</td>
+<td>15 / 30</td>
+<td>749K/yr</td>
+</tr>
+<tr>
+<td><a href="#maker-hardware-3d-printer--drone----fpv-drone-build-tutorial">Maker hardware (3D printer / drone)</a></td>
+<td>252K /yr</td>
+<td>14 / 19</td>
+<td>1.5M/yr</td>
+</tr>
+<tr>
+<td><a href="#home-fix-it----how-to-replace-a-light-switch">Home fix-it</a></td>
+<td>241K /yr</td>
+<td>15 / 30</td>
+<td>1.5M/yr</td>
+</tr>
+<tr>
+<td><a href="#culinary-assembly--plating----food-plating-techniques">Culinary assembly &amp; plating</a></td>
+<td>240K /yr</td>
+<td>15 / 23</td>
+<td>8.5M/yr</td>
+</tr>
+<tr>
+<td><a href="#woodworking-joinery----how-to-cut-dovetail-joints">Woodworking joinery</a></td>
+<td>213K /yr</td>
+<td>15 / 28</td>
+<td>988K/yr</td>
+</tr>
+<tr>
+<td><a href="#leatherworking----leathercraft-for-beginners">Leatherworking</a></td>
+<td>202K /yr</td>
+<td>15 / 18</td>
+<td>606K/yr</td>
+</tr>
+<tr>
+<td><a href="#craft-chemistry-candlesoapresin----soap-making-for-beginners">Craft chemistry (candle/soap/resin)</a></td>
+<td>199K /yr</td>
+<td>15 / 26</td>
+<td>794K/yr</td>
+</tr>
+<tr>
+<td><a href="#horticulture-bench-propagation----how-to-graft-fruit-trees">Horticulture bench propagation</a></td>
+<td>198K /yr</td>
+<td>15 / 21</td>
+<td>1.6M/yr</td>
+</tr>
+<tr>
+<td><a href="#hvac--appliance-diagnostics----hvac-troubleshooting-tutorial">HVAC / appliance diagnostics</a></td>
+<td>196K /yr</td>
+<td>15 / 26</td>
+<td>491K/yr</td>
+</tr>
+<tr>
+<td><a href="#paper-craft-bookbindingorigami----bookbinding-tutorial">Paper craft (bookbinding/origami)</a></td>
+<td>173K /yr</td>
+<td>15 / 21</td>
+<td>553K/yr</td>
+</tr>
+<tr>
+<td><a href="#firearms-maintenance----how-to-clean-a-handgun">Firearms maintenance</a></td>
+<td>89K /yr</td>
+<td>15 / 26</td>
+<td>367K/yr</td>
+</tr>
+<tr>
+<td><a href="#fly-tying----fly-tying-for-beginners">Fly-tying</a></td>
+<td>47K /yr</td>
+<td>15 / 19</td>
+<td>80K/yr</td>
+</tr>
+<tr>
+<td><a href="#jewelry-making----stone-setting-tutorial">Jewelry making</a></td>
+<td>24K /yr</td>
+<td>15 / 25</td>
+<td>114K/yr</td>
+</tr>
+<tr>
+<td><a href="#lab-bench-technique----how-to-use-a-micropipette">Lab bench technique</a></td>
+<td>22K /yr</td>
+<td>15 / 30</td>
+<td>124K/yr</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Read <em>within</em> tier — audience mass differs by cluster. Median is over the top-K<br>
+<code class="notranslate">tutorial</code>-labelled videos only; non-tutorials are summarised, not counted.</p>
+</blockquote>
+<h2 id="2-tutorials-per-cluster---counted-in-the-median">2. Tutorials per cluster (✓ = counted in the median)</h2>
+<h3 id="tie-a-tie----how-to-tie-a-necktie">Tie a tie  ·  <em>how to tie a necktie</em></h3>
+<table role="table">
+<thead>
+<tr>
+<th>✓</th>
+<th>Title</th>
+<th>Conf</th>
+<th>Views</th>
+<th>Views/yr</th>
+<th>Len</th>
+<th>Uploaded</th>
+<th>Channel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/xAg7z6u4NE8" rel="nofollow">How to Tie a Tie (Mirrored / Slowly) - Full Windsor Knot</a></td>
+<td>99%</td>
+<td>112.1M</td>
+<td>7.0M/yr</td>
+<td>5:40</td>
+<td>2010-07</td>
+<td>tiehole</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/HXJx8j7JpKY" rel="nofollow">How to Tie a Tie / Windsor (aka Full Windsor or Double Windsor) / For Beginners</a></td>
+<td>99%</td>
+<td>90.3M</td>
+<td>8.3M/yr</td>
+<td>3:00</td>
+<td>2015-07</td>
+<td>defragmenteur</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/9BMhFmNzw-o" rel="nofollow">How to tie a tie - Quick and Easy</a></td>
+<td>99%</td>
+<td>68.5M</td>
+<td>5.0M/yr</td>
+<td>1:50</td>
+<td>2012-09</td>
+<td>Math Meeting</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/4fHMbXWcoq0" rel="nofollow">How to tie a tie EASY WAY (Slowly &amp; Mirrored) Windsor knot</a></td>
+<td>99%</td>
+<td>51.5M</td>
+<td>8.9M/yr</td>
+<td>3:32</td>
+<td>2020-09</td>
+<td>How to tie a tie</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/23J4O8NvWBs" rel="nofollow">How to tie a Windsor Knot - Half, Double, Triple Windsor</a></td>
+<td>99%</td>
+<td>36.7M</td>
+<td>5.0M/yr</td>
+<td>4:33</td>
+<td>2019-03</td>
+<td>How to tie a tie</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/X0yh5rKB9lE" rel="nofollow">8 Different ways How to tie a tie</a></td>
+<td>99%</td>
+<td>36.1M</td>
+<td>5.0M/yr</td>
+<td>11:33</td>
+<td>2019-03</td>
+<td>How to tie a tie</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/T0NPYZyI7V8" rel="nofollow">How to Tie a Windsor Knot / Men's Fashion</a></td>
+<td>75%</td>
+<td>33.3M</td>
+<td>2.6M/yr</td>
+<td>2:07</td>
+<td>2013-11</td>
+<td>Howcast</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/p7X7SpkkEMY" rel="nofollow">How to Tie a Tie: The BEST Video to Tie a Double Windsor Knot (slow=beginner)</a></td>
+<td>99%</td>
+<td>32.5M</td>
+<td>1.8M/yr</td>
+<td>6:11</td>
+<td>2008-02</td>
+<td>MyNiceTie</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/tdNJQct8dco" rel="nofollow">Cara Memakai Dasi / Pasang Dasi - Paling Rapi</a></td>
+<td>99%</td>
+<td>23.8M</td>
+<td>3.1M/yr</td>
+<td>2:25</td>
+<td>2018-12</td>
+<td>Ragam Cara</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/YFw0WVTp94c" rel="nofollow">Cómo hacer nudo de corbata</a></td>
+<td>99%</td>
+<td>14.8M</td>
+<td>4.5M/yr</td>
+<td>2:47</td>
+<td>2023-03</td>
+<td>How to tie a tie</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/VXTOZiXPCBs" rel="nofollow">How to Tie a Tie: Super Fast and Easy</a></td>
+<td>99%</td>
+<td>12.2M</td>
+<td>1.2M/yr</td>
+<td>1:56</td>
+<td>2016-09</td>
+<td>defragmenteur</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/-HUgEZtg-E4" rel="nofollow">How to Tie a Tie easy way for BEGINNERS</a></td>
+<td>99%</td>
+<td>11.9M</td>
+<td>1.4M/yr</td>
+<td>2:12</td>
+<td>2018-01</td>
+<td>How to tie a tie</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/jx21qILP3TU" rel="nofollow">How to tie a tie on table</a></td>
+<td>85%</td>
+<td>11.6M</td>
+<td>1.5M/yr</td>
+<td>2:09</td>
+<td>2018-07</td>
+<td>How to tie a tie</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/-ie1n_65zPM" rel="nofollow">Tie bandhne ka tarika</a></td>
+<td>90%</td>
+<td>9.6M</td>
+<td>2.5M/yr</td>
+<td>2:29</td>
+<td>2022-08</td>
+<td>How to tie a tie</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/InhHRvKXync" rel="nofollow">QUICKEST &amp; EASIEST Knot To Tie? How To Tie The Oriental Knot Tutorial Video</a></td>
+<td>99%</td>
+<td>8.9M</td>
+<td>951K/yr</td>
+<td>2:24</td>
+<td>2017-02</td>
+<td>Real Men Real Style</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/JuOgaFnpTB0" rel="nofollow">How To Tie a Tie: Half Windsor</a></td>
+<td>99%</td>
+<td>7.9M</td>
+<td>531K/yr</td>
+<td>2:42</td>
+<td>2011-08</td>
+<td>Christine Kobzeff</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/77xVJBxetBM" rel="nofollow">How to tie a tie for School (Easy)</a></td>
+<td>99%</td>
+<td>7.8M</td>
+<td>2.1M/yr</td>
+<td>2:45</td>
+<td>2022-09</td>
+<td>How to tie a tie</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/0Pdg2gXx2t8" rel="nofollow">Full (Double) Windsor - the Best instruction</a></td>
+<td>99%</td>
+<td>7.0M</td>
+<td>1.8M/yr</td>
+<td>3:15</td>
+<td>2022-08</td>
+<td>How to tie a tie</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/X_3z7QneFOI" rel="nofollow">How to tie a tie EASY (Windsor knot)</a></td>
+<td>99%</td>
+<td>7.0M</td>
+<td>1.4M/yr</td>
+<td>2:29</td>
+<td>2021-06</td>
+<td>How to tie a tie</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/wOLUCYb-Xsk" rel="nofollow">How to Tie a Tie: Double Windsor Knot (MIRRORED &amp; SLOW FOR BEGINNERS) The Only Knot You Need to Know</a></td>
+<td>99%</td>
+<td>6.9M</td>
+<td>886K/yr</td>
+<td>4:47</td>
+<td>2018-09</td>
+<td>MyNiceTie</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/4nMtWqA4Zyw" rel="nofollow">How to tie a tie in 10 seconds</a></td>
+<td>99%</td>
+<td>5.6M</td>
+<td>463K/yr</td>
+<td>1:57</td>
+<td>2014-06</td>
+<td>tiehole</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/BJg9FIdAqAs" rel="nofollow">How to tie a tie - made simple (Half - Windsor Knot)</a></td>
+<td>95%</td>
+<td>5.6M</td>
+<td>422K/yr</td>
+<td>7:41</td>
+<td>2013-04</td>
+<td>ReviewOutdoorGear</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/L1aHf0rJXs4" rel="nofollow">How to tie a tie in 3 Easy Steps</a></td>
+<td>90%</td>
+<td>5.2M</td>
+<td>1.5M/yr</td>
+<td>2:04</td>
+<td>2022-12</td>
+<td>How to tie a tie</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/flONEDCEGNQ" rel="nofollow">How to Tie-a-Tie - Full Windsor (slowly mirrored) - Easy!</a></td>
+<td>99%</td>
+<td>5.2M</td>
+<td>632K/yr</td>
+<td>4:40</td>
+<td>2018-03</td>
+<td>Reef Knots</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/bB87XrdpQSc" rel="nofollow">World's Easiest way How to tie a tie</a></td>
+<td>99%</td>
+<td>4.4M</td>
+<td>1.1M/yr</td>
+<td>2:50</td>
+<td>2022-06</td>
+<td>How to tie a tie</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/AbtjWrCxaKM" rel="nofollow">Comment faire un noeud de cravate</a></td>
+<td>99%</td>
+<td>3.7M</td>
+<td>1.2M/yr</td>
+<td>2:36</td>
+<td>2023-06</td>
+<td>How to tie a tie</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/WfOiSxLZEfk" rel="nofollow">How to Tie a Perfect Simple Knot</a></td>
+<td>99%</td>
+<td>3.7M</td>
+<td>306K/yr</td>
+<td>1:41</td>
+<td>2014-05</td>
+<td>Ties.com®</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/epB7K9pxAB0" rel="nofollow">How to Tie a Windsor Knot (quickly!)</a></td>
+<td>95%</td>
+<td>3.5M</td>
+<td>411K/yr</td>
+<td>2:30</td>
+<td>2017-12</td>
+<td>Reef Knots</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/TATblk1LUQI" rel="nofollow">How to Tie a Tie Easily</a></td>
+<td>95%</td>
+<td>3.5M</td>
+<td>562K/yr</td>
+<td>2:01</td>
+<td>2020-04</td>
+<td>Dad, how do I?</td>
+</tr>
+</tbody>
+</table>
+<p>_Excluded (not counted): 1 — 1 other. e.g. <em>How to Tie the Perfect Bow Tie | Lessons from a _ (other).</em></p>
+<h3 id="device--microelectronics-repair----phone-screen-replacement">Device &amp; microelectronics repair  ·  <em>phone screen replacement</em></h3>
+<table role="table">
+<thead>
+<tr>
+<th>✓</th>
+<th>Title</th>
+<th>Conf</th>
+<th>Views</th>
+<th>Views/yr</th>
+<th>Len</th>
+<th>Uploaded</th>
+<th>Channel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/Hyf-vkBZMgY" rel="nofollow">Can You Build a SAMSUNG Phone From AliExpress Parts?</a></td>
+<td>75%</td>
+<td>11.5M</td>
+<td>7.7M/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>12:16</td>
+<td>2025-07</td>
+<td>Phone Repair Guru</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/t6O-bGY_1dM" rel="nofollow">iPhone 6 Screen Replacement done in 5 minutes</a></td>
+<td>95%</td>
+<td>10.3M</td>
+<td>874K/yr</td>
+<td>5:32</td>
+<td>2014-09</td>
+<td>JerryRigEverything</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/1htkOEvtR7c" rel="nofollow">Fixing a Smashed Phone Screen - on a budget! (GLASS ONLY REPAIR ATTEMPT)</a></td>
+<td>85%</td>
+<td>6.7M</td>
+<td>734K/yr</td>
+<td>9:03</td>
+<td>2017-05</td>
+<td>DIY Perks</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/hIs6vLdHHKI" rel="nofollow">iPhone 7 Screen Replacement shown in 5 minutes</a></td>
+<td>95%</td>
+<td>3.9M</td>
+<td>404K/yr</td>
+<td>5:27</td>
+<td>2016-10</td>
+<td>JerryRigEverything</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/8ixSuBoPaoY" rel="nofollow">How to install ANY screen protector PERFECTLY - 10 steps ( plus 3 Pro-Tips)</a></td>
+<td>90%</td>
+<td>3.0M</td>
+<td>285K/yr</td>
+<td>6:54</td>
+<td>2015-11</td>
+<td>MobileReviewsEh</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/jtl4KKRIheo" rel="nofollow">iPhone 11 Screen Replacement: Fix Your Cracked Screen!</a></td>
+<td>95%</td>
+<td>2.9M</td>
+<td>474K/yr</td>
+<td>6:38</td>
+<td>2020-05</td>
+<td>iFixit</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/2WgiQ3C3iNQ" rel="nofollow">iPhone 6S Screen Replacement shown in 5 minutes</a></td>
+<td>95%</td>
+<td>2.6M</td>
+<td>241K/yr</td>
+<td>5:15</td>
+<td>2015-09</td>
+<td>JerryRigEverything</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/4fvRVx5O96I" rel="nofollow">iPhone SE Screen Replacement in 4 minutes NEW</a></td>
+<td>95%</td>
+<td>2.0M</td>
+<td>193K/yr</td>
+<td>4:31</td>
+<td>2016-04</td>
+<td>JerryRigEverything</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/D2VwCU1K55o" rel="nofollow">The CHEAPEST Screen Replacement Possible...</a></td>
+<td>80%</td>
+<td>1.6M</td>
+<td>973K/yr</td>
+<td>11:03</td>
+<td>2024-10</td>
+<td>Phone Repair Guru</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/FNR0YoB5eM8" rel="nofollow">iPhone X Screen Replacement—How To</a></td>
+<td>95%</td>
+<td>1.1M</td>
+<td>127K/yr</td>
+<td>3:03</td>
+<td>2018-03</td>
+<td>iFixit</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/6kNNGNAQtZA" rel="nofollow">How To Replace a Cracked Smartphone Screen!</a></td>
+<td>90%</td>
+<td>1.0M</td>
+<td>87K/yr</td>
+<td>51:19</td>
+<td>2014-12</td>
+<td>Adam Savage’s Tested</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/xtYXUdycVUI" rel="nofollow">My First A70 Screen Replacement... Is it Easy?</a></td>
+<td>80%</td>
+<td>939K</td>
+<td>174K/yr</td>
+<td>7:24</td>
+<td>2021-02</td>
+<td>Phone Repair Guru</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/7qROc_y_qW8" rel="nofollow">iPhone 12 and 12 Pro Screen Replacement</a></td>
+<td>95%</td>
+<td>825K</td>
+<td>157K/yr</td>
+<td>5:55</td>
+<td>2021-03</td>
+<td>iFixit</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/YVuRlWswx58" rel="nofollow">3 Steps To Fix Any iPhone / iPhone Screen Replacement</a></td>
+<td>85%</td>
+<td>569K</td>
+<td>106K/yr</td>
+<td>12:01</td>
+<td>2021-02</td>
+<td>Serg Tech</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/fLZcA3LKPSo" rel="nofollow">iPhone 11 Screen Replacement Tutorial - How to fix your phone screen!</a></td>
+<td>95%</td>
+<td>511K</td>
+<td>189K/yr</td>
+<td>8:03</td>
+<td>2023-10</td>
+<td>iDoctor UK</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/Y_CezGRzxQg" rel="nofollow">Samsung A14 Screen Replacement - DIY Guide To Fix Your Broken Phone Screen!</a></td>
+<td>95%</td>
+<td>511K</td>
+<td>197K/yr</td>
+<td>10:10</td>
+<td>2023-11</td>
+<td>iDoctor UK</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/7iUEBSoAkYY" rel="nofollow">How to Replace Screen Glass Only on Galaxy S23/22/21/20/+/Ultra/Note Shown in 6 Mins/New DIY Method</a></td>
+<td>90%</td>
+<td>431K</td>
+<td>105K/yr</td>
+<td>6:06</td>
+<td>2022-05</td>
+<td>ECDiy</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/vFyBKZ41Xgw" rel="nofollow">iPhone XR Screen Replacement Detailed Step by Step Tutorial</a></td>
+<td>95%</td>
+<td>427K</td>
+<td>140K/yr</td>
+<td>11:14</td>
+<td>2023-06</td>
+<td>iDoctor UK</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/fd4EZNVlN7k" rel="nofollow">How to Replace the Display on your iPhone 13!</a></td>
+<td>95%</td>
+<td>424K</td>
+<td>101K/yr</td>
+<td>5:08</td>
+<td>2022-04</td>
+<td>iFixit</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/Fey4U4PTacQ" rel="nofollow">iPhone 11 Pro Max Screen Replacement Guide - How To Change Your Broken Phone Screen!</a></td>
+<td>95%</td>
+<td>270K</td>
+<td>116K/yr</td>
+<td>5:56</td>
+<td>2024-03</td>
+<td>iDoctor UK</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/S8iJfUPXoqQ" rel="nofollow">iPhone 11 Screen Replacement – Step-by-Step DIY Repair Guide!</a></td>
+<td>95%</td>
+<td>125K</td>
+<td>83K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>14:31</td>
+<td>2025-07</td>
+<td>iDoctor UK</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/gKvRJGTsoB8" rel="nofollow">Samsung Galaxy A52 Screen Replacement</a></td>
+<td>85%</td>
+<td>103K</td>
+<td>29K/yr</td>
+<td>3:34</td>
+<td>2022-12</td>
+<td>FixItWireless</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/IDbMC5CgMIQ" rel="nofollow">How to replace your screen protector on an iPhone</a></td>
+<td>90%</td>
+<td>65K</td>
+<td>12K/yr</td>
+<td>2:37</td>
+<td>2021-03</td>
+<td>JrTech</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/lvo3_Fb4Jxs" rel="nofollow">How to Replace a Broken Phone Screen</a></td>
+<td>95%</td>
+<td>31K</td>
+<td>14K/yr</td>
+<td>9:44</td>
+<td>2024-04</td>
+<td>The How-To Guys</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/OAyp-v_rZQA" rel="nofollow">Your First iPhone Screen Repair… Made Easy!</a></td>
+<td>90%</td>
+<td>4K</td>
+<td>3K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>2:07</td>
+<td>2025-10</td>
+<td>Gadget Gear Guide</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/WskdgAVZ-_o" rel="nofollow">How to Replace a Phone Screen at Home / Avoid Common Mistakes</a></td>
+<td>95%</td>
+<td>3K</td>
+<td>2K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>14:16</td>
+<td>2025-04</td>
+<td>FIX DIY</td>
+</tr>
+</tbody>
+</table>
+<p><em>Excluded (not counted): 4 — 2 review, 2 explainer. e.g. <em>Phone repairs are getting ridiculous - Here's wh</em> (review); <em>Does Toothpaste REALLY REMOVE Cracks On A Phone?</em> (explainer); <em>Are AMAZON Replacement Screens TRASH? 🤔</em> (review).</em></p>
+<h3 id="electronics-assembly--soldering----how-to-solder-electronics-for-beginners">Electronics assembly &amp; soldering  ·  <em>how to solder electronics for beginners</em></h3>
+<table role="table">
+<thead>
+<tr>
+<th>✓</th>
+<th>Title</th>
+<th>Conf</th>
+<th>Views</th>
+<th>Views/yr</th>
+<th>Len</th>
+<th>Uploaded</th>
+<th>Channel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/uj_PbRBirkQ" rel="nofollow">How to SOLDER WIRES TOGETHER - PRO TIPS for WATERPROOF CONNECTIONS</a></td>
+<td>95%</td>
+<td>15.5M</td>
+<td>3.1M/yr</td>
+<td>5:39</td>
+<td>2021-06</td>
+<td>Silver Cymbal</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/Fp37DPZVdRI" rel="nofollow">10 STUPID ERRORS To AVOID in Soldering and TIPS</a></td>
+<td>90%</td>
+<td>11.0M</td>
+<td>1.8M/yr</td>
+<td>16:11</td>
+<td>2020-05</td>
+<td>Daniele Tartaglia</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/Zu3TYBs65FM" rel="nofollow">How to Solder Wires Together (Best tips and tricks)</a></td>
+<td>95%</td>
+<td>7.4M</td>
+<td>757K/yr</td>
+<td>12:28</td>
+<td>2016-09</td>
+<td>ChrisFix</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/Qps9woUGkvI" rel="nofollow">Soldering Tutorial for Beginners: Five Easy Steps</a></td>
+<td>98%</td>
+<td>3.7M</td>
+<td>307K/yr</td>
+<td>3:57</td>
+<td>2014-06</td>
+<td>oneTesla</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/6rmErwU5E-k" rel="nofollow">Soldering Crash Course: Basic Techniques, Tips and Advice!</a></td>
+<td>90%</td>
+<td>3.6M</td>
+<td>615K/yr</td>
+<td>16:11</td>
+<td>2020-07</td>
+<td>wermy</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/oqV2xU1fee8" rel="nofollow">Beginner how to Solder</a></td>
+<td>90%</td>
+<td>3.3M</td>
+<td>254K/yr</td>
+<td>6:29</td>
+<td>2013-06</td>
+<td>electronhacks</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/FTYDSCUUDSQ" rel="nofollow">10 Soldering Tips to Instantly Improve Your Soldering Skills</a></td>
+<td>85%</td>
+<td>2.2M</td>
+<td>301K/yr</td>
+<td>5:45</td>
+<td>2019-01</td>
+<td>FlightClub</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/3jAw41LRBxU" rel="nofollow">HOW TO SOLDER! (Beginner's Guide)</a></td>
+<td>95%</td>
+<td>2.0M</td>
+<td>442K/yr</td>
+<td>22:02</td>
+<td>2021-12</td>
+<td>HackMakeMod</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/vIT4ra6Mo0s" rel="nofollow">Basic Soldering Lesson 1 - "Solder &amp; Flux"</a></td>
+<td>75%</td>
+<td>2.0M</td>
+<td>135K/yr</td>
+<td>20:45</td>
+<td>2011-11</td>
+<td>paceworldwide</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/M2Jf8cebwCs" rel="nofollow">Beginner's Guide to Soldering Electronics Part 1</a></td>
+<td>95%</td>
+<td>1.9M</td>
+<td>263K/yr</td>
+<td>33:06</td>
+<td>2019-04</td>
+<td>Branchus Creations</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/xrVCkEoY_8M" rel="nofollow">How to Solder, tips and tricks</a></td>
+<td>85%</td>
+<td>1.9M</td>
+<td>123K/yr</td>
+<td>6:49</td>
+<td>2011-06</td>
+<td>electronhacks</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/OWNAjwhwzro" rel="nofollow">Using Flux / Soldering Basics / Soldering for Beginners</a></td>
+<td>85%</td>
+<td>1.8M</td>
+<td>320K/yr</td>
+<td>3:24</td>
+<td>2020-10</td>
+<td>How Do You? DIY</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/4xUBRMgcVhc" rel="nofollow">Four Steps to Flawless Wire Joints (How to Solder)</a></td>
+<td>95%</td>
+<td>1.7M</td>
+<td>714K/yr</td>
+<td>11:44</td>
+<td>2024-02</td>
+<td>Will Donaldson</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/fYInlAmPnGo" rel="nofollow">SMD Soldering Tutorial / Guide / Tools / Tecniques / Stencil</a></td>
+<td>95%</td>
+<td>1.6M</td>
+<td>287K/yr</td>
+<td>22:49</td>
+<td>2020-11</td>
+<td>Electronoobs</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/EW9Y8rDm4kE" rel="nofollow">How To Solder SMD Correctly - Part 1 /SMD Soldering Tutorial</a></td>
+<td>95%</td>
+<td>1.3M</td>
+<td>237K/yr</td>
+<td>19:14</td>
+<td>2021-02</td>
+<td>Mr SolderFix</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/AqvHogekDI4" rel="nofollow">Basic Soldering Technique</a></td>
+<td>90%</td>
+<td>1.1M</td>
+<td>105K/yr</td>
+<td>4:59</td>
+<td>2015-09</td>
+<td>FSE elearning</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/bG7yW9FigJA" rel="nofollow">Desoldering / Soldering Basics / Soldering for Beginners</a></td>
+<td>85%</td>
+<td>1.1M</td>
+<td>196K/yr</td>
+<td>3:19</td>
+<td>2020-11</td>
+<td>How Do You? DIY</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/J5Sb21qbpEQ" rel="nofollow">EEVblog #180 - Soldering Tutorial Part 1 - Tools</a></td>
+<td>90%</td>
+<td>991K</td>
+<td>66K/yr</td>
+<td>27:14</td>
+<td>2011-06</td>
+<td>EEVblog</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/jz67KgHzXVw" rel="nofollow">Do This Before You Solder Anything</a></td>
+<td>85%</td>
+<td>973K</td>
+<td>649K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>12:00</td>
+<td>2025-08</td>
+<td>StuckAtPrototype</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/QKbJxytERvg" rel="nofollow">Collin's Lab: Soldering</a></td>
+<td>90%</td>
+<td>696K</td>
+<td>57K/yr</td>
+<td>5:09</td>
+<td>2014-04</td>
+<td>Adafruit Industries</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/NSqPHQ1zQco" rel="nofollow">How to solder two wires together / Crutchfield</a></td>
+<td>95%</td>
+<td>686K</td>
+<td>116K/yr</td>
+<td>1:28</td>
+<td>2020-07</td>
+<td>CRUTCHFIELD</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/rK38rpUy568" rel="nofollow">iFixit's Soldering 101: Beginners Guide</a></td>
+<td>95%</td>
+<td>605K</td>
+<td>270K/yr</td>
+<td>6:46</td>
+<td>2024-03</td>
+<td>iFixit</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/GAjuZoyAhgI" rel="nofollow">Soldering Complete Tutorial for Beginners / Leaded, SMTs, Chip【Step by Step】</a></td>
+<td>98%</td>
+<td>234K</td>
+<td>76K/yr</td>
+<td>47:52</td>
+<td>2023-06</td>
+<td>DENKI OTAKU</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/hmaZEio2NTo" rel="nofollow">How to Solder Wire Together Like a PRO in 5 Minutes!</a></td>
+<td>95%</td>
+<td>228K</td>
+<td>84K/yr</td>
+<td>6:38</td>
+<td>2023-10</td>
+<td>How-To island - Robin Saulnier</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/v4D_Rdp1uh8" rel="nofollow">Skillbuilder: Learn to Solder</a></td>
+<td>90%</td>
+<td>151K</td>
+<td>17K/yr</td>
+<td>3:40</td>
+<td>2017-06</td>
+<td>Make:</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/2aqhnJWBXpE" rel="nofollow">Soldering For Beginners - Learn In Just 11 Minutes</a></td>
+<td>95%</td>
+<td>103K</td>
+<td>23K/yr</td>
+<td>11:41</td>
+<td>2021-12</td>
+<td>Blaine Locklair</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/sS4v2hIFp9I" rel="nofollow">How To Solder - Electronics with Becky Stern / Digi-Key Electronics</a></td>
+<td>90%</td>
+<td>63K</td>
+<td>17K/yr</td>
+<td>5:38</td>
+<td>2022-10</td>
+<td>DigiKey</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/MWrJGEcMHQI" rel="nofollow">How to Solder Electronics, Wires, and Plugs (Complete Beginners Guide)</a></td>
+<td>95%</td>
+<td>4K</td>
+<td>3K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>24:50</td>
+<td>2026-04</td>
+<td>Mediocre Nerd</td>
+</tr>
+</tbody>
+</table>
+<p>_Excluded (not counted): 2 — 2 explainer. e.g. <em>Required Tools and Supplies For Basic Soldering _ (explainer); <em>How to Solder Electronics</em> (explainer).</em></p>
+<h3 id="bicycle-mechanic----bicycle-repair-tutorial">Bicycle mechanic  ·  <em>bicycle repair tutorial</em></h3>
+<table role="table">
+<thead>
+<tr>
+<th>✓</th>
+<th>Title</th>
+<th>Conf</th>
+<th>Views</th>
+<th>Views/yr</th>
+<th>Len</th>
+<th>Uploaded</th>
+<th>Channel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/ZNG7g83lI-s" rel="nofollow">How to Adjust a Front Derailleur</a></td>
+<td>95%</td>
+<td>8.6M</td>
+<td>962K/yr</td>
+<td>13:43</td>
+<td>2017-07</td>
+<td>Park Tool</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/eqR6nlZNeU8" rel="nofollow">How to Remove and Install a Bicycle Tire &amp; Tube</a></td>
+<td>95%</td>
+<td>7.3M</td>
+<td>731K/yr</td>
+<td>9:38</td>
+<td>2016-07</td>
+<td>Park Tool</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/hg6s596PPRY" rel="nofollow">How to Adjust Bike Brakes / Bike Maintenance</a></td>
+<td>95%</td>
+<td>5.9M</td>
+<td>387K/yr</td>
+<td>2:26</td>
+<td>2011-05</td>
+<td>Howcast</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/rWchudX-Tqs" rel="nofollow">How To Replace A Bicycle Chain</a></td>
+<td>95%</td>
+<td>4.5M</td>
+<td>402K/yr</td>
+<td>6:50</td>
+<td>2015-06</td>
+<td>Global Cycling Network</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/VVQ9M1BvBaE" rel="nofollow">How to Make Your Bicycle Faster. Bike Rear Hub Maintenance / Shimano FH-RM30</a></td>
+<td>90%</td>
+<td>3.7M</td>
+<td>1.2M/yr</td>
+<td>10:02</td>
+<td>2023-04</td>
+<td>Nice Bike Service</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/XMa9UqY9obk" rel="nofollow">Brake Caliper Mounting &amp; Adjustment - Linear Pull &amp; V Brake</a></td>
+<td>95%</td>
+<td>3.5M</td>
+<td>344K/yr</td>
+<td>14:08</td>
+<td>2016-04</td>
+<td>Park Tool</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/fwwfV99VV8I" rel="nofollow">How To Change A Bicycle Inner Tube</a></td>
+<td>95%</td>
+<td>3.4M</td>
+<td>255K/yr</td>
+<td>2:59</td>
+<td>2013-03</td>
+<td>Global Cycling Network</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/O3mzPQnyyOU" rel="nofollow">Your ALL-IN-ONE Bike Maintenance Tutorial. How To Service A Bicycle.</a></td>
+<td>95%</td>
+<td>3.4M</td>
+<td>378K/yr</td>
+<td>140:10</td>
+<td>2017-08</td>
+<td>Supreme Biker</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/B2sKhSDrugE" rel="nofollow">How to Wash a Bike</a></td>
+<td>95%</td>
+<td>2.9M</td>
+<td>269K/yr</td>
+<td>16:41</td>
+<td>2015-10</td>
+<td>Park Tool</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/M-viV5DZ2mo" rel="nofollow">How To Put A Bike Chain Back On-EASY Tutorial</a></td>
+<td>95%</td>
+<td>2.5M</td>
+<td>265K/yr</td>
+<td>2:12</td>
+<td>2016-12</td>
+<td>Helpful DIY</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/T0F_hibWHlU" rel="nofollow">How to Patch a Bicycle Inner Tube</a></td>
+<td>95%</td>
+<td>2.4M</td>
+<td>243K/yr</td>
+<td>6:45</td>
+<td>2016-07</td>
+<td>Park Tool</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/Suh1-o6KBo8" rel="nofollow">HOW TO remove &amp; change an inner tube the right way: Tips from a Professional Bike Mechanic #2</a></td>
+<td>90%</td>
+<td>2.2M</td>
+<td>480K/yr</td>
+<td>18:42</td>
+<td>2021-10</td>
+<td>David Arthur - Just Ride Bikes</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/NmqGeLNcVIg" rel="nofollow">How to Align a Mechanical Disc Brake on a Bike</a></td>
+<td>90%</td>
+<td>2.2M</td>
+<td>272K/yr</td>
+<td>12:05</td>
+<td>2018-05</td>
+<td>Park Tool</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/SlN9CFXCNBI" rel="nofollow">Bike Upgrades. Shimano Hollowtech II Bottom Bracket and cranks Replacement</a></td>
+<td>90%</td>
+<td>2.0M</td>
+<td>612K/yr</td>
+<td>11:48</td>
+<td>2023-02</td>
+<td>Nice Bike Service</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/Q2sKMqB9QCg" rel="nofollow">How To Fix A Bike Puncture - Repairing An Inner Tube</a></td>
+<td>95%</td>
+<td>2.0M</td>
+<td>158K/yr</td>
+<td>4:34</td>
+<td>2013-08</td>
+<td>Global Cycling Network</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/V5rvepYd36A" rel="nofollow">5 Minute Gear Adjust / How To Set Up Your Mountain Bike Gears Correctly</a></td>
+<td>95%</td>
+<td>2.0M</td>
+<td>304K/yr</td>
+<td>8:50</td>
+<td>2019-12</td>
+<td>GMBN Tech</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/VKBNDzCLzK8" rel="nofollow">3 Essential Bike Maintenance Tips For Beginners / Maintenance Monday</a></td>
+<td>95%</td>
+<td>741K</td>
+<td>184K/yr</td>
+<td>9:54</td>
+<td>2022-06</td>
+<td>GCN Tech</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/-q5ifFe-Fl4" rel="nofollow">Give your bike a complete overhaul and lubrication. Your bicycle will be happy!</a></td>
+<td>85%</td>
+<td>735K</td>
+<td>490K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>14:52</td>
+<td>2025-07</td>
+<td>Nice Bike Service</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/IAzTtwB3eN0" rel="nofollow">9 Mechanical Skills Everyone Should Know / Essential MTB Maintenance Skills</a></td>
+<td>90%</td>
+<td>660K</td>
+<td>108K/yr</td>
+<td>15:45</td>
+<td>2020-05</td>
+<td>GMBN Tech</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/Iuy7wwMm6HY" rel="nofollow">Do it yourself bicycle service / What you need to know / Cycling Weekly</a></td>
+<td>90%</td>
+<td>601K</td>
+<td>96K/yr</td>
+<td>14:32</td>
+<td>2020-03</td>
+<td>Cycling Weekly</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/u-1oMaaNJCY" rel="nofollow">7 Essential Maintenance Skills You Need To Know</a></td>
+<td>90%</td>
+<td>572K</td>
+<td>238K/yr</td>
+<td>11:59</td>
+<td>2024-01</td>
+<td>GMBN Tech</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/RG3D5fmMyS8" rel="nofollow">Stop Wasting Money at Bike Shops! Bicycle Tune Up at Home: The Easiest Step-by-Step DIY Guide</a></td>
+<td>95%</td>
+<td>363K</td>
+<td>140K/yr</td>
+<td>19:10</td>
+<td>2023-11</td>
+<td>BikeFarmer</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/D-P0fOWkCoE" rel="nofollow">The EASY WAY to TUNEUP your BICYCLE yourself AT HOME! Trek FX gets CLEANED, LUBED and ADJUSTED!</a></td>
+<td>95%</td>
+<td>301K</td>
+<td>161K/yr</td>
+<td>30:17</td>
+<td>2024-08</td>
+<td>BikeFarmer</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/xRAlLZlmrmE" rel="nofollow">The Ultimate Basic Bike Repair Guide</a></td>
+<td>95%</td>
+<td>12K</td>
+<td>8K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>38:14</td>
+<td>2025-02</td>
+<td>Sam Westby</td>
+</tr>
+</tbody>
+</table>
+<p>_Excluded (not counted): 6 — 4 explainer, 1 other, 1 entertainment. e.g. <em>Flick Trix - Bike Repair</em> (other); <em>Restoration BMX Bicycle - Complete Process</em> (entertainment); <em>How To Fix Bike Chain Skipping/Slipping/Jumping _ (explainer).</em></p>
+<h3 id="fiber-crafts-knittingcrochet----how-to-knit-for-beginners">Fiber crafts (knitting/crochet)  ·  <em>how to knit for beginners</em></h3>
+<table role="table">
+<thead>
+<tr>
+<th>✓</th>
+<th>Title</th>
+<th>Conf</th>
+<th>Views</th>
+<th>Views/yr</th>
+<th>Len</th>
+<th>Uploaded</th>
+<th>Channel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/aAxGTnVNJiE" rel="nofollow">How to Crochet for Absolute Beginners: Part 1</a></td>
+<td>98%</td>
+<td>55.0M</td>
+<td>4.9M/yr</td>
+<td>8:36</td>
+<td>2015-03</td>
+<td>simplydaisy</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/GcOzdAzmtNM" rel="nofollow">HOW TO CROCHET FOR ABSOLUTE BEGINNERS / EPISODE ONE</a></td>
+<td>99%</td>
+<td>23.6M</td>
+<td>3.2M/yr</td>
+<td>7:01</td>
+<td>2019-02</td>
+<td>Bella Coco</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/p_R1UDsNOMk" rel="nofollow">How to Knit: Easy for Beginners</a></td>
+<td>98%</td>
+<td>14.9M</td>
+<td>2.0M/yr</td>
+<td>21:53</td>
+<td>2018-11</td>
+<td>RJ Knits</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/1vm6oaYzHyA" rel="nofollow">How to CAST ON Knitting for Total Beginners</a></td>
+<td>99%</td>
+<td>14.6M</td>
+<td>2.1M/yr</td>
+<td>8:17</td>
+<td>2019-05</td>
+<td>Sheep &amp; Stitch</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/ebNPtVePrh0" rel="nofollow">Knitting Rib for Beginners (cast on, kn, pu &amp; Rib)</a></td>
+<td>99%</td>
+<td>9.7M</td>
+<td>829K/yr</td>
+<td>18:50</td>
+<td>2014-10</td>
+<td>GillysCraftWorld</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/MsZsUBYU0qU" rel="nofollow">Learn How To Finger Knit (Easy And Beginner Friendly!)</a></td>
+<td>99%</td>
+<td>9.3M</td>
+<td>761K/yr</td>
+<td>7:36</td>
+<td>2014-04</td>
+<td>Fiber Flux</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/hM5M2Fu0RtY" rel="nofollow">Knitting for Beginners / Hobby Lobby®</a></td>
+<td>99%</td>
+<td>9.1M</td>
+<td>778K/yr</td>
+<td>14:27</td>
+<td>2014-09</td>
+<td>Hobby Lobby</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/ONVQCK_-rKc" rel="nofollow">How to Knit - Absolute Beginner Knitting, Lesson 1 - Even if You're Clueless!</a></td>
+<td>99%</td>
+<td>7.0M</td>
+<td>522K/yr</td>
+<td>14:51</td>
+<td>2013-02</td>
+<td>ExpressionFiberArts</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/Egp4NRhlMDg" rel="nofollow">The KNIT STITCH for Total Beginners</a></td>
+<td>99%</td>
+<td>6.5M</td>
+<td>914K/yr</td>
+<td>8:04</td>
+<td>2019-05</td>
+<td>Sheep &amp; Stitch</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/Gr-a15uJaoY" rel="nofollow">How to Finger Knit a Blanket [Washer &amp; Dryer Safe]</a></td>
+<td>98%</td>
+<td>6.3M</td>
+<td>1.1M/yr</td>
+<td>6:27</td>
+<td>2020-12</td>
+<td>Play Hooky with Me</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/4XXky5Mo5p8" rel="nofollow">How to Knit a Blanket - Step By Step</a></td>
+<td>99%</td>
+<td>6.2M</td>
+<td>595K/yr</td>
+<td>12:38</td>
+<td>2016-02</td>
+<td>WOOLANDTHEGANG</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/24lR2IRS57A" rel="nofollow">How to Knit a Scarf for Beginners Step By Step</a></td>
+<td>99%</td>
+<td>6.2M</td>
+<td>585K/yr</td>
+<td>27:10</td>
+<td>2015-12</td>
+<td>Sheep &amp; Stitch</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/_3xNc0tuk9Q" rel="nofollow">How to Finger Knit</a></td>
+<td>98%</td>
+<td>4.3M</td>
+<td>760K/yr</td>
+<td>2:04</td>
+<td>2020-10</td>
+<td>wikiHow</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/szX6slq2Q8Y" rel="nofollow">How to Knit a Hat for Complete Beginners</a></td>
+<td>99%</td>
+<td>4.1M</td>
+<td>434K/yr</td>
+<td>34:26</td>
+<td>2017-01</td>
+<td>B.Hooked Crochet</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/7ePhLqw6HDM" rel="nofollow">How to PURL STITCH for Total Beginners</a></td>
+<td>99%</td>
+<td>3.6M</td>
+<td>607K/yr</td>
+<td>8:07</td>
+<td>2020-08</td>
+<td>Sheep &amp; Stitch</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/Tff3ng-djtk" rel="nofollow">How to Knit: A Complete Introduction for Beginners Part 1</a></td>
+<td>99%</td>
+<td>3.3M</td>
+<td>246K/yr</td>
+<td>19:35</td>
+<td>2013-03</td>
+<td>KnittingHelp.com</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/Zjq0MoUZqVY" rel="nofollow">How to Knit - for absolute BEGINNERS!</a></td>
+<td>99%</td>
+<td>2.5M</td>
+<td>357K/yr</td>
+<td>28:29</td>
+<td>2019-06</td>
+<td>LoveCrafts</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/UHlsW0wI144" rel="nofollow">How to Knit a Scarf for the Absolute Beginner</a></td>
+<td>99%</td>
+<td>2.1M</td>
+<td>252K/yr</td>
+<td>20:06</td>
+<td>2018-03</td>
+<td>Fiber Flux</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/zLSaApeG-vY" rel="nofollow">How to knit for beginners -   the continental way (+ slow motion)</a></td>
+<td>99%</td>
+<td>2.0M</td>
+<td>410K/yr</td>
+<td>40:18</td>
+<td>2021-09</td>
+<td>NimbleNeedles</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/0zGNjHnZ91c" rel="nofollow">How to Knit The Knit Stitch for Beginners / The Garter Stitch / PassioKnit Kelsie</a></td>
+<td>99%</td>
+<td>1.9M</td>
+<td>811K/yr</td>
+<td>28:25</td>
+<td>2024-03</td>
+<td>PassioKnit Kelsie</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/SpfLTb56fMc" rel="nofollow">HOW TO KNIT for TOTAL BEGINNERS: STEP-BY-STEP Tutorial (SLOW REPEATS &amp; common MISTAKES)</a></td>
+<td>99%</td>
+<td>1.4M</td>
+<td>861K/yr</td>
+<td>34:35</td>
+<td>2024-11</td>
+<td>Sheep &amp; Stitch</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/VNnFjHpMkZI" rel="nofollow">Easy Heart Knitting Pattern 💖 Original</a></td>
+<td>98%</td>
+<td>1.1M</td>
+<td>174K/yr</td>
+<td>9:00</td>
+<td>2020-05</td>
+<td>Studio Knit</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/z6dDwbSp6SQ" rel="nofollow">Learn How To KNIT For ABSOLUTE BEGINNERS</a></td>
+<td>99%</td>
+<td>762K</td>
+<td>142K/yr</td>
+<td>23:32</td>
+<td>2021-02</td>
+<td>Flock &amp; Fern</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/LLAWJwtlHVo" rel="nofollow">Learn to Knit for Crocheters in 5 Minutes / The Basics of Knitting by Modern Made</a></td>
+<td>99%</td>
+<td>755K</td>
+<td>284K/yr</td>
+<td>5:01</td>
+<td>2023-10</td>
+<td>Modern Made</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/5iIJkWxqur4" rel="nofollow">How to Start Knitting (Step-by-Step Beginner Guide) 🧶</a></td>
+<td>99%</td>
+<td>548K</td>
+<td>365K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>19:40</td>
+<td>2025-02</td>
+<td>Simply Yarn</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/m1FbeAvBrVE" rel="nofollow">🧺🧶 The (Almost) Ultimate Guide on Knitting for Beginners ✧ ˚. ᵎᵎ/ how to knit tutorial for beginners</a></td>
+<td>98%</td>
+<td>411K</td>
+<td>198K/yr</td>
+<td>47:03</td>
+<td>2024-05</td>
+<td>ikoxun</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/d5CR1ssUbMQ" rel="nofollow">How to Knit the KNIT Stitch: Knitting Lessons for Beginners</a></td>
+<td>99%</td>
+<td>308K</td>
+<td>25K/yr</td>
+<td>2:41</td>
+<td>2014-03</td>
+<td>Studio Knit</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/oZ78gtBEmw4" rel="nofollow">How to knit (absolute beginners)</a></td>
+<td>92%</td>
+<td>265K</td>
+<td>99K/yr</td>
+<td>22:10</td>
+<td>2023-10</td>
+<td>Christopher Kuhne</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/Ve1ePBfgEiY" rel="nofollow">How to Knit for Beginners</a></td>
+<td>99%</td>
+<td>233K</td>
+<td>155K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>19:45</td>
+<td>2025-08</td>
+<td>Meema Makes</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/P2V5dkELOzE" rel="nofollow">LEARN TO KNIT IN 2026! <em>everything</em> a beginner needs to know to get started!</a></td>
+<td>99%</td>
+<td>98K</td>
+<td>65K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>48:09</td>
+<td>2026-01</td>
+<td>Jamie Paige</td>
+</tr>
+</tbody>
+</table>
+<h3 id="watch-repair----mechanical-watch-service-tutorial">Watch repair  ·  <em>mechanical watch service tutorial</em></h3>
+<table role="table">
+<thead>
+<tr>
+<th>✓</th>
+<th>Title</th>
+<th>Conf</th>
+<th>Views</th>
+<th>Views/yr</th>
+<th>Len</th>
+<th>Uploaded</th>
+<th>Channel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/TEcP0ZSnVmw" rel="nofollow">How to Remove &amp; Replace Watch Movements</a></td>
+<td>90%</td>
+<td>2.3M</td>
+<td>197K/yr</td>
+<td>3:33</td>
+<td>2014-09</td>
+<td>Esslinger and Company</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/tDa1ZZFwoBU" rel="nofollow">Seiko 7s26 full stripdown service, restoration and watch repair tutorial</a></td>
+<td>100%</td>
+<td>1.6M</td>
+<td>225K/yr</td>
+<td>39:03</td>
+<td>2019-04</td>
+<td>Watch Repair Channel</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/8Qb3V2L1Qe0" rel="nofollow">The Automatic Watch Beginner's Guide - How To Wind An Automatic Watch</a></td>
+<td>95%</td>
+<td>1.6M</td>
+<td>210K/yr</td>
+<td>9:55</td>
+<td>2018-11</td>
+<td>Timed Square</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/X8PkQZtipIQ" rel="nofollow">How to use and maintain your automatic watch</a></td>
+<td>80%</td>
+<td>1.2M</td>
+<td>94K/yr</td>
+<td>4:27</td>
+<td>2013-04</td>
+<td>WorldofWatches.com</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/qtgAJBPPefM" rel="nofollow">How to service an automatic watch ETA 2824 Watch repair tutorial</a></td>
+<td>100%</td>
+<td>1.1M</td>
+<td>90K/yr</td>
+<td>26:08</td>
+<td>2014-02</td>
+<td>Watch Repair Channel</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/Vzw5KVHbbH8" rel="nofollow">How to Remove A Watch Winder or crown and stem. Watch repair tutorials.</a></td>
+<td>90%</td>
+<td>980K</td>
+<td>76K/yr</td>
+<td>8:00</td>
+<td>2013-08</td>
+<td>Watch Repair Channel</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/aDOSD9CrPn4" rel="nofollow">OMEGA WATCH RESTORATION - A Classic 1960s Mechanical Watch Service &amp; Repair Tutorial</a></td>
+<td>95%</td>
+<td>687K</td>
+<td>115K/yr</td>
+<td>20:07</td>
+<td>2020-07</td>
+<td>Watch Repair Channel</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/Ui_QnDKciBU" rel="nofollow">How to do watch timing adjustment - regulation.</a></td>
+<td>90%</td>
+<td>633K</td>
+<td>58K/yr</td>
+<td>2:43</td>
+<td>2015-08</td>
+<td>Tally Ho Tech</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/mXUXpNeTKkI" rel="nofollow">How to service a mechanical watch. Part 1. AS 1900 in a Rotary watch</a></td>
+<td>100%</td>
+<td>584K</td>
+<td>47K/yr</td>
+<td>21:23</td>
+<td>2013-12</td>
+<td>Watch Repair Channel</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/_9czt3IK-o0" rel="nofollow">How to Disassemble (and Reassemble) a Watch Movement Using Simple Tools</a></td>
+<td>95%</td>
+<td>489K</td>
+<td>287K/yr</td>
+<td>24:44</td>
+<td>2024-10</td>
+<td>Wristwatch Revival</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/M1nURfCByQw" rel="nofollow">Watch Lubrication for Beginners</a></td>
+<td>95%</td>
+<td>166K</td>
+<td>42K/yr</td>
+<td>21:08</td>
+<td>2022-06</td>
+<td>Watch Repair Tutorials</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/F-03G-Bmj00" rel="nofollow">REBUILD, assembly made easy for ANY mechanical movement!</a></td>
+<td>95%</td>
+<td>85K</td>
+<td>54K/yr</td>
+<td>18:16</td>
+<td>2024-11</td>
+<td>Chronoglide Watchmakers</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/9jarslbMTUk" rel="nofollow">Beginners Guide to Working On Automatic Watch Systems</a></td>
+<td>95%</td>
+<td>50K</td>
+<td>13K/yr</td>
+<td>29:56</td>
+<td>2022-07</td>
+<td>Watch Repair Tutorials</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/X6VfkR4JlU8" rel="nofollow">fixing “mechanical watch” WITHOUT taking it apart (wound up and not running)</a></td>
+<td>60%</td>
+<td>50K</td>
+<td>18K/yr</td>
+<td>3:53</td>
+<td>2023-08</td>
+<td>Live Free</td>
+</tr>
+</tbody>
+</table>
+<p><em>Excluded (not counted): 16 — 8 entertainment, 5 explainer, 3 review. e.g. <em>How a Mechanical Watch Works</em> (explainer); <em>How a Mechanical Watch Works | Explained in 5 Mi</em> (explainer); <em>Flea Market Jackpot: Restoring a $20 Grand Seiko</em> (entertainment).</em></p>
+<h3 id="leatherworking----leathercraft-for-beginners">Leatherworking  ·  <em>leathercraft for beginners</em></h3>
+<table role="table">
+<thead>
+<tr>
+<th>✓</th>
+<th>Title</th>
+<th>Conf</th>
+<th>Views</th>
+<th>Views/yr</th>
+<th>Len</th>
+<th>Uploaded</th>
+<th>Channel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/bCEC4d-KaQU" rel="nofollow">How to Make a Mystery Braid Leather Cuff Bracelet / Easy DIY Leathercraft with Chuck Dorsett</a></td>
+<td>95%</td>
+<td>5.6M</td>
+<td>600K/yr</td>
+<td>15:39</td>
+<td>2017-03</td>
+<td>Weaver Leather Supply</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/A4RVr-wsirY" rel="nofollow">How to Hand Stitch Leather: Get Better, Fast!</a></td>
+<td>95%</td>
+<td>3.2M</td>
+<td>606K/yr</td>
+<td>16:12</td>
+<td>2021-03</td>
+<td>Claridge Leather</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/MFDo-dtr9mk" rel="nofollow">How to Hand Stitch Leather - Saddle Stitch Tutorial, Beginner Leatherwork</a></td>
+<td>95%</td>
+<td>2.8M</td>
+<td>403K/yr</td>
+<td>10:55</td>
+<td>2019-07</td>
+<td>J.H.Leather</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/CLPkVvI9yFg" rel="nofollow">How to Start Leather Crafting</a></td>
+<td>90%</td>
+<td>1.9M</td>
+<td>308K/yr</td>
+<td>21:39</td>
+<td>2020-05</td>
+<td>Corter Leather</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/igh49w6h_3g" rel="nofollow">Skinning My Phone Case With Leather - Leather Craft</a></td>
+<td>85%</td>
+<td>1.4M</td>
+<td>380K/yr</td>
+<td>8:44</td>
+<td>2022-11</td>
+<td>Kingdom Glory Leather</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/SBo_iTnvPk0" rel="nofollow">How to Make a Leather Wallet</a></td>
+<td>95%</td>
+<td>1.3M</td>
+<td>202K/yr</td>
+<td>29:20</td>
+<td>2020-03</td>
+<td>Corter Leather</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/_409avvP52k" rel="nofollow">Making a Leather Journal Cover - leather craft</a></td>
+<td>95%</td>
+<td>1.2M</td>
+<td>338K/yr</td>
+<td>13:33</td>
+<td>2022-11</td>
+<td>Plan.B Leather</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/VVuAJpd03UA" rel="nofollow">Making an Ordinary Wallet with Premium Vegetable-Tanned Leather - Leathercraft</a></td>
+<td>90%</td>
+<td>784K</td>
+<td>463K/yr</td>
+<td>9:38</td>
+<td>2024-10</td>
+<td>Plan.B Leather</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/kWW6Sg08O2s" rel="nofollow">Leather tooling basics tutorial for beginners with Craftools and other select #leathercraft tools</a></td>
+<td>95%</td>
+<td>694K</td>
+<td>62K/yr</td>
+<td>10:26</td>
+<td>2015-04</td>
+<td>Bruce Cheaney</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/0OyOQJyaoBI" rel="nofollow">Make a leather wrap wallet (FREE PATTERN) - Step by Step Instructions</a></td>
+<td>95%</td>
+<td>693K</td>
+<td>151K/yr</td>
+<td>12:42</td>
+<td>2021-11</td>
+<td>MAKESUPPLY</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/T8nEhkkH3UE" rel="nofollow">Could It Be This EASY!? Making a Leather Wallet and All Tools Explained! (The Faulkner)</a></td>
+<td>95%</td>
+<td>370K</td>
+<td>76K/yr</td>
+<td>20:59</td>
+<td>2021-08</td>
+<td>Mascon Leather</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/JJLARldtq4c" rel="nofollow">How to Wet Form Leather // Three Easy Techniques</a></td>
+<td>90%</td>
+<td>260K</td>
+<td>66K/yr</td>
+<td>6:11</td>
+<td>2022-07</td>
+<td>Ethan Carter Designs</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/P3Yd98yt-lw" rel="nofollow">Scraps to Riches: 5 Profitable Scrap Leather Projects</a></td>
+<td>85%</td>
+<td>241K</td>
+<td>79K/yr</td>
+<td>22:17</td>
+<td>2023-06</td>
+<td>Skill Tree</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/bx5J_dn7L38" rel="nofollow">Leathercraft for Beginners – Easy DIY Belt Phone Pouch Pattern Tutorial</a></td>
+<td>95%</td>
+<td>237K</td>
+<td>158K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>12:54</td>
+<td>2025-05</td>
+<td>Pattern Factory Wind</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/LSw2PUeM3ZY" rel="nofollow">Beginner Leather Carving Introduction By: Jim Linnell Part 1 of 3</a></td>
+<td>95%</td>
+<td>214K</td>
+<td>26K/yr</td>
+<td>23:27</td>
+<td>2018-04</td>
+<td>Tandy Leather</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/7N561p3j8qc" rel="nofollow">Small leather projects for beginners</a></td>
+<td>85%</td>
+<td>180K</td>
+<td>104K/yr</td>
+<td>22:50</td>
+<td>2024-10</td>
+<td>Leather craftman</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/9w-ChTPZ9Z0" rel="nofollow">A Simple Start to Leathercraft: Making a Pouch</a></td>
+<td>95%</td>
+<td>167K</td>
+<td>28K/yr</td>
+<td>27:49</td>
+<td>2020-06</td>
+<td>Weaver Leather Supply</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/y6SVkQmposk" rel="nofollow">Learn Leathercraft! The Complete Beginner Guide to Working with Leather</a></td>
+<td>80%</td>
+<td>6K</td>
+<td>4K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>66:38</td>
+<td>2025-01</td>
+<td>Sailrite Workbench</td>
+</tr>
+</tbody>
+</table>
+<p><em>Excluded (not counted): 12 — 10 explainer, 1 entertainment, 1 review. e.g. <em>Getting started in LEATHERCRAFT - Tools you will</em> (explainer); <em>Getting Started in Leathercraft - 10 Basic Tools</em> (explainer); <em>MAKING A HANDMADE LEATHER SATCHEL</em> (entertainment).</em></p>
+<h3 id="automotive-bench-repair----how-to-replace-brake-pads">Automotive bench repair  ·  <em>how to replace brake pads</em></h3>
+<table role="table">
+<thead>
+<tr>
+<th>✓</th>
+<th>Title</th>
+<th>Conf</th>
+<th>Views</th>
+<th>Views/yr</th>
+<th>Len</th>
+<th>Uploaded</th>
+<th>Channel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/6RQ9UabOIPg" rel="nofollow">How to Replace Brake Pads and Rotors (COMPLETE Guide)</a></td>
+<td>95%</td>
+<td>10.1M</td>
+<td>1.0M/yr</td>
+<td>14:21</td>
+<td>2016-10</td>
+<td>ChrisFix</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/Q5j3sKgNoEs" rel="nofollow">The ULTIMATE Guide on How to Replace Drum Brakes</a></td>
+<td>95%</td>
+<td>8.5M</td>
+<td>900K/yr</td>
+<td>22:00</td>
+<td>2016-12</td>
+<td>ChrisFix</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/lU6OKQxSg8U" rel="nofollow">How to Change Front and rear Brake Pads and Rotors (Complete Guide)</a></td>
+<td>95%</td>
+<td>7.3M</td>
+<td>649K/yr</td>
+<td>18:40</td>
+<td>2015-03</td>
+<td>ChrisFix</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/xJDOuZzEAQc" rel="nofollow">How to Replace Brake Pads and Rotors Top 10 Brake Job Tips</a></td>
+<td>80%</td>
+<td>5.8M</td>
+<td>543K/yr</td>
+<td>5:56</td>
+<td>2015-09</td>
+<td>ChrisFix</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/1O1dOgG9cII" rel="nofollow">Most Common Brake Installation Mistakes!</a></td>
+<td>85%</td>
+<td>5.5M</td>
+<td>1.1M/yr</td>
+<td>13:29</td>
+<td>2021-05</td>
+<td>1A Auto: Repair Tips &amp; Secrets Only Mechanics Know</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/nbdJGCi29nQ" rel="nofollow">How to Replace a Brake Caliper</a></td>
+<td>95%</td>
+<td>5.4M</td>
+<td>457K/yr</td>
+<td>12:28</td>
+<td>2014-09</td>
+<td>ChrisFix</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/UlbFFq60Tec" rel="nofollow">How to Replace Front Brakes, Pads and Rotors</a></td>
+<td>95%</td>
+<td>3.9M</td>
+<td>328K/yr</td>
+<td>8:29</td>
+<td>2014-09</td>
+<td>ChrisFix</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/A129SM9S54A" rel="nofollow">How to change the brake pads of your car</a></td>
+<td>85%</td>
+<td>2.9M</td>
+<td>229K/yr</td>
+<td>3:38</td>
+<td>2014-01</td>
+<td>ElectroBOOM</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/qsozrTXfHoc" rel="nofollow">How To Perform a Professional Brake Job (Pads &amp; Rotors)</a></td>
+<td>85%</td>
+<td>2.5M</td>
+<td>973K/yr</td>
+<td>38:47</td>
+<td>2023-12</td>
+<td>Royalty Auto Service</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/wMyowY-fADg" rel="nofollow">How to change your own car brake pads very easy and quick</a></td>
+<td>95%</td>
+<td>2.0M</td>
+<td>1.4M/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>4:07</td>
+<td>2025-09</td>
+<td>Kiwi Garage</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/x2rTxWx-LfQ" rel="nofollow">How To Change Replace Brake Pads Easy Simple</a></td>
+<td>90%</td>
+<td>2.0M</td>
+<td>278K/yr</td>
+<td>9:55</td>
+<td>2019-05</td>
+<td>StatUpBox</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/y6HxORx0g-g" rel="nofollow">How to Replace Your Car's Brake Pads</a></td>
+<td>95%</td>
+<td>2.0M</td>
+<td>138K/yr</td>
+<td>6:24</td>
+<td>2012-05</td>
+<td>Car and Driver</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/WzXjTrMu3lg" rel="nofollow">How To quickly Check Your Brake Pads and Rotors - Don't Waste $$ Changing them Too Soon!!</a></td>
+<td>85%</td>
+<td>1.5M</td>
+<td>399K/yr</td>
+<td>7:42</td>
+<td>2022-10</td>
+<td>Budget Mechanic</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/aaJ6X-uxMGM" rel="nofollow">How to Replace Drum Brakes on Your Car</a></td>
+<td>95%</td>
+<td>1.2M</td>
+<td>80K/yr</td>
+<td>4:42</td>
+<td>2010-11</td>
+<td>Scotty Kilmer</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/gm_vJolzkdI" rel="nofollow">Change Your Brakes PROPERLY (Most People Do It WRONG!) Step-by-Step Tutorial!</a></td>
+<td>95%</td>
+<td>1.2M</td>
+<td>781K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>15:49</td>
+<td>2025-05</td>
+<td>Vigilante Motors</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/Lpb3Zms1_eM" rel="nofollow">How to Change Ford Brake Pads</a></td>
+<td>95%</td>
+<td>735K</td>
+<td>55K/yr</td>
+<td>10:41</td>
+<td>2013-01</td>
+<td>ChrisFix</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/jvDeQSHNASM" rel="nofollow">How To: Install New Brake Pads and Rotors</a></td>
+<td>90%</td>
+<td>691K</td>
+<td>88K/yr</td>
+<td>8:50</td>
+<td>2018-08</td>
+<td>O'Reilly Auto Parts</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/qcGPRntO2Ws" rel="nofollow">How To Replace Your Brakes on Your Toyota and Lexus Like a Pro</a></td>
+<td>90%</td>
+<td>613K</td>
+<td>409K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>45:51</td>
+<td>2025-05</td>
+<td>The Car Care Nut</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/4DvuUmcslfM" rel="nofollow">How to Change Rear Brake Pads</a></td>
+<td>95%</td>
+<td>531K</td>
+<td>37K/yr</td>
+<td>21:43</td>
+<td>2012-01</td>
+<td>ChrisFix</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/A2TPtqrXxps" rel="nofollow">Nissan Altima Front Brake Pads Replacement 2014-2017 - 3 Minute DIY Video</a></td>
+<td>95%</td>
+<td>445K</td>
+<td>48K/yr</td>
+<td>3:01</td>
+<td>2017-02</td>
+<td>MINUTE DIY VIDEOS</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/exDDG9Fxm20" rel="nofollow">How to Replace Brake Pads and Rotors in Your Car (COMPLETE Guide)</a></td>
+<td>95%</td>
+<td>432K</td>
+<td>31K/yr</td>
+<td>3:24</td>
+<td>2012-10</td>
+<td>Scotty Kilmer</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/Nm13TsSCVdo" rel="nofollow">Brake Change Tutorial on 2009 - 2019 Toyota Corolla / Rotors and Pads</a></td>
+<td>95%</td>
+<td>348K</td>
+<td>54K/yr</td>
+<td>7:04</td>
+<td>2020-02</td>
+<td>KJ's Garage</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/LZHf85IXEIY" rel="nofollow">How to Replace Brake Pads in Your Car</a></td>
+<td>95%</td>
+<td>303K</td>
+<td>18K/yr</td>
+<td>3:22</td>
+<td>2009-11</td>
+<td>Scotty Kilmer</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/uUU2iMSEpp0" rel="nofollow">How to Replace Front Brake Pads Rotor 06-10 Honda Civic</a></td>
+<td>95%</td>
+<td>293K</td>
+<td>34K/yr</td>
+<td>10:25</td>
+<td>2017-12</td>
+<td>1A Auto: Repair Tips &amp; Secrets Only Mechanics Know</td>
+</tr>
+</tbody>
+</table>
+<p><em>Excluded (not counted): 6 — 6 other. e.g. <em>How to Replace Bicycle Disc Brake Pads</em> (other); <em>How To Change Motorcycle Brake Pads at RevZilla.</em> (other); <em>How To Replace Your Disc Brake Pads</em> (other).</em></p>
+<h3 id="home-fix-it----how-to-replace-a-light-switch">Home fix-it  ·  <em>how to replace a light switch</em></h3>
+<table role="table">
+<thead>
+<tr>
+<th>✓</th>
+<th>Title</th>
+<th>Conf</th>
+<th>Views</th>
+<th>Views/yr</th>
+<th>Len</th>
+<th>Uploaded</th>
+<th>Channel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/Tu8RBQ0ChaI" rel="nofollow">Avoid Disaster! 8 FATAL Outlet Mistakes Most DIYers Unknowingly Make!</a></td>
+<td>98%</td>
+<td>2.8M</td>
+<td>1.5M/yr</td>
+<td>16:50</td>
+<td>2024-07</td>
+<td>How To Home</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/B6gfI73Tvg8" rel="nofollow">How NOT to Wire Light Switches in 2025 (New Rules)</a></td>
+<td>98%</td>
+<td>2.6M</td>
+<td>1.1M/yr</td>
+<td>15:20</td>
+<td>2024-03</td>
+<td>Backyard Maine</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/HxqPJCyOTes" rel="nofollow">How To Add An Outlet From A Light Switch / Common Mistake</a></td>
+<td>98%</td>
+<td>1.9M</td>
+<td>472K/yr</td>
+<td>12:53</td>
+<td>2022-06</td>
+<td>How To Home</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/QSBMd774qkk" rel="nofollow">The BIGGEST Mistakes DIYers Don't Know They Are Making When Wiring Light Switches / How To</a></td>
+<td>98%</td>
+<td>1.8M</td>
+<td>547K/yr</td>
+<td>11:34</td>
+<td>2023-02</td>
+<td>How To Home</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/xOZv17BPTZA" rel="nofollow">How to Add a Light from an Outlet</a></td>
+<td>98%</td>
+<td>1.7M</td>
+<td>447K/yr</td>
+<td>9:30</td>
+<td>2022-09</td>
+<td>HandyDadTV</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/Ba8aJoxGmzs" rel="nofollow">How to Wire a 3-Way Switch</a></td>
+<td>98%</td>
+<td>1.7M</td>
+<td>241K/yr</td>
+<td>3:54</td>
+<td>2019-07</td>
+<td>Family Handyman</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/B16l7RurJuQ" rel="nofollow">How to Replace an Electrical Outlet – Replace Burnt Out Electrical Outlet and Old Damaged Socket</a></td>
+<td>98%</td>
+<td>1.4M</td>
+<td>221K/yr</td>
+<td>5:32</td>
+<td>2020-02</td>
+<td>TheRenderQ</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/FM8_yHlyqR4" rel="nofollow">How To Change A Light Switch / Beginners Guide</a></td>
+<td>98%</td>
+<td>1.4M</td>
+<td>284K/yr</td>
+<td>14:46</td>
+<td>2021-08</td>
+<td>Everyday Home Repairs</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/6U0zCGq6Qxs" rel="nofollow">How To Install An Outlet and Light Switch Combo / Adding a Receptacle To Any Room</a></td>
+<td>98%</td>
+<td>1.1M</td>
+<td>329K/yr</td>
+<td>10:29</td>
+<td>2023-02</td>
+<td>How To Home</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/ro3DSQQHfbM" rel="nofollow">How to Install a Light Switch / Single Pole Switch</a></td>
+<td>98%</td>
+<td>1.1M</td>
+<td>129K/yr</td>
+<td>4:33</td>
+<td>2018-01</td>
+<td>Phil Crockett</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/XajHvw7mga8" rel="nofollow">How to Wire a Double Switch - Light Switch Wiring - Conduit - 2 Single Pole Switches</a></td>
+<td>98%</td>
+<td>1.0M</td>
+<td>82K/yr</td>
+<td>4:03</td>
+<td>2013-08</td>
+<td>FIX IT Home Improvement Channel</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/0yVxQp_oqSQ" rel="nofollow">How To Install a Dimmer / DIY</a></td>
+<td>98%</td>
+<td>1.0M</td>
+<td>141K/yr</td>
+<td>8:10</td>
+<td>2019-01</td>
+<td>Home RenoVision DIY</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/7zl2c_b-Ntk" rel="nofollow">How To Wire A Light Switch - EASY Single Pole Switch STEP BY STEP Wiring Tutorial</a></td>
+<td>99%</td>
+<td>946K</td>
+<td>204K/yr</td>
+<td>19:00</td>
+<td>2021-11</td>
+<td>The Excellent Laborer</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/tn_ZwYIfs-w" rel="nofollow">How to Install a Light Switch / Leviton</a></td>
+<td>99%</td>
+<td>754K</td>
+<td>49K/yr</td>
+<td>5:28</td>
+<td>2011-03</td>
+<td>Leviton</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/W6EvydbyLrc" rel="nofollow">How To Change A Lightswitch</a></td>
+<td>98%</td>
+<td>661K</td>
+<td>103K/yr</td>
+<td>4:25</td>
+<td>2020-01</td>
+<td>The BeefMaster</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/SW2MhGwmWiY" rel="nofollow">How To Replace  Light Switch Install Easy Simple</a></td>
+<td>98%</td>
+<td>554K</td>
+<td>122K/yr</td>
+<td>7:53</td>
+<td>2021-12</td>
+<td>StatUpBox</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/mWRuIjoQEzM" rel="nofollow">How to Install a Single Pole Light Switch / Leviton DIY Guide</a></td>
+<td>99%</td>
+<td>546K</td>
+<td>59K/yr</td>
+<td>4:35</td>
+<td>2017-04</td>
+<td>Leviton</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/5tD5XEVI2Gc" rel="nofollow">How Do I Replace a 3-Way Switch? Which Wire Goes Where??</a></td>
+<td>95%</td>
+<td>442K</td>
+<td>126K/yr</td>
+<td>7:17</td>
+<td>2022-12</td>
+<td>Electrician U</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/xaf60k59sbA" rel="nofollow">How to Replace a Light Switch</a></td>
+<td>99%</td>
+<td>408K</td>
+<td>28K/yr</td>
+<td>2:43</td>
+<td>2011-10</td>
+<td>Lowe's Home Improvement</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/Wai_3qexlV0" rel="nofollow">In Line Cord Switch Installation</a></td>
+<td>98%</td>
+<td>382K</td>
+<td>55K/yr</td>
+<td>2:46</td>
+<td>2019-06</td>
+<td>Phil Crockett</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/HreHB638a2g" rel="nofollow">DIY How to install or replace a light switch for beginners!</a></td>
+<td>99%</td>
+<td>349K</td>
+<td>52K/yr</td>
+<td>3:40</td>
+<td>2019-10</td>
+<td>Colton Crump DIY</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/8i0GJ6-cG8k" rel="nofollow">How to Change Out a Light Switch Like a Pro!</a></td>
+<td>98%</td>
+<td>190K</td>
+<td>58K/yr</td>
+<td>3:04</td>
+<td>2023-03</td>
+<td>Remote Electrician</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/drsaKC6_gYw" rel="nofollow">How to Replace Outlets, Light Switches and GFCI Plugs</a></td>
+<td>98%</td>
+<td>188K</td>
+<td>34K/yr</td>
+<td>9:41</td>
+<td>2020-11</td>
+<td>LRN2DIY</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/gmG4Bq5rtCo" rel="nofollow">How to install a smart switch the RIGHT way</a></td>
+<td>98%</td>
+<td>146K</td>
+<td>63K/yr</td>
+<td>9:14</td>
+<td>2024-03</td>
+<td>DIY Smart Home Guy</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/Rq_iM2neQJI" rel="nofollow">3 Way Light Switch Wiring (Smart Switch or Regular)</a></td>
+<td>98%</td>
+<td>114K</td>
+<td>49K/yr</td>
+<td>2:08</td>
+<td>2024-02</td>
+<td>Remote Electrician</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/EZFr_yJ8eQc" rel="nofollow">How Do I Replace a Light Switch? / DIY Basics</a></td>
+<td>98%</td>
+<td>109K</td>
+<td>11K/yr</td>
+<td>1:24</td>
+<td>2016-06</td>
+<td>Lowe's Home Improvement</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/sa7mkxA9ebU" rel="nofollow">How To Install Light Switch Leviton Single Pole 5601</a></td>
+<td>98%</td>
+<td>67K</td>
+<td>22K/yr</td>
+<td>4:05</td>
+<td>2023-06</td>
+<td>Just A Dad Tips</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/B0BcPmifvTw" rel="nofollow">How to replace a lamp socket / lamp switch</a></td>
+<td>98%</td>
+<td>27K</td>
+<td>18K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>4:13</td>
+<td>2025-03</td>
+<td>Longologo Productions</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/zg4Hnf4AEnA" rel="nofollow">How to Replace Broken Light Switch - Beginner Friendly</a></td>
+<td>98%</td>
+<td>21K</td>
+<td>14K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>6:45</td>
+<td>2025-09</td>
+<td>Home Rapid Repair</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/vIacm56uec8" rel="nofollow">How to Change a Light Switch Beginners Guide - DIY Install or Replace a Light Switch for Beginners</a></td>
+<td>99%</td>
+<td>2K</td>
+<td>1K/yr</td>
+<td>4:00</td>
+<td>2024-09</td>
+<td>digitalcamproducer</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sewing--garment-construction----sewing-machine-tutorial-for-beginners">Sewing / garment construction  ·  <em>sewing machine tutorial for beginners</em></h3>
+<table role="table">
+<thead>
+<tr>
+<th>✓</th>
+<th>Title</th>
+<th>Conf</th>
+<th>Views</th>
+<th>Views/yr</th>
+<th>Len</th>
+<th>Uploaded</th>
+<th>Channel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/97vTdCxBaQ0" rel="nofollow">How to Operate a Mini Sewing Machine  - Tutorial</a></td>
+<td>95%</td>
+<td>6.8M</td>
+<td>1.1M/yr</td>
+<td>11:51</td>
+<td>2020-02</td>
+<td>Easy Sewing for Beginners</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/rnTwT-ifLkU" rel="nofollow">Learn How To Sew, Easy Sewing Class For Beginners!</a></td>
+<td>95%</td>
+<td>5.4M</td>
+<td>515K/yr</td>
+<td>26:00</td>
+<td>2015-12</td>
+<td>Good Housekeeping</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/oar000HnCQQ" rel="nofollow">Learn How to Thread the SINGER® Start™ 1304 Sewing Machine</a></td>
+<td>95%</td>
+<td>5.3M</td>
+<td>547K/yr</td>
+<td>9:32</td>
+<td>2016-11</td>
+<td>Singer Sewing Company</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/IGITrkYdjJs" rel="nofollow">Beginners Sewing Course -  Day 1 - The Basics</a></td>
+<td>95%</td>
+<td>5.1M</td>
+<td>463K/yr</td>
+<td>20:36</td>
+<td>2015-06</td>
+<td>Made to Sew</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/iW3AULgs2uU" rel="nofollow">How to Operate a Handheld Sewing Machine - Tutorial</a></td>
+<td>95%</td>
+<td>4.5M</td>
+<td>729K/yr</td>
+<td>12:21</td>
+<td>2020-04</td>
+<td>Easy Sewing for Beginners</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/oD_KpZm7OaM" rel="nofollow">A Beginner's Guide To SEWING! How to use a sewing machine</a></td>
+<td>90%</td>
+<td>3.9M</td>
+<td>632K/yr</td>
+<td>14:58</td>
+<td>2020-04</td>
+<td>coolirpa</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/p7gQvU1hSyo" rel="nofollow">How to Operate a Portable Mini Sewing Machine FHSM 505 - NEX Sewing Machine</a></td>
+<td>95%</td>
+<td>3.2M</td>
+<td>558K/yr</td>
+<td>14:59</td>
+<td>2020-09</td>
+<td>Easy Sewing for Beginners</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/xo3RLvjq1y0" rel="nofollow">How to Load a Bobbin / Sewing Machine</a></td>
+<td>95%</td>
+<td>2.7M</td>
+<td>209K/yr</td>
+<td>2:53</td>
+<td>2013-08</td>
+<td>Howcast</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/rXmnb4AALXg" rel="nofollow">Sewing for Beginners - How to use a sewing machine - How to sew</a></td>
+<td>95%</td>
+<td>2.0M</td>
+<td>266K/yr</td>
+<td>13:34</td>
+<td>2018-11</td>
+<td>Tock Custom</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/WfLep31Icz0" rel="nofollow">How to Thread a Machine / Sewing Machine</a></td>
+<td>95%</td>
+<td>2.0M</td>
+<td>157K/yr</td>
+<td>3:38</td>
+<td>2013-08</td>
+<td>Howcast</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/7EgFm8Dor40" rel="nofollow">How To Use Sewing Machine for Beginners / Ep. 4</a></td>
+<td>90%</td>
+<td>1.5M</td>
+<td>776K/yr</td>
+<td>22:47</td>
+<td>2024-07</td>
+<td>Glory Allan</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/PMTzXsyOVoI" rel="nofollow">How to Set Up a Sewing Machine for Beginners with Angela Wolf</a></td>
+<td>90%</td>
+<td>1.3M</td>
+<td>135K/yr</td>
+<td>3:54</td>
+<td>2016-06</td>
+<td>Craftsy</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/5p617lj0pIs" rel="nofollow">Brother Sewing Machine: How to Thread Mechanical and Automatic Machines</a></td>
+<td>95%</td>
+<td>1.3M</td>
+<td>202K/yr</td>
+<td>1:27</td>
+<td>2020-04</td>
+<td>Brother Sews USA</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/OpNU-PRxMqE" rel="nofollow">SEWING 101 // Ultimate Beginners Guide</a></td>
+<td>88%</td>
+<td>1.3M</td>
+<td>203K/yr</td>
+<td>23:40</td>
+<td>2020-04</td>
+<td>The Essentials Club</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/jKfSFhal-Ts" rel="nofollow">How to sew in a straight line for beginners - without buying any new gadgets!</a></td>
+<td>90%</td>
+<td>855K</td>
+<td>390K/yr</td>
+<td>7:12</td>
+<td>2024-04</td>
+<td>Pretty Simple Sara</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/k9NhA7q2zM8" rel="nofollow">How to Use a Sewing Machine / Sewing Machine for Beginners / Singer Tradition 2277  / How to Sew</a></td>
+<td>95%</td>
+<td>784K</td>
+<td>163K/yr</td>
+<td>13:05</td>
+<td>2021-09</td>
+<td>Hailey Stitches</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/creNPY8u9qo" rel="nofollow">Learn to sew in 20 minutes! / easy step-by-step tutorial</a></td>
+<td>95%</td>
+<td>693K</td>
+<td>203K/yr</td>
+<td>16:37</td>
+<td>2023-01</td>
+<td>BlueprintDIY</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/16o0xFEWR7g" rel="nofollow">How to Operate a Singer Heavy Duty Sewing Machine</a></td>
+<td>95%</td>
+<td>636K</td>
+<td>424K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>10:54</td>
+<td>2025-03</td>
+<td>Easy Sewing for Beginners</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/97jPDLIswtM" rel="nofollow">How to Sew for Beginners // How to use a Sewing Machine // Sew an Easy Tote Bag // SEW WITH ME</a></td>
+<td>95%</td>
+<td>513K</td>
+<td>95K/yr</td>
+<td>25:45</td>
+<td>2021-01</td>
+<td>Jenna Phipps</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/KQ6LkNiBiLw" rel="nofollow">10 Beginner Level Sewing Seams! How to use a sewing machine tutorial - Brother ST150HDH</a></td>
+<td>95%</td>
+<td>389K</td>
+<td>63K/yr</td>
+<td>20:41</td>
+<td>2020-04</td>
+<td>Tock Custom</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/l7STL7jaAMU" rel="nofollow">How To Use Your Sewing Machine</a></td>
+<td>95%</td>
+<td>358K</td>
+<td>60K/yr</td>
+<td>4:24</td>
+<td>2020-07</td>
+<td>HorizonGroup USA</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/k6kOI1P6Cuc" rel="nofollow">How To Use A Sewing Machine / SEWING MACHINE BASICS 101</a></td>
+<td>95%</td>
+<td>233K</td>
+<td>39K/yr</td>
+<td>5:52</td>
+<td>2020-06</td>
+<td>GentStyle</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/jmQEC7ID-aA" rel="nofollow">Brother LX3817A Sewing Machine- Complete Beginner's Walkthrough! / How To Use Sewing Machine</a></td>
+<td>95%</td>
+<td>100K</td>
+<td>66K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>19:19</td>
+<td>2025-01</td>
+<td>Blu Thee Designer</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/uReOIkY9qWs" rel="nofollow">Learn to Sew - Episode 3 / How to Use Your Sewing Machine and Serger</a></td>
+<td>88%</td>
+<td>93K</td>
+<td>51K/yr</td>
+<td>59:27</td>
+<td>2024-08</td>
+<td>Sydney Graham</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/MGwZhlYAR44" rel="nofollow">How To Use Industrial Sewing Machine Tutorial: Beginner Upholstery</a></td>
+<td>95%</td>
+<td>23K</td>
+<td>16K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>25:59</td>
+<td>2025-05</td>
+<td>Old School Auto Upholstery Techniques</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/UqJeRJEg4sE" rel="nofollow">How to get started with sewing (for absolute beginners)</a></td>
+<td>88%</td>
+<td>12K</td>
+<td>8K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>11:27</td>
+<td>2025-05</td>
+<td>Stanley Phan</td>
+</tr>
+</tbody>
+</table>
+<p><em>Excluded (not counted): 4 — 4 explainer. e.g. <em>14 things I wish someone told me about sewing as</em> (explainer); <em>Learn to Sew - Episode 1 | Sewing Tools | What D</em> (explainer); <em>An Introduction to Sewing Machines For Beginners</em> (explainer).</em></p>
+<h3 id="maker-hardware-3d-printer--drone----fpv-drone-build-tutorial">Maker hardware (3D printer / drone)  ·  <em>fpv drone build tutorial</em></h3>
+<table role="table">
+<thead>
+<tr>
+<th>✓</th>
+<th>Title</th>
+<th>Conf</th>
+<th>Views</th>
+<th>Views/yr</th>
+<th>Len</th>
+<th>Uploaded</th>
+<th>Channel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/5_NMqSIzx-g" rel="nofollow">Build a Freestyle FPV drone for $150!!</a></td>
+<td>95%</td>
+<td>3.3M</td>
+<td>664K/yr</td>
+<td>35:41</td>
+<td>2021-08</td>
+<td>TRONCAT FPV</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/Sa6EslOHsI0" rel="nofollow">Make a TINY Arduino Drone with FPV Camera - Will It Fly?</a></td>
+<td>85%</td>
+<td>3.2M</td>
+<td>1.5M/yr</td>
+<td>20:26</td>
+<td>2024-04</td>
+<td>Max Imagination</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/SfFl_-tof4Y" rel="nofollow">How to Build Ultimate Budget FPV Drone Build 2021 //  Beginner Guide</a></td>
+<td>95%</td>
+<td>1.8M</td>
+<td>349K/yr</td>
+<td>26:23</td>
+<td>2021-05</td>
+<td>Drone Mesh (Drone Reviews)</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/ZaBlsTkxKIM" rel="nofollow">Build a 6s Freestyle FPV drone for $200</a></td>
+<td>95%</td>
+<td>1.3M</td>
+<td>493K/yr</td>
+<td>52:28</td>
+<td>2023-10</td>
+<td>TRONCAT FPV</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/nn87IyFPEy4" rel="nofollow">How to build an Autonomous UAV for Long Range FPV &amp; Autonomous Missions</a></td>
+<td>85%</td>
+<td>1.2M</td>
+<td>376K/yr</td>
+<td>12:58</td>
+<td>2023-03</td>
+<td>AeroStuff FPV</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/iZD_fAE8kZ8" rel="nofollow">How to make Fpv drone at home. #fpv #fpvdrone #drone</a></td>
+<td>85%</td>
+<td>974K</td>
+<td>354K/yr</td>
+<td>11:50</td>
+<td>2023-09</td>
+<td>A K Gadget</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/Z5t0M2sluLA" rel="nofollow">2022 - 5" Freestyle FPV Drone Build</a></td>
+<td>95%</td>
+<td>816K</td>
+<td>194K/yr</td>
+<td>38:34</td>
+<td>2022-04</td>
+<td>TRONCAT FPV</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/d2NiH5ciV5c" rel="nofollow">How To Build a 7" Long Range FPV Drone</a></td>
+<td>95%</td>
+<td>763K</td>
+<td>251K/yr</td>
+<td>69:40</td>
+<td>2023-06</td>
+<td>TRONCAT FPV</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/DeSDjjicGWY" rel="nofollow">The Idiot's Guide to Making a DIY Drone! (I am the Idiot)</a></td>
+<td>90%</td>
+<td>572K</td>
+<td>152K/yr</td>
+<td>15:54</td>
+<td>2022-09</td>
+<td>GreatScott!</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/0jOUTYBneVo" rel="nofollow">How to build a 7-inch long range FPV Drone for $150</a></td>
+<td>95%</td>
+<td>471K</td>
+<td>253K/yr</td>
+<td>41:05</td>
+<td>2024-08</td>
+<td>Hoarder Sam</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/tNwHNYgWnp8" rel="nofollow">Unlock the Thrills: Build Your First FPV Drone Today! Ultimate Beginner Guide!</a></td>
+<td>90%</td>
+<td>377K</td>
+<td>133K/yr</td>
+<td>16:35</td>
+<td>2023-08</td>
+<td>Joshua Bardwell</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/S9dvDU5RmQU" rel="nofollow">How to Build a 5-Inch FPV Drone — Step-by-Step (For Beginners)</a></td>
+<td>95%</td>
+<td>367K</td>
+<td>245K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>24:24</td>
+<td>2025-06</td>
+<td>FPV Geek</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/BoLeQCqns5A" rel="nofollow">How to build a 5-inch FPV Drone for $100</a></td>
+<td>95%</td>
+<td>353K</td>
+<td>215K/yr</td>
+<td>12:16</td>
+<td>2024-11</td>
+<td>Hoarder Sam</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/dw3J09RWsX8" rel="nofollow">The Easiest FPV Drone Build Tutorial You'll Ever Watch</a></td>
+<td>85%</td>
+<td>263K</td>
+<td>103K/yr</td>
+<td>183:45</td>
+<td>2023-12</td>
+<td>Brodie Reed</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/nyW6mZwTjU8" rel="nofollow">How to Start Flying FPV Drones TODAY</a></td>
+<td>85%</td>
+<td>260K</td>
+<td>174K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>11:21</td>
+<td>2025-01</td>
+<td>Kai Vertigoh</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/aXrrg48auhU" rel="nofollow">How to build a sub 250g 3.5-inch freestyle FPV Drone for $160</a></td>
+<td>95%</td>
+<td>258K</td>
+<td>150K/yr</td>
+<td>37:48</td>
+<td>2024-10</td>
+<td>Hoarder Sam</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/z1qbeE4MxW4" rel="nofollow">Building a GOOD Micro FPV Drone for $65 (Beginners Guide)</a></td>
+<td>90%</td>
+<td>198K</td>
+<td>132K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>34:43</td>
+<td>2025-04</td>
+<td>Mediocre Nerd</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/g26ASthCzvs" rel="nofollow">The FAA can't touch this! Sub250g drone build for total beginners!</a></td>
+<td>85%</td>
+<td>175K</td>
+<td>116K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>14:23</td>
+<td>2025-03</td>
+<td>Joshua Bardwell</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/Adzjw6CfmJs" rel="nofollow">FPV Drone Build for Beginners: Joshua Bardwell QAV-S 2 Sub250g kit</a></td>
+<td>85%</td>
+<td>40K</td>
+<td>27K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>26:49</td>
+<td>2025-06</td>
+<td>Colibri FPV</td>
+</tr>
+</tbody>
+</table>
+<p><em>Excluded (not counted): 11 — 6 review, 3 explainer, 1 entertainment, 1 other. e.g. <em>FPV Drones – How to start in 2025?</em> (review); <em>If I can build this at home, what is the CIA hid</em> (entertainment); <em>How to Make RPG Drones? #ukraine #russia</em> (other).</em></p>
+<h3 id="model-building--miniature-painting----miniature-painting-tutorial">Model building &amp; miniature painting  ·  <em>miniature painting tutorial</em></h3>
+<table role="table">
+<thead>
+<tr>
+<th>✓</th>
+<th>Title</th>
+<th>Conf</th>
+<th>Views</th>
+<th>Views/yr</th>
+<th>Len</th>
+<th>Uploaded</th>
+<th>Channel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/LLJwh4ClZ6U" rel="nofollow">Build and paint your first Warhammer model: perfect for beginners</a></td>
+<td>95%</td>
+<td>2.6M</td>
+<td>452K/yr</td>
+<td>25:37</td>
+<td>2020-10</td>
+<td>Midwinter Minis</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/v-BlVYFxfRA" rel="nofollow">FUNDAMENTALS!  A Complete Guide to Painting Minis.</a></td>
+<td>95%</td>
+<td>2.3M</td>
+<td>339K/yr</td>
+<td>30:18</td>
+<td>2019-07</td>
+<td>Goobertown Hobbies</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/S7-At4qVC84" rel="nofollow">Ultimate guide to painting your first miniature - everything you need to know</a></td>
+<td>95%</td>
+<td>2.1M</td>
+<td>570K/yr</td>
+<td>43:01</td>
+<td>2022-11</td>
+<td>Squidmar Miniatures</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/2a9xuDa7gfs" rel="nofollow">Know Nothing About Airbrushes? START HERE.</a></td>
+<td>90%</td>
+<td>1.7M</td>
+<td>257K/yr</td>
+<td>24:46</td>
+<td>2019-11</td>
+<td>Miniac</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/LtD1kyz5slk" rel="nofollow">Become a DRYBRUSH MASTER! The complete guide to drybrushing minis</a></td>
+<td>95%</td>
+<td>1.5M</td>
+<td>749K/yr</td>
+<td>26:34</td>
+<td>2024-07</td>
+<td>Midwinter Minis</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/suWA50bKraQ" rel="nofollow">Painting your first miniature? Do THIS!</a></td>
+<td>95%</td>
+<td>1.2M</td>
+<td>248K/yr</td>
+<td>11:21</td>
+<td>2021-10</td>
+<td>Squidmar Miniatures</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/bH3WGHw9eDw" rel="nofollow">The Slapchop Technique! The Best way to Paint Miniatures Fast?</a></td>
+<td>95%</td>
+<td>1.1M</td>
+<td>271K/yr</td>
+<td>16:38</td>
+<td>2022-04</td>
+<td>The Honest Wargamer</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/sBDVPoNXyVI" rel="nofollow">How To THIN YOUR PAINTS: A Step-By-Step Guide</a></td>
+<td>95%</td>
+<td>1.1M</td>
+<td>343K/yr</td>
+<td>19:57</td>
+<td>2023-03</td>
+<td>Brushstroke Painting Guides</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/y93xpgeRev4" rel="nofollow">the FIVE techniques every beginner should learn</a></td>
+<td>95%</td>
+<td>1.1M</td>
+<td>183K/yr</td>
+<td>11:50</td>
+<td>2020-09</td>
+<td>Squidmar Miniatures</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/yhCZCbluO44" rel="nofollow">The ONLY PRIMING Video you'll ever need. Work Smarter! Not Harder!</a></td>
+<td>95%</td>
+<td>765K</td>
+<td>394K/yr</td>
+<td>26:17</td>
+<td>2024-07</td>
+<td>The State of Play</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/yoN2m_c-wfY" rel="nofollow">The EASIEST Way To Paint Miniature Figures</a></td>
+<td>90%</td>
+<td>735K</td>
+<td>168K/yr</td>
+<td>12:56</td>
+<td>2022-02</td>
+<td>Night Shift</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/7G8fv2UG1xc" rel="nofollow">How to paint your first Space Marine : Everything you need to know</a></td>
+<td>95%</td>
+<td>697K</td>
+<td>168K/yr</td>
+<td>12:06</td>
+<td>2022-04</td>
+<td>Mavericks Paint</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/hSp54e6_FFc" rel="nofollow">MINIATURE BASICS - HOW TO PAINT MINIATURES THE EASY WAY! FOR BEGINNERS!</a></td>
+<td>95%</td>
+<td>693K</td>
+<td>85K/yr</td>
+<td>20:54</td>
+<td>2018-05</td>
+<td>Black Magic Craft</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/lfGVQ3YLSrM" rel="nofollow">The Most BASIC Mini Painting Tips I WISH SOMEONE HAD TOLD ME!</a></td>
+<td>85%</td>
+<td>689K</td>
+<td>158K/yr</td>
+<td>7:10</td>
+<td>2022-02</td>
+<td>Lyla Mev - The Mini Witch</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/lvVs34GZb4k" rel="nofollow">Professional Painting Secrets 🤫  - Squidmar Masterclass</a></td>
+<td>95%</td>
+<td>673K</td>
+<td>124K/yr</td>
+<td>65:35</td>
+<td>2021-01</td>
+<td>Squidmar Miniatures</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/Ws6ZRFKKyko" rel="nofollow">Airbrush Miniature Painting Tips I WISH SOMEONE TOLD ME</a></td>
+<td>90%</td>
+<td>625K</td>
+<td>146K/yr</td>
+<td>8:26</td>
+<td>2022-03</td>
+<td>Lyla Mev - The Mini Witch</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/5cbjPo1bs0o" rel="nofollow">How to Thin Your Paints in 2 Minutes</a></td>
+<td>95%</td>
+<td>603K</td>
+<td>122K/yr</td>
+<td>2:33</td>
+<td>2021-07</td>
+<td>EonsOfBattle</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/xDGrCkSd1DE" rel="nofollow">Professional painting Secrets - Squidmar Masterclass</a></td>
+<td>95%</td>
+<td>562K</td>
+<td>190K/yr</td>
+<td>53:45</td>
+<td>2023-07</td>
+<td>Squidmar Miniatures</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/I7hWnZycZxE" rel="nofollow">How to Start Painting Miniatures with ZERO Experience</a></td>
+<td>95%</td>
+<td>498K</td>
+<td>97K/yr</td>
+<td>28:59</td>
+<td>2021-05</td>
+<td>Zumikito Miniatures</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/y4PzUE1jU1Q" rel="nofollow">LAYERING explained in 5 minutes</a></td>
+<td>95%</td>
+<td>236K</td>
+<td>53K/yr</td>
+<td>5:00</td>
+<td>2022-01</td>
+<td>Zumikito Miniatures</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/FnfM51Rghok" rel="nofollow">MINIATURE PAINTING - A Complete Guide! (from Beginner to Advanced)</a></td>
+<td>95%</td>
+<td>224K</td>
+<td>41K/yr</td>
+<td>27:09</td>
+<td>2021-01</td>
+<td>Tabletop Time</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/Y17qBpyLtV8" rel="nofollow">COMPLETE Beginners Guide To Miniature Painting</a></td>
+<td>95%</td>
+<td>182K</td>
+<td>46K/yr</td>
+<td>15:30</td>
+<td>2022-07</td>
+<td>Lyla Mev - The Mini Witch</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/WvrXp0JNVpE" rel="nofollow">Mini Painting Skills YOU need in 10 minutes</a></td>
+<td>90%</td>
+<td>146K</td>
+<td>43K/yr</td>
+<td>9:35</td>
+<td>2023-02</td>
+<td>EonsOfBattle</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/Eoix0EbkNdo" rel="nofollow">EXACTLY HOW I Paint All My Minis!</a></td>
+<td>85%</td>
+<td>140K</td>
+<td>93K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>32:25</td>
+<td>2025-10</td>
+<td>EonsOfBattle</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/RCM6wcYp_P0" rel="nofollow">Why thinning acrylic miniature paint SUCKS, and how to fix it.</a></td>
+<td>95%</td>
+<td>131K</td>
+<td>87K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>7:14</td>
+<td>2026-03</td>
+<td>Brush and Banner</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/YqTtvTT41a0" rel="nofollow">D&amp;D Miniature Painting for Beginners (SUPER EASY) 2023</a></td>
+<td>95%</td>
+<td>118K</td>
+<td>33K/yr</td>
+<td>6:18</td>
+<td>2022-11</td>
+<td>the DM Lair</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/RVDxcozZwTI" rel="nofollow">Build and Paint Your First Warhammer Miniature - The RIGHT Way</a></td>
+<td>95%</td>
+<td>112K</td>
+<td>74K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>27:21</td>
+<td>2025-11</td>
+<td>Ninjon</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/UQfAyfMc6xs" rel="nofollow">Painting your first ever miniature? Start here!</a></td>
+<td>95%</td>
+<td>90K</td>
+<td>60K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>37:42</td>
+<td>2026-04</td>
+<td>Squidmar Miniatures</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/oZpyU2lkvgY" rel="nofollow">Masterclass: How to Paint a WHOLE Mini!</a></td>
+<td>95%</td>
+<td>87K</td>
+<td>58K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>113:21</td>
+<td>2026-04</td>
+<td>Miniac</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/xcObZBABY_U" rel="nofollow">Beginner Miniature PAINTING TIPS 2025 - Unexpected?</a></td>
+<td>85%</td>
+<td>69K</td>
+<td>46K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>16:56</td>
+<td>2025-05</td>
+<td>Tabletop Minions</td>
+</tr>
+</tbody>
+</table>
+<h3 id="lab-bench-technique----how-to-use-a-micropipette">Lab bench technique  ·  <em>how to use a micropipette</em></h3>
+<table role="table">
+<thead>
+<tr>
+<th>✓</th>
+<th>Title</th>
+<th>Conf</th>
+<th>Views</th>
+<th>Views/yr</th>
+<th>Len</th>
+<th>Uploaded</th>
+<th>Channel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/uEy_NGDfo_8" rel="nofollow">Using a Micropipette - University of Leicester</a></td>
+<td>95%</td>
+<td>1.2M</td>
+<td>72K/yr</td>
+<td>8:49</td>
+<td>2009-06</td>
+<td>University of Leicester</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/QGX490kuKjg" rel="nofollow">How to pipette correctly – a short step-by-step introduction into proper pipetting</a></td>
+<td>98%</td>
+<td>1.2M</td>
+<td>124K/yr</td>
+<td>3:09</td>
+<td>2017-02</td>
+<td>Eppendorf</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/Jfqafjt4q6U" rel="nofollow">How to Use a Micropipette</a></td>
+<td>90%</td>
+<td>451K</td>
+<td>51K/yr</td>
+<td>3:38</td>
+<td>2017-08</td>
+<td>Carolina Science</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/NgosWmRjjAo" rel="nofollow">Micropipetting</a></td>
+<td>85%</td>
+<td>300K</td>
+<td>22K/yr</td>
+<td>5:03</td>
+<td>2012-09</td>
+<td>BioNetwork</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/8Afh_0IAfrQ" rel="nofollow">How to use a Micropipette</a></td>
+<td>88%</td>
+<td>282K</td>
+<td>19K/yr</td>
+<td>2:20</td>
+<td>2011-11</td>
+<td>EphedrineTV</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/IDdWQa7xJO4" rel="nofollow">Tutorial: How to Reverse Pipette?</a></td>
+<td>96%</td>
+<td>248K</td>
+<td>58K/yr</td>
+<td>1:03</td>
+<td>2022-03</td>
+<td>Sartorius</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/aSeod1Y5MRc" rel="nofollow">How do you use a Micropipette? A step-by-step guide!</a></td>
+<td>98%</td>
+<td>192K</td>
+<td>32K/yr</td>
+<td>6:08</td>
+<td>2020-07</td>
+<td>YouTooBio</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/05oolv_y4Pk" rel="nofollow">Four Common Pipetting Errors - Techniques Demonstration</a></td>
+<td>80%</td>
+<td>187K</td>
+<td>28K/yr</td>
+<td>1:13</td>
+<td>2019-09</td>
+<td>Dr. Joyce Patrick</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/FJuceccl9Ns" rel="nofollow">How to Micropipette / miniPCR bio™</a></td>
+<td>92%</td>
+<td>144K</td>
+<td>22K/yr</td>
+<td>5:40</td>
+<td>2019-11</td>
+<td>miniPCR bio</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/WGLivRvsh5w" rel="nofollow">Understanding Serological Pipettes</a></td>
+<td>88%</td>
+<td>136K</td>
+<td>10K/yr</td>
+<td>2:47</td>
+<td>2013-04</td>
+<td>BioNetwork</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/p-OPOYbeZP0" rel="nofollow">Using a Micropipet</a></td>
+<td>92%</td>
+<td>136K</td>
+<td>10K/yr</td>
+<td>4:22</td>
+<td>2012-10</td>
+<td>Bio-Rad Laboratories</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/TFXX8yCWjMo" rel="nofollow">How to use a micropipette</a></td>
+<td>75%</td>
+<td>124K</td>
+<td>8K/yr</td>
+<td>3:42</td>
+<td>2011-01</td>
+<td>TXBIOLAB</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/Wx8clzD-CO4" rel="nofollow">How to Pipette in 5 Simple Steps / Pipetting Tutorials / Ep. 1: Micropipettes</a></td>
+<td>97%</td>
+<td>82K</td>
+<td>24K/yr</td>
+<td>4:18</td>
+<td>2023-01</td>
+<td>Eppendorf</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/nPjt1ZUNkFQ" rel="nofollow">Proper Pipetting Technique</a></td>
+<td>90%</td>
+<td>81K</td>
+<td>10K/yr</td>
+<td>2:19</td>
+<td>2018-09</td>
+<td>Promega Corporation</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/54kN88U4Y6w" rel="nofollow">Pipetting small volumes</a></td>
+<td>88%</td>
+<td>66K</td>
+<td>5K/yr</td>
+<td>2:19</td>
+<td>2013-05</td>
+<td>Julian Pakay</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/uuzY-EgbQZQ" rel="nofollow">How to Use Micropipettes - Techniques Demonstration</a></td>
+<td>90%</td>
+<td>53K</td>
+<td>8K/yr</td>
+<td>3:29</td>
+<td>2019-09</td>
+<td>Dr. Joyce Patrick</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/D9klVH2UvgA" rel="nofollow">How to use a pipette: Correct volume range</a></td>
+<td>87%</td>
+<td>50K</td>
+<td>11K/yr</td>
+<td>1:33</td>
+<td>2022-02</td>
+<td>INTEGRA Biosciences</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/mhf8LhS_2Xk" rel="nofollow">Guide to Using Micropipettors</a></td>
+<td>96%</td>
+<td>44K</td>
+<td>4K/yr</td>
+<td>16:20</td>
+<td>2016-03</td>
+<td>Mark Temple</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/n1efCd3AF1o" rel="nofollow">How to Use A Pipette - MCCC Microbiology</a></td>
+<td>85%</td>
+<td>43K</td>
+<td>4K/yr</td>
+<td>1:08</td>
+<td>2015-10</td>
+<td>MCCC Microbiology</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/_2OxnTiSVzU" rel="nofollow">Use of Micropipette</a></td>
+<td>87%</td>
+<td>32K</td>
+<td>2K/yr</td>
+<td>2:54</td>
+<td>2009-06</td>
+<td>kingsboroughbio</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/352RiEMekJU" rel="nofollow">How to use a micropipette</a></td>
+<td>88%</td>
+<td>31K</td>
+<td>3K/yr</td>
+<td>1:51</td>
+<td>2014-09</td>
+<td>Waterloo iGEM</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/Xvs4eZuj6wA" rel="nofollow">How to Use a Micropipette</a></td>
+<td>92%</td>
+<td>30K</td>
+<td>5K/yr</td>
+<td>7:48</td>
+<td>2020-05</td>
+<td>LabXchange</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/mxVq_c6XELo" rel="nofollow">Pipette Aid</a></td>
+<td>62%</td>
+<td>19K</td>
+<td>2K/yr</td>
+<td>1:17</td>
+<td>2015-09</td>
+<td>BCMB UVIC</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/SBDXBd13H0M" rel="nofollow">Follow Our Step-By-Step Guide on How to Use a Micropipette</a></td>
+<td>98%</td>
+<td>11K</td>
+<td>1K/yr</td>
+<td>7:37</td>
+<td>2018-01</td>
+<td>Sanford Health</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/arRFvdx_cRc" rel="nofollow">Practical tips for using repeater pipettes (from a repeat user!)</a></td>
+<td>90%</td>
+<td>11K</td>
+<td>3K/yr</td>
+<td>12:35</td>
+<td>2023-05</td>
+<td>the bumbling biochemist</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/lh9T1LoElYs" rel="nofollow">Working with Small Volumes Using a Micropipette</a></td>
+<td>90%</td>
+<td>9K</td>
+<td>2K/yr</td>
+<td>1:47</td>
+<td>2021-06</td>
+<td>Amgen Biotech Experience</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/3NHq_rkwU64" rel="nofollow">Pipette Tip Spreader</a></td>
+<td>86%</td>
+<td>8K</td>
+<td>908.5291390728477/yr</td>
+<td>0:35</td>
+<td>2018-03</td>
+<td>Addgene</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/4XlVdyPTQYQ" rel="nofollow">How to Use a Micropipette / SEP</a></td>
+<td>91%</td>
+<td>5K</td>
+<td>494.7031075027996/yr</td>
+<td>1:56</td>
+<td>2016-09</td>
+<td>SEP Fred Hutch</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/3KGZNzJUuPg" rel="nofollow">Loading a Micropipette</a></td>
+<td>91%</td>
+<td>3K</td>
+<td>558.5355973813421/yr</td>
+<td>1:07</td>
+<td>2021-06</td>
+<td>Amgen Biotech Experience</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/SpkYt_rAqCE" rel="nofollow">Micropipettes - How to use one correctly and common errors</a></td>
+<td>93%</td>
+<td>780</td>
+<td>137.2326589595376/yr</td>
+<td>6:18</td>
+<td>2020-10</td>
+<td>Nigel Francis (Dr Nigel Francis)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="culinary-assembly--plating----food-plating-techniques">Culinary assembly &amp; plating  ·  <em>food plating techniques</em></h3>
+<table role="table">
+<thead>
+<tr>
+<th>✓</th>
+<th>Title</th>
+<th>Conf</th>
+<th>Views</th>
+<th>Views/yr</th>
+<th>Len</th>
+<th>Uploaded</th>
+<th>Channel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/dZR7CuLSy0I" rel="nofollow">24 Dessert Tricks That Only Pastry Chefs Know</a></td>
+<td>95%</td>
+<td>46.6M</td>
+<td>8.5M/yr</td>
+<td>10:06</td>
+<td>2021-01</td>
+<td>Scrumdiddlyumptious</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/kcbRpLX-mqs" rel="nofollow">30 IDEAS ON HOW TO PLATE FOOD LIKE A CHEF</a></td>
+<td>92%</td>
+<td>25.5M</td>
+<td>3.3M/yr</td>
+<td>16:33</td>
+<td>2018-11</td>
+<td>5-Minute Crafts</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/1zrxJ5ySyok" rel="nofollow">15 Fancy Plating Hacks From Professional Chefs! So Yummy</a></td>
+<td>94%</td>
+<td>9.9M</td>
+<td>1.8M/yr</td>
+<td>6:43</td>
+<td>2021-01</td>
+<td>So Yummy</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/lgFM4qFhDvE" rel="nofollow">Cucumber &amp; Carrot decoration ideas / Thaitrick</a></td>
+<td>96%</td>
+<td>4.7M</td>
+<td>935K/yr</td>
+<td>5:03</td>
+<td>2021-06</td>
+<td>Thaitrick</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/dw-8sqC_AqA" rel="nofollow">11 Impressive Ways to Present Desserts Like a Pro! So Yummy</a></td>
+<td>95%</td>
+<td>3.6M</td>
+<td>678K/yr</td>
+<td>11:52</td>
+<td>2021-03</td>
+<td>So Yummy</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/BtTKXXClEYM" rel="nofollow">Make It Fancy With These 10 Easy Plating Hacks! Elegant Desserts by So Yummy</a></td>
+<td>96%</td>
+<td>3.2M</td>
+<td>499K/yr</td>
+<td>14:33</td>
+<td>2020-01</td>
+<td>So Yummy</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/c01s-UVxoQk" rel="nofollow">25 Easy Plating Techniques - Plate like a Pro</a></td>
+<td>97%</td>
+<td>2.1M</td>
+<td>444K/yr</td>
+<td>4:47</td>
+<td>2021-10</td>
+<td>Home Chef Seattle</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/78eT2o_YJJ4" rel="nofollow">20 Fruit plate decoration - Fruit Vegetable Carving Garnish &amp; Cutting Tricks</a></td>
+<td>94%</td>
+<td>1.7M</td>
+<td>236K/yr</td>
+<td>12:10</td>
+<td>2019-05</td>
+<td>Sincere Chef</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/tVOjfy5ft34" rel="nofollow">20 Different plating techniques / simple techniques for sauce/gel / art on plate / by Monika Talwar</a></td>
+<td>96%</td>
+<td>1.5M</td>
+<td>181K/yr</td>
+<td>4:59</td>
+<td>2018-03</td>
+<td>Cook and Dance with Monika Talwar</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/r2tuI8uyzA8" rel="nofollow">Basic Food Plating Techniques</a></td>
+<td>96%</td>
+<td>1.1M</td>
+<td>116K/yr</td>
+<td>1:40</td>
+<td>2017-03</td>
+<td>WebstaurantStore</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/1LzZbROiMcY" rel="nofollow">10 Simple Tips to Make Beautiful Food (+ Useful Tools)</a></td>
+<td>82%</td>
+<td>1.0M</td>
+<td>193K/yr</td>
+<td>8:44</td>
+<td>2021-02</td>
+<td>Adam Witt</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/SctkfghLc-8" rel="nofollow">How to Make Beautiful Coral Tuile Garnish</a></td>
+<td>97%</td>
+<td>957K</td>
+<td>163K/yr</td>
+<td>4:19</td>
+<td>2020-08</td>
+<td>Home Chef Seattle</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/Udzs_MPNpMQ" rel="nofollow">9 Sauce Plating Tricks</a></td>
+<td>96%</td>
+<td>920K</td>
+<td>91K/yr</td>
+<td>2:59</td>
+<td>2016-05</td>
+<td>Make Sushi 1</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/kn5DT_NvXyw" rel="nofollow">Types of Colorful Plating techniques / Part 1/ Art on the plate/ By MONIKA TALWAR</a></td>
+<td>95%</td>
+<td>822K</td>
+<td>101K/yr</td>
+<td>3:07</td>
+<td>2018-05</td>
+<td>Cook and Dance with Monika Talwar</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/y7BwJa-9AwI" rel="nofollow">Step by Step Cucumber Decoration ideas:  My 5 + 2 Easy Cucumber Carving Tips for Beginners</a></td>
+<td>97%</td>
+<td>668K</td>
+<td>240K/yr</td>
+<td>8:03</td>
+<td>2023-09</td>
+<td>Sushi Man Santosh</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/lp1IJiBO408" rel="nofollow">Sexy Food Plating (this time in HD)</a></td>
+<td>93%</td>
+<td>665K</td>
+<td>60K/yr</td>
+<td>5:08</td>
+<td>2015-05</td>
+<td>Helen Rennie</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/T2leakA9Uo8" rel="nofollow">The 6 Rules of Plating Used in Restaurants / Epicurious 101</a></td>
+<td>94%</td>
+<td>559K</td>
+<td>373K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>15:05</td>
+<td>2025-03</td>
+<td>Epicurious</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/L90b3enp-iE" rel="nofollow">PLATING TECHNIQUES &amp; IDEAS - Sauces, Oils,  Purées  &amp; Soups - Plate like a Pro!</a></td>
+<td>96%</td>
+<td>508K</td>
+<td>141K/yr</td>
+<td>5:50</td>
+<td>2022-11</td>
+<td>Home Chef Seattle</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/wapdvQEpz98" rel="nofollow">From Home Kitchen to Fine Dining: Chef James Briscione's 5 Must-Have Plating Tools</a></td>
+<td>75%</td>
+<td>494K</td>
+<td>48K/yr</td>
+<td>3:11</td>
+<td>2016-03</td>
+<td>Institute of Culinary Education</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/3BHoIuxUqUE" rel="nofollow">파스타 예쁘게 담는 방법 / SNS용 파스타 플레이팅 꿀팁 대공개 / 요리초보도 플레이팅 고수가 되게 하는 비법</a></td>
+<td>95%</td>
+<td>443K</td>
+<td>105K/yr</td>
+<td>5:55</td>
+<td>2022-04</td>
+<td>gonet</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/YkW11oOGTVg" rel="nofollow">How to Plate Food like a Pro Chef / Food Plating Tips Techniques / Kunal Kapur Food Presentation Art</a></td>
+<td>95%</td>
+<td>406K</td>
+<td>53K/yr</td>
+<td>2:39</td>
+<td>2018-10</td>
+<td>Kunal Kapur</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/YPCM1hG1h3E" rel="nofollow">UNLOCK Beautiful Plating LAYOUTS with the S.L.I.C Technique</a></td>
+<td>96%</td>
+<td>294K</td>
+<td>170K/yr</td>
+<td>13:52</td>
+<td>2024-10</td>
+<td>dining fables</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/RtZ1Hp29nw0" rel="nofollow">Plating Food #6 / Sirloin Steak /</a></td>
+<td>91%</td>
+<td>159K</td>
+<td>17K/yr</td>
+<td>0:23</td>
+<td>2016-12</td>
+<td>paintingfood</td>
+</tr>
+</tbody>
+</table>
+<p><em>Excluded (not counted): 7 — 4 other, 3 explainer. e.g. <em>50 Cooking Tips With Gordon Ramsay | Part One</em> (other); <em>The 5 Sauces Every Chef Needs to Learn</em> (other); <em>How to Shred Vegetables Japanese Style: Carrots,</em> (other).</em></p>
+<h3 id="woodworking-joinery----how-to-cut-dovetail-joints">Woodworking joinery  ·  <em>how to cut dovetail joints</em></h3>
+<table role="table">
+<thead>
+<tr>
+<th>✓</th>
+<th>Title</th>
+<th>Conf</th>
+<th>Views</th>
+<th>Views/yr</th>
+<th>Len</th>
+<th>Uploaded</th>
+<th>Channel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/0YM1LNYE_40" rel="nofollow">SUPER SUPER Simple Dovetail Joint</a></td>
+<td>95%</td>
+<td>4.7M</td>
+<td>988K/yr</td>
+<td>6:15</td>
+<td>2021-10</td>
+<td>GRINwood</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/viT3ZGAlzNw" rel="nofollow">Make a Dovetail Box in 12 Minutes -- WOOD magazine</a></td>
+<td>95%</td>
+<td>4.2M</td>
+<td>295K/yr</td>
+<td>11:38</td>
+<td>2012-04</td>
+<td>WOOD magazine</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/cQyOa6RSIWM" rel="nofollow">How to make these Alternative Dovetail Joints (The Knapp Joint)</a></td>
+<td>95%</td>
+<td>2.8M</td>
+<td>417K/yr</td>
+<td>22:08</td>
+<td>2019-10</td>
+<td>Pask Makes</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/ChCPX7G3u_s" rel="nofollow">How to Cut Dovetails on a Tablesaw</a></td>
+<td>90%</td>
+<td>2.7M</td>
+<td>202K/yr</td>
+<td>6:38</td>
+<td>2013-03</td>
+<td>FineWoodworking</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/OCYjoj6cfno" rel="nofollow">How to make a Dovetail Joint - The Three Joints - / Paul Sellers</a></td>
+<td>95%</td>
+<td>2.4M</td>
+<td>213K/yr</td>
+<td>37:32</td>
+<td>2015-02</td>
+<td>Paul Sellers</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/2hP-QAAhpxQ" rel="nofollow">How to cut a DOVETAIL JOINT by HAND</a></td>
+<td>95%</td>
+<td>2.4M</td>
+<td>281K/yr</td>
+<td>39:38</td>
+<td>2017-11</td>
+<td>Matt Estlea</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/E8SrH6HbDdQ" rel="nofollow">How to Cut Dovetails by Hand – A New Approach (2020)</a></td>
+<td>95%</td>
+<td>1.6M</td>
+<td>264K/yr</td>
+<td>60:33</td>
+<td>2020-07</td>
+<td>RobCosman.com</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/B91LbUtad8U" rel="nofollow">How To Make A Sliding Dovetail Joint on the Table Saw / Woodworking</a></td>
+<td>95%</td>
+<td>1.5M</td>
+<td>229K/yr</td>
+<td>8:46</td>
+<td>2019-09</td>
+<td>Black Timber Company</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/InsKPNQAnK0" rel="nofollow">How to Build a Simple Dovetailed Box / Paul Sellers</a></td>
+<td>95%</td>
+<td>968K</td>
+<td>413K/yr</td>
+<td>129:06</td>
+<td>2024-02</td>
+<td>Paul Sellers</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/pIpN8yWEqNQ" rel="nofollow">Learning How To Make Dovetail Joints with Adam Savage</a></td>
+<td>70%</td>
+<td>855K</td>
+<td>63K/yr</td>
+<td>11:32</td>
+<td>2012-11</td>
+<td>Adam Savage’s Tested</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/qEhHrINwk8w" rel="nofollow">A Comprehensive Guide to Cutting Dovetails - Tips and Tricks Galore</a></td>
+<td>90%</td>
+<td>702K</td>
+<td>93K/yr</td>
+<td>25:04</td>
+<td>2018-12</td>
+<td>Jonathan Katz-Moses</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/lrAAglKLPh8" rel="nofollow">Hand Cut Dovetails with Frank Klausz</a></td>
+<td>90%</td>
+<td>488K</td>
+<td>41K/yr</td>
+<td>11:34</td>
+<td>2014-08</td>
+<td>Wood and Shop</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/7qDWkbyZEZQ" rel="nofollow">Just Another Dovetailing Video - with Christian Becksvoort</a></td>
+<td>70%</td>
+<td>477K</td>
+<td>55K/yr</td>
+<td>7:04</td>
+<td>2017-10</td>
+<td>FineWoodworking</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/Ix3mphsKGJg" rel="nofollow">Quick and Easy Dovetails Cut With Hand-Tools</a></td>
+<td>90%</td>
+<td>353K</td>
+<td>22K/yr</td>
+<td>3:59</td>
+<td>2010-01</td>
+<td>John Bullar</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/MOB3DyZp1yk" rel="nofollow">How to Cut a DOVETAIL JOINT with Hand Tools (Quick Version)</a></td>
+<td>95%</td>
+<td>346K</td>
+<td>69K/yr</td>
+<td>9:43</td>
+<td>2021-06</td>
+<td>Wood and Shop</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/ibyTMTLjaq8" rel="nofollow">Hand cut dovetails made easy</a></td>
+<td>95%</td>
+<td>314K</td>
+<td>22K/yr</td>
+<td>8:06</td>
+<td>2012-02</td>
+<td>DavidBarronFurniture</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/usdISsUA_fk" rel="nofollow">Easy Dovetails for Beginners</a></td>
+<td>95%</td>
+<td>299K</td>
+<td>44K/yr</td>
+<td>11:29</td>
+<td>2019-08</td>
+<td>Rex Krueger</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/8g0QA2Nwkc0" rel="nofollow">Tapered Sliding Dovetails</a></td>
+<td>90%</td>
+<td>234K</td>
+<td>21K/yr</td>
+<td>25:15</td>
+<td>2015-01</td>
+<td>Heritage School of Woodworking</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/9jgRfef4ZnE" rel="nofollow">How to cut a DOVETAIL HALVING JOINT by HAND</a></td>
+<td>95%</td>
+<td>234K</td>
+<td>27K/yr</td>
+<td>13:47</td>
+<td>2017-11</td>
+<td>Matt Estlea</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/zD8Ee_wy5D4" rel="nofollow">How to Cut a MITRED DOVETAIL Joint</a></td>
+<td>95%</td>
+<td>165K</td>
+<td>23K/yr</td>
+<td>30:07</td>
+<td>2019-05</td>
+<td>Matt Estlea</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/i8KPSNcpQjU" rel="nofollow">Getting Started Cutting DOVETAIL Joinery // TIPS &amp; TRICKS</a></td>
+<td>95%</td>
+<td>156K</td>
+<td>18K/yr</td>
+<td>25:34</td>
+<td>2017-07</td>
+<td>Make Something</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/4TptsO5-keY" rel="nofollow">How to Cut a DOVETAIL JOINT with Hand Tools / 8 Simple Steps</a></td>
+<td>95%</td>
+<td>132K</td>
+<td>26K/yr</td>
+<td>18:11</td>
+<td>2021-06</td>
+<td>Wood and Shop</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/Zuybp4y5uTA" rel="nofollow">Paul Sellers / Dovetail joint with hand tools</a></td>
+<td>85%</td>
+<td>132K</td>
+<td>9K/yr</td>
+<td>3:47</td>
+<td>2011-11</td>
+<td>Paul Sellers</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/RSKRcg_8ZT8" rel="nofollow">Dovetails By Hand - Layout Tips &amp; Tricks</a></td>
+<td>95%</td>
+<td>128K</td>
+<td>22K/yr</td>
+<td>26:27</td>
+<td>2020-09</td>
+<td>RobCosman.com</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/NUPtnPNpjnU" rel="nofollow">How to Cut Dovetails by Hand – Updated (2022)</a></td>
+<td>90%</td>
+<td>116K</td>
+<td>30K/yr</td>
+<td>18:17</td>
+<td>2022-07</td>
+<td>RobCosman.com</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/3b6tQgqCJas" rel="nofollow">Hand Cutting Dovetail Joints with a Simple Jig</a></td>
+<td>90%</td>
+<td>110K</td>
+<td>14K/yr</td>
+<td>5:04</td>
+<td>2018-09</td>
+<td>WoodworkersJournal</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/shPiKnw_uaY" rel="nofollow">Dovetailing - The Coping Saw Method / Paul Sellers</a></td>
+<td>95%</td>
+<td>99K</td>
+<td>24K/yr</td>
+<td>9:37</td>
+<td>2022-05</td>
+<td>Paul Sellers</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/tZfZ9qNKkks" rel="nofollow">How to Layout Dovetails with Equal Pins / Paul Sellers</a></td>
+<td>95%</td>
+<td>93K</td>
+<td>17K/yr</td>
+<td>4:28</td>
+<td>2020-11</td>
+<td>Paul Sellers</td>
+</tr>
+</tbody>
+</table>
+<p>_Excluded (not counted): 2 — 2 explainer. e.g. <em>FINALLY- A better way to cut dovetails by hand! _ (explainer); <em>Watch this BEFORE cutting dovetails</em> (explainer).</em></p>
+<h3 id="jewelry-making----stone-setting-tutorial">Jewelry making  ·  <em>stone setting tutorial</em></h3>
+<table role="table">
+<thead>
+<tr>
+<th>✓</th>
+<th>Title</th>
+<th>Conf</th>
+<th>Views</th>
+<th>Views/yr</th>
+<th>Len</th>
+<th>Uploaded</th>
+<th>Channel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/j4NUITpgWUQ" rel="nofollow">Stone Setting Tips and Tricks with Blaine Lewis</a></td>
+<td>95%</td>
+<td>948K</td>
+<td>114K/yr</td>
+<td>43:31</td>
+<td>2018-02</td>
+<td>Rio Grande</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/6O6KA7ncPUQ" rel="nofollow">How to flush set stones into ring and metal</a></td>
+<td>95%</td>
+<td>446K</td>
+<td>67K/yr</td>
+<td>38:22</td>
+<td>2019-11</td>
+<td>GomeowCreations</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/_h-VQavSPWM" rel="nofollow">SQUARE PAVÉ - HOW TO SET 16 DIAMONDS IN 18KT WHITEGOLD - THE DIAMOND SETTER</a></td>
+<td>90%</td>
+<td>444K</td>
+<td>53K/yr</td>
+<td>4:48</td>
+<td>2018-01</td>
+<td>THE DIAMOND SETTER</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/EB8juj3Stw0" rel="nofollow">How to Set a Round Center Stone in a Ring with Platinum Prongs / GIA</a></td>
+<td>95%</td>
+<td>339K</td>
+<td>47K/yr</td>
+<td>3:23</td>
+<td>2019-04</td>
+<td>GIA (Gemological Institute of America)</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/8uoGp6yF5q4" rel="nofollow">How to Make a Wire Wrapped Soumak Stone Setting by Wyatt White</a></td>
+<td>95%</td>
+<td>315K</td>
+<td>24K/yr</td>
+<td>19:39</td>
+<td>2013-01</td>
+<td>Beadaholique - STORE CLOSING, Everything on Sale!</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/f6niqvX4vvY" rel="nofollow">Freeform Prong Stone Setting Tutorial - Beaducation.com</a></td>
+<td>98%</td>
+<td>275K</td>
+<td>23K/yr</td>
+<td>38:34</td>
+<td>2014-05</td>
+<td>Beaducation</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/Os4PE5RcmrA" rel="nofollow">Four Point Star Setting</a></td>
+<td>95%</td>
+<td>254K</td>
+<td>34K/yr</td>
+<td>19:27</td>
+<td>2019-01</td>
+<td>Jewellery Training Solutions</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/IS2_K1JegaQ" rel="nofollow">How-to Bezel-Set a Cabochon</a></td>
+<td>98%</td>
+<td>242K</td>
+<td>14K/yr</td>
+<td>8:21</td>
+<td>2009-03</td>
+<td>Rio Grande</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/3a4bZyNTGzU" rel="nofollow">Bezel Setting an Oval Brilliant Cut / Advanced Stone Setting Techniques / Metalsmith Academy</a></td>
+<td>90%</td>
+<td>196K</td>
+<td>37K/yr</td>
+<td>6:35</td>
+<td>2021-03</td>
+<td>Lucy Walker Jewelry</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/zkWz1WFWvE0" rel="nofollow">Flush Setting Tutorial</a></td>
+<td>98%</td>
+<td>163K</td>
+<td>29K/yr</td>
+<td>14:11</td>
+<td>2020-10</td>
+<td>Okina Jewelry</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/yaFbZgkxVHg" rel="nofollow">Side by Side stone setting professional course</a></td>
+<td>90%</td>
+<td>89K</td>
+<td>24K/yr</td>
+<td>11:45</td>
+<td>2022-11</td>
+<td>Jewelry School Italy Accademia Delle Arti Orafe</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/wHesE17Wlak" rel="nofollow">Tube Setting Faceted Stones: No Pre-made Settings Allowed!</a></td>
+<td>95%</td>
+<td>59K</td>
+<td>6K/yr</td>
+<td>9:16</td>
+<td>2017-02</td>
+<td>Radish Fight Jewelry</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/yKWMkCHJDYw" rel="nofollow">How To Make A Stone Setting (with commentary)</a></td>
+<td>90%</td>
+<td>51K</td>
+<td>22K/yr</td>
+<td>38:16</td>
+<td>2024-02</td>
+<td>Metal Of Honour</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/498czwbeiPM" rel="nofollow">HOW ITS DONE Bezel setting a gemstone - Tutorial l Gem Collectors</a></td>
+<td>98%</td>
+<td>40K</td>
+<td>5K/yr</td>
+<td>19:06</td>
+<td>2018-10</td>
+<td>Gem Collectors with Shawn l Gem Shopping Network</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/5unNOcQfos0" rel="nofollow">Leather and Stone Pendant Tutorial (FREE PATTERN)</a></td>
+<td>95%</td>
+<td>34K</td>
+<td>11K/yr</td>
+<td>60:46</td>
+<td>2023-05</td>
+<td>Chuck's Magic</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/lhlZjAch-DA" rel="nofollow">How to make a flush stone setting / Step by step tutorial!</a></td>
+<td>98%</td>
+<td>31K</td>
+<td>21K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>17:27</td>
+<td>2025-04</td>
+<td>kristinabobin</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/dVSIZA1dqz4" rel="nofollow">Stone Setting / Tube Setting Tricks and Tips / Metalsmith Academy</a></td>
+<td>85%</td>
+<td>30K</td>
+<td>6K/yr</td>
+<td>4:16</td>
+<td>2021-07</td>
+<td>Lucy Walker Jewelry</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/zClie8IwTn0" rel="nofollow">Learn how to set a stone in a flush setting</a></td>
+<td>95%</td>
+<td>28K</td>
+<td>14K/yr</td>
+<td>4:24</td>
+<td>2024-05</td>
+<td>Jewellers Academy</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/YE7I_Sl7yGo" rel="nofollow">How to Make Gemstone Stacking Rings / Silversmithing Tutorial</a></td>
+<td>98%</td>
+<td>25K</td>
+<td>11K/yr</td>
+<td>6:02</td>
+<td>2024-04</td>
+<td>Cognac Jewellery School</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/GjGPR45BELA" rel="nofollow">How to Set a Round Faceted Stone into a Prong Setting</a></td>
+<td>90%</td>
+<td>18K</td>
+<td>3K/yr</td>
+<td>2:00</td>
+<td>2020-05</td>
+<td>The Hop at Dartmouth</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/ky3JWOT6OZY" rel="nofollow">How to Flush Set Stones - Beginner Goldsmithing Guide / @jacothejeweller</a></td>
+<td>95%</td>
+<td>15K</td>
+<td>10K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>7:33</td>
+<td>2025-03</td>
+<td>Goldsmith's Workshop Secrets</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/4WypZJnEC30" rel="nofollow">How to set any round faceted stone in prongs / JCA</a></td>
+<td>95%</td>
+<td>14K</td>
+<td>5K/yr</td>
+<td>8:38</td>
+<td>2023-08</td>
+<td>Jewelry Craft Assistant</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/87kVXZEuANY" rel="nofollow">JEWELLERS TECHNIQUES / How to bezel set a cabochon gemstone</a></td>
+<td>95%</td>
+<td>13K</td>
+<td>9K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>3:15</td>
+<td>2025-01</td>
+<td>Cognac Jewellery School</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/69J6f8MiXt8" rel="nofollow">How To Flush Set a Gemstone / Tools &amp; Tutorial</a></td>
+<td>95%</td>
+<td>12K</td>
+<td>8K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>23:39</td>
+<td>2025-12</td>
+<td>Mitera Made Jewelry</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/TZBRI3BEjOs" rel="nofollow">Pro Setting Tips: Perfectly Set Stones Every Time!</a></td>
+<td>75%</td>
+<td>11K</td>
+<td>5K/yr</td>
+<td>1:04</td>
+<td>2024-05</td>
+<td>Lab Grown Diamonds By Quinn's Goldsmith</td>
+</tr>
+</tbody>
+</table>
+<p><em>Excluded (not counted): 5 — 4 explainer, 1 entertainment. e.g. <em>Stone Setting Tools for Beginners</em> (explainer); <em>Stone Setting Types for Jewellery Making (Jewelr</em> (explainer); <em>All About the Different Ways to Set Gemstones</em> (explainer).</em></p>
+<h3 id="fly-tying----fly-tying-for-beginners">Fly-tying  ·  <em>fly tying for beginners</em></h3>
+<table role="table">
+<thead>
+<tr>
+<th>✓</th>
+<th>Title</th>
+<th>Conf</th>
+<th>Views</th>
+<th>Views/yr</th>
+<th>Len</th>
+<th>Uploaded</th>
+<th>Channel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/kI0Hl-jRQd0" rel="nofollow">whip finish - fly tying for beginners</a></td>
+<td>95%</td>
+<td>804K</td>
+<td>61K/yr</td>
+<td>1:34</td>
+<td>2013-04</td>
+<td>Peter Gathercole</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/rmhH9BoUI1o" rel="nofollow">Fly Tying For Beginners Adams with Jim Misiura</a></td>
+<td>95%</td>
+<td>644K</td>
+<td>48K/yr</td>
+<td>14:12</td>
+<td>2013-01</td>
+<td>Jim Misiura</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/IgGpTxo-Dds" rel="nofollow">Beginner Fly Tying Tips - Part 2: Three Essential Techniques Every Fly Tier Needs to Know</a></td>
+<td>95%</td>
+<td>378K</td>
+<td>24K/yr</td>
+<td>7:22</td>
+<td>2011-01</td>
+<td>Scott Cesari</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/vImm4b4sdYE" rel="nofollow">Fish Cannot Resist This Fly! - NO-SEE-UM Fly Tying Tutorial</a></td>
+<td>95%</td>
+<td>313K</td>
+<td>77K/yr</td>
+<td>5:04</td>
+<td>2022-06</td>
+<td>Fly Fish Food</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/gDxbBnQ_N3c" rel="nofollow">The only nymph you need to learn - McFly Angler Nymph Fly Tying Tutorial</a></td>
+<td>95%</td>
+<td>307K</td>
+<td>47K/yr</td>
+<td>4:52</td>
+<td>2019-11</td>
+<td>McFly Angler</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/jXLwvWl5vpM" rel="nofollow">How to Tie a Perfect Wooly Bugger - Fly Tying Tutorial</a></td>
+<td>95%</td>
+<td>231K</td>
+<td>68K/yr</td>
+<td>7:39</td>
+<td>2023-02</td>
+<td>Fly Fish Food</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/LfpS43ezpvQ" rel="nofollow">BEGINNER Fly Tying-THE Most Important Fly to learn: The Walt’s Worm</a></td>
+<td>95%</td>
+<td>224K</td>
+<td>52K/yr</td>
+<td>13:28</td>
+<td>2022-02</td>
+<td>Old Dominion Trout Bum</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/4oB_tdFqM-Q" rel="nofollow">Adams Dry Fly - Most popular dry fly ever created! - McFly Angler Fly Tying Tutorials</a></td>
+<td>90%</td>
+<td>213K</td>
+<td>28K/yr</td>
+<td>6:42</td>
+<td>2018-10</td>
+<td>McFly Angler</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/Lgr2KvfSS58" rel="nofollow">Fly Tying Tutorial: Easy Pheasant Tail Nymph by Fly Fish Food</a></td>
+<td>95%</td>
+<td>200K</td>
+<td>19K/yr</td>
+<td>11:32</td>
+<td>2015-11</td>
+<td>Fly Fish Food</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/6-Npa4uAhoc" rel="nofollow">New to Fly Tying? Try THESE Easy Fly Patterns for Success!</a></td>
+<td>80%</td>
+<td>179K</td>
+<td>80K/yr</td>
+<td>51:10</td>
+<td>2024-03</td>
+<td>Mainely Flies</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/H-Dw-L6ji4s" rel="nofollow">How to Start Fly Tying — the EASY Way / Episode 1</a></td>
+<td>80%</td>
+<td>175K</td>
+<td>55K/yr</td>
+<td>6:59</td>
+<td>2023-04</td>
+<td>Ventures Fly Co.</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/lki1qCIh0QQ" rel="nofollow">Quickest EGG you will ever tie! - Fly Tying - Easy fly tying for beginners - McFly Angler Fly Tying</a></td>
+<td>95%</td>
+<td>119K</td>
+<td>14K/yr</td>
+<td>2:42</td>
+<td>2017-09</td>
+<td>McFly Angler</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/jZDixBKRL4M" rel="nofollow">Woolly Bugger — How to Tie Step by Step / Beginner Friendly Fly Tying Tutorial</a></td>
+<td>95%</td>
+<td>92K</td>
+<td>27K/yr</td>
+<td>9:17</td>
+<td>2023-02</td>
+<td>Ventures Fly Co.</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/jE3SJLxprt8" rel="nofollow">Adams — How to Tie Step by Step / Beginner Friendly Fly Tying Tutorial</a></td>
+<td>95%</td>
+<td>72K</td>
+<td>22K/yr</td>
+<td>7:37</td>
+<td>2023-03</td>
+<td>Ventures Fly Co.</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/Z-8ZqEXM6bg" rel="nofollow">Essential Fly Tying Skills For Beginners - Whip Finish, Half Hitch, Proper Hook Placement &amp; More!</a></td>
+<td>90%</td>
+<td>71K</td>
+<td>11K/yr</td>
+<td>32:51</td>
+<td>2020-04</td>
+<td>Gig Harbor Fly Shop</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/LkUPwpGv2k4" rel="nofollow">How to Finish Tying a Fly — Whip Finish Tutorial / Episode 9</a></td>
+<td>95%</td>
+<td>67K</td>
+<td>22K/yr</td>
+<td>2:00</td>
+<td>2023-05</td>
+<td>Ventures Fly Co.</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/ATdJarQ_gtY" rel="nofollow">Fly Tying for Beginners - The Adams Dry Fly</a></td>
+<td>95%</td>
+<td>58K</td>
+<td>10K/yr</td>
+<td>9:40</td>
+<td>2020-08</td>
+<td>Savage Flies</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/bdrmzVEzRMM" rel="nofollow">Basic Fly Tying Instruction  Starting the Thread</a></td>
+<td>95%</td>
+<td>42K</td>
+<td>3K/yr</td>
+<td>1:04</td>
+<td>2011-01</td>
+<td>Caddis Fly Angling Shop</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/lfLEOSQqNYs" rel="nofollow">How to Start Fly Tying for Beginners / Step-by-Step Guide #flytying #flyfishing #flytyingvideo</a></td>
+<td>90%</td>
+<td>18K</td>
+<td>7K/yr</td>
+<td>19:24</td>
+<td>2024-01</td>
+<td>Lindsay Simpson Fly Fishing</td>
+</tr>
+</tbody>
+</table>
+<p><em>Excluded (not counted): 11 — 7 explainer, 3 other, 1 review. e.g. <em>How to Set Up Your Fly Line, Leader, Tippet, &amp; F</em> (other); <em>The only three fly-fishing knots you need on the</em> (other); <em>How to Cast a Fly Rod for Beginners (5 Fly Casti</em> (other).</em></p>
+<h3 id="instrument-setup--luthier----guitar-setup-tutorial">Instrument setup / luthier  ·  <em>guitar setup tutorial</em></h3>
+<table role="table">
+<thead>
+<tr>
+<th>✓</th>
+<th>Title</th>
+<th>Conf</th>
+<th>Views</th>
+<th>Views/yr</th>
+<th>Len</th>
+<th>Uploaded</th>
+<th>Channel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/5jTsSvkBv60" rel="nofollow">How to Tune Your Guitar For Beginners</a></td>
+<td>95%</td>
+<td>6.6M</td>
+<td>658K/yr</td>
+<td>12:00</td>
+<td>2016-06</td>
+<td>Marty Music</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/YAGe8dMUPrQ" rel="nofollow">How to Change an Acoustic Guitar String, EASY!</a></td>
+<td>95%</td>
+<td>4.2M</td>
+<td>330K/yr</td>
+<td>2:40</td>
+<td>2013-08</td>
+<td>swiftlessons</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/k8ZpTWPnJ20" rel="nofollow">Make Your CHEAP Guitar Play Like a MILLION Bucks!</a></td>
+<td>95%</td>
+<td>3.6M</td>
+<td>481K/yr</td>
+<td>23:07</td>
+<td>2019-02</td>
+<td>Darrell Braun Guitar</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/aAyDdbNldig" rel="nofollow">The '5-STEP SETUP' every guitarist should know!</a></td>
+<td>95%</td>
+<td>3.1M</td>
+<td>540K/yr</td>
+<td>18:28</td>
+<td>2020-10</td>
+<td>Paul Davids</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/6DpLRfbv9ok" rel="nofollow">How to Adjust the Action on an Acoustic Guitar</a></td>
+<td>95%</td>
+<td>2.8M</td>
+<td>386K/yr</td>
+<td>9:37</td>
+<td>2019-04</td>
+<td>StewMac</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/oWf6eaoeMs0" rel="nofollow">Tech Tip: How to Tie a Luthier's Knot When Changing Strings</a></td>
+<td>90%</td>
+<td>2.5M</td>
+<td>553K/yr</td>
+<td>3:35</td>
+<td>2022-01</td>
+<td>Banjo Ben Clark</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/xkjMZvUILZM" rel="nofollow">Pro Guitar Tech's Most Hated Things (and how to fix them)</a></td>
+<td>85%</td>
+<td>2.1M</td>
+<td>746K/yr</td>
+<td>16:29</td>
+<td>2023-08</td>
+<td>Rhett Shull</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/HfjWaIgRddI" rel="nofollow">How to Tune A Guitar for Beginners (Guitar Basics - Lesson 4)</a></td>
+<td>95%</td>
+<td>2.0M</td>
+<td>192K/yr</td>
+<td>8:15</td>
+<td>2015-12</td>
+<td>Andy Guitar</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/SxmgZBzny1w" rel="nofollow">The Complete DIY Guitar Setup Tutorial</a></td>
+<td>95%</td>
+<td>1.2M</td>
+<td>207K/yr</td>
+<td>11:24</td>
+<td>2020-06</td>
+<td>Music is Win</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/_FOn193eG44" rel="nofollow">Complete Guitar Setup: Easy Step-By-Step Guide</a></td>
+<td>95%</td>
+<td>1.2M</td>
+<td>382K/yr</td>
+<td>11:13</td>
+<td>2023-05</td>
+<td>Conor Rocks</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/3UqVXrpvWCM" rel="nofollow">Do Your Own Setups: 8 Tools You Need</a></td>
+<td>85%</td>
+<td>639K</td>
+<td>240K/yr</td>
+<td>32:56</td>
+<td>2023-10</td>
+<td>StewMac</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/fK4K7kgSrKc" rel="nofollow">Acoustic Guitar Setup – How to Set up an Acoustic Guitar 🎸 / Guitar Lesson</a></td>
+<td>95%</td>
+<td>565K</td>
+<td>91K/yr</td>
+<td>12:21</td>
+<td>2020-03</td>
+<td>Sweetwater</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/eeLXIh8kRAI" rel="nofollow">Fender Stratocaster Full Setup - Anyone Can Do This!</a></td>
+<td>95%</td>
+<td>351K</td>
+<td>89K/yr</td>
+<td>25:02</td>
+<td>2022-07</td>
+<td>Hogan's Hideout</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/Bj-dW-REZ5Y" rel="nofollow">How To Do A Fast And Great Guitar Set Up</a></td>
+<td>95%</td>
+<td>321K</td>
+<td>52K/yr</td>
+<td>4:05</td>
+<td>2020-04</td>
+<td>Phillip McKnight</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/j84nSxlhQ04" rel="nofollow">5 Step Guitar Setup Every Player Should Know</a></td>
+<td>95%</td>
+<td>265K</td>
+<td>70K/yr</td>
+<td>16:59</td>
+<td>2022-09</td>
+<td>Rhett Shull</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/UuexEFculdY" rel="nofollow">Acoustic Guitar Setup Guide / Guitar Tech Tips / Ep. 27 / Thomann</a></td>
+<td>95%</td>
+<td>239K</td>
+<td>42K/yr</td>
+<td>5:29</td>
+<td>2020-11</td>
+<td>Thomann's Guitars &amp; Basses</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/2stbT3enl9k" rel="nofollow">The Ultimate Acoustic Guitar Setup Guide</a></td>
+<td>95%</td>
+<td>179K</td>
+<td>119K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>16:56</td>
+<td>2025-01</td>
+<td>Rhett Shull</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/hxLBg8uXXKM" rel="nofollow">How to do a guitar set up.</a></td>
+<td>95%</td>
+<td>143K</td>
+<td>12K/yr</td>
+<td>6:56</td>
+<td>2014-06</td>
+<td>Phillip McKnight</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/yJvmQZBcUlk" rel="nofollow">DIY: Easy 4-Step Guitar Setup - Adjusting Neck, Setting String Action, Filing Nut Slots &amp; Intonation</a></td>
+<td>95%</td>
+<td>104K</td>
+<td>42K/yr</td>
+<td>20:26</td>
+<td>2023-12</td>
+<td>Premier Guitar</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/4ZL0uXLGtt8" rel="nofollow">Basic Tools Guitar Players Need To Do Set Ups</a></td>
+<td>85%</td>
+<td>99K</td>
+<td>20K/yr</td>
+<td>6:42</td>
+<td>2021-06</td>
+<td>Phillip McKnight</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/xbKyNBYBveM" rel="nofollow">How to set up an acoustic guitar, adjust or set the action, saddle &amp; truss rod (Pt. 1)  guitar setup</a></td>
+<td>95%</td>
+<td>97K</td>
+<td>17K/yr</td>
+<td>31:11</td>
+<td>2020-12</td>
+<td>GCH Guitar Academy</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/FcHR9YqIRvQ" rel="nofollow">Guitar Setup Masterclass with Milehouse Studios: Unlock Your Guitar's True Potential!</a></td>
+<td>95%</td>
+<td>66K</td>
+<td>44K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>61:41</td>
+<td>2025-03</td>
+<td>Jojo Fry Rocks!</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/SQGqvpQMQlk" rel="nofollow">Guitar Setup Tutorial for Acoustic and Electric - Guitar Lessons with Stuart!</a></td>
+<td>95%</td>
+<td>35K</td>
+<td>17K/yr</td>
+<td>45:51</td>
+<td>2024-05</td>
+<td>Marin Music Center</td>
+</tr>
+</tbody>
+</table>
+<p><em>Excluded (not counted): 7 — 6 other, 1 review. e.g. <em>Beginner Electric Lesson 1 - Your Very First Ele</em> (other); <em>Guitar Tuner - Tune Standard Guitar Online - E A</em> (other); <em>Beginner Guitar Lesson Starter Pack</em> (other).</em></p>
+<h3 id="firearms-maintenance----how-to-clean-a-handgun">Firearms maintenance  ·  <em>how to clean a handgun</em></h3>
+<table role="table">
+<thead>
+<tr>
+<th>✓</th>
+<th>Title</th>
+<th>Conf</th>
+<th>Views</th>
+<th>Views/yr</th>
+<th>Len</th>
+<th>Uploaded</th>
+<th>Channel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/tGpLf0Ja65Y" rel="nofollow">Glock's Official Recommended Cleaning &amp; Inspection</a></td>
+<td>95%</td>
+<td>3.4M</td>
+<td>353K/yr</td>
+<td>25:04</td>
+<td>2016-12</td>
+<td>sootch00</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/DZf4mUM10Vc" rel="nofollow">Glock Cleaning Basics</a></td>
+<td>90%</td>
+<td>2.5M</td>
+<td>151K/yr</td>
+<td>14:27</td>
+<td>2009-08</td>
+<td>hickok45</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/8wPPUXU3Lhc" rel="nofollow">1911 Cleaning</a></td>
+<td>90%</td>
+<td>2.3M</td>
+<td>171K/yr</td>
+<td>19:15</td>
+<td>2012-11</td>
+<td>hickok45</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/j33f7vkDu08" rel="nofollow">STOP Cleaning Your Handgun Until You WATCH THIS... (The Mistake You MUST Avoid)</a></td>
+<td>95%</td>
+<td>1.8M</td>
+<td>367K/yr</td>
+<td>18:33</td>
+<td>2021-06</td>
+<td>Tactical Toolbox</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/kiWNZgtu2uw" rel="nofollow">Revolver Cleaning</a></td>
+<td>90%</td>
+<td>1.4M</td>
+<td>88K/yr</td>
+<td>19:08</td>
+<td>2010-02</td>
+<td>hickok45</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/HovIM4JHb8I" rel="nofollow">Gun Cleaning 101</a></td>
+<td>90%</td>
+<td>985K</td>
+<td>64K/yr</td>
+<td>8:55</td>
+<td>2011-01</td>
+<td>GUNS and American Handgunner Magazines</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/E1h9mBuSHg8" rel="nofollow">Basic Semi-Auto Pistol Cleaning</a></td>
+<td>80%</td>
+<td>859K</td>
+<td>89K/yr</td>
+<td>14:43</td>
+<td>2016-11</td>
+<td>Guns of the West</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/W1eKESlpUgY" rel="nofollow">Gun Cleaning: cheapo kit + oil + no leak applicator</a></td>
+<td>85%</td>
+<td>777K</td>
+<td>112K/yr</td>
+<td>18:34</td>
+<td>2019-07</td>
+<td>Warrior Poet Society</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/5NAZOr33nUo" rel="nofollow">How to Clean a Smith and Wesson Model 629 Revolver / Smith &amp; Wesson Revolver Project</a></td>
+<td>95%</td>
+<td>768K</td>
+<td>61K/yr</td>
+<td>5:11</td>
+<td>2013-12</td>
+<td>MidwayUSA</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/g8XLn1dtpYo" rel="nofollow">Cleaning Your Taurus G3, G3C, G2, G2C New Owners Guide</a></td>
+<td>95%</td>
+<td>764K</td>
+<td>144K/yr</td>
+<td>14:56</td>
+<td>2021-02</td>
+<td>Tactical Considerations</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/g_EgYrw2WsE" rel="nofollow">How To Clean &amp; Lubricate A Sig Sauer P365 Pistol  (4K)</a></td>
+<td>90%</td>
+<td>643K</td>
+<td>84K/yr</td>
+<td>11:14</td>
+<td>2018-10</td>
+<td>Mrgunsngear Channel</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/AahroOg68g4" rel="nofollow">How to Disassemble &amp; Clean a 1911 Pistol / Gunsmith Tips with Mitch Schultz</a></td>
+<td>95%</td>
+<td>634K</td>
+<td>40K/yr</td>
+<td>7:04</td>
+<td>2010-06</td>
+<td>NSSF—The Firearm Industry Trade Association</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/ebogB1HocRA" rel="nofollow">How To Clean: Glock 17</a></td>
+<td>95%</td>
+<td>549K</td>
+<td>89K/yr</td>
+<td>5:14</td>
+<td>2020-04</td>
+<td>Hoppesguncare</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/onuGvjbn0ck" rel="nofollow">How to Clean a Revolver / The Art of Manliness</a></td>
+<td>90%</td>
+<td>541K</td>
+<td>45K/yr</td>
+<td>3:51</td>
+<td>2014-06</td>
+<td>Art of Manliness</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/ts8WLSpdEBQ" rel="nofollow">Basics of Firearm Cleaning</a></td>
+<td>85%</td>
+<td>510K</td>
+<td>89K/yr</td>
+<td>42:40</td>
+<td>2020-10</td>
+<td>Harrell Brothers In Arms</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/MddFszEFgKM" rel="nofollow">How to Clean a Semi Auto Pistol Presented by Larry Potterfield / MidwayUSA Gunsmithing</a></td>
+<td>95%</td>
+<td>495K</td>
+<td>40K/yr</td>
+<td>4:59</td>
+<td>2013-12</td>
+<td>MidwayUSA</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/wTlCglLp_Uw" rel="nofollow">How to Clean a Gun / Gun Guide</a></td>
+<td>85%</td>
+<td>359K</td>
+<td>29K/yr</td>
+<td>2:25</td>
+<td>2014-01</td>
+<td>Howcast</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/HoFwLxKJKMI" rel="nofollow">How to Clean a Handgun</a></td>
+<td>90%</td>
+<td>343K</td>
+<td>39K/yr</td>
+<td>32:26</td>
+<td>2017-07</td>
+<td>Iraqveteran8888</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/TeK8tQlS98U" rel="nofollow">How to Clean: M&amp;P Shield</a></td>
+<td>95%</td>
+<td>323K</td>
+<td>52K/yr</td>
+<td>4:23</td>
+<td>2020-04</td>
+<td>Hoppesguncare</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/dXo0QFGGu-o" rel="nofollow">How to Clean a 9mm Smith and Wesson M&amp;P Semi-Auto Pistol</a></td>
+<td>95%</td>
+<td>234K</td>
+<td>56K/yr</td>
+<td>14:50</td>
+<td>2022-05</td>
+<td>Concealed Coalition</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/CjDMuknEfKw" rel="nofollow">How to Clean a Pistol with a BoreSnake</a></td>
+<td>80%</td>
+<td>127K</td>
+<td>10K/yr</td>
+<td>1:33</td>
+<td>2014-05</td>
+<td>Hoppesguncare</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/dMNcqrIGEpw" rel="nofollow">Gun Cleaning 101/ Cleaning &amp; Maintenance For Your Everyday Carry (EDC) / Pistol Cleaning</a></td>
+<td>90%</td>
+<td>110K</td>
+<td>23K/yr</td>
+<td>9:00</td>
+<td>2021-10</td>
+<td>Otis Technology</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/whqNjZHoE8c" rel="nofollow">How To Quickly Clean Your Handgun (Tips From A Former Navy SEAL)</a></td>
+<td>75%</td>
+<td>65K</td>
+<td>43K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>20:45</td>
+<td>2025-05</td>
+<td>USCCA</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/72WcHaSvh2c" rel="nofollow">How To Use a Gun Cleaning Kit. Easy Step-by-step tutorial.</a></td>
+<td>95%</td>
+<td>51K</td>
+<td>25K/yr</td>
+<td>16:54</td>
+<td>2024-06</td>
+<td>Guns &amp; Concealed Carry</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/dwOK4rVYUJ0" rel="nofollow">How to Clean Your Handgun Like a Pro (Even If You’re Lazy)</a></td>
+<td>95%</td>
+<td>36K</td>
+<td>24K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>21:28</td>
+<td>2025-04</td>
+<td>TriggerSmart</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/RQ1uuvd2AD0" rel="nofollow">Firearm Cleaning 101 with Otis Technology / Cleaning and Maintenance Tips</a></td>
+<td>90%</td>
+<td>22K</td>
+<td>4K/yr</td>
+<td>2:00</td>
+<td>2020-04</td>
+<td>NSSF—The Firearm Industry Trade Association</td>
+</tr>
+</tbody>
+</table>
+<p>_Excluded (not counted): 4 — 2 entertainment, 1 explainer, 1 review. e.g. <em>How I Quickly Clean My Handguns</em> (entertainment); <em>Smyth Busters: How Often Do You Have To Clean a _ (explainer); <em>How I Quickly Clean My Rifle</em> (entertainment).</em></p>
+<h3 id="hvac--appliance-diagnostics----hvac-troubleshooting-tutorial">HVAC / appliance diagnostics  ·  <em>hvac troubleshooting tutorial</em></h3>
+<table role="table">
+<thead>
+<tr>
+<th>✓</th>
+<th>Title</th>
+<th>Conf</th>
+<th>Views</th>
+<th>Views/yr</th>
+<th>Len</th>
+<th>Uploaded</th>
+<th>Channel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/wzAA4dlp_70" rel="nofollow">AC Not Turning on or Working? Try THESE Fixes (Works on Most Units)</a></td>
+<td>95%</td>
+<td>3.5M</td>
+<td>437K/yr</td>
+<td>30:27</td>
+<td>2018-05</td>
+<td>Word of Advice TV</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/bVYUzp8QQ0M" rel="nofollow">AC not working!!! The CAR WIZARD shows how to easily isolate the problem</a></td>
+<td>85%</td>
+<td>2.4M</td>
+<td>401K/yr</td>
+<td>18:55</td>
+<td>2020-06</td>
+<td>Car Wizard</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/T4IWtKy--Vk" rel="nofollow">Top 5 Furnace Problems and How to Fix Them</a></td>
+<td>95%</td>
+<td>2.1M</td>
+<td>331K/yr</td>
+<td>20:06</td>
+<td>2020-01</td>
+<td>Word of Advice TV</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/80jSH8VQZms" rel="nofollow">How to use AC Gauges in Your Car (AC Problems)</a></td>
+<td>90%</td>
+<td>2.0M</td>
+<td>135K/yr</td>
+<td>5:15</td>
+<td>2011-07</td>
+<td>Scotty Kilmer</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/VhU2KeumoVk" rel="nofollow">Ford A/C Quick Tips #7: How To Quickly Diagnose A/C Concerns</a></td>
+<td>85%</td>
+<td>1.8M</td>
+<td>186K/yr</td>
+<td>13:09</td>
+<td>2016-09</td>
+<td>FordTechMakuloco</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/kjLCeiupfD8" rel="nofollow">Car AC Not Cooling - How To Easily Check AC Pressure Switches</a></td>
+<td>90%</td>
+<td>1.5M</td>
+<td>326K/yr</td>
+<td>5:25</td>
+<td>2021-11</td>
+<td>proclaimliberty2000</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/mc8tnEymAys" rel="nofollow">Central Air Troubleshooting - Top 10 AC Problems</a></td>
+<td>90%</td>
+<td>1.4M</td>
+<td>177K/yr</td>
+<td>16:56</td>
+<td>2018-06</td>
+<td>Word of Advice TV</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/GoThAlOvSts" rel="nofollow">Thermostat Wiring to a Furnace and AC Unit!  Color Code, How it Works, Diagram!</a></td>
+<td>90%</td>
+<td>1.4M</td>
+<td>196K/yr</td>
+<td>5:39</td>
+<td>2019-07</td>
+<td>AC Service Tech LLC</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/9Y_R9unnadI" rel="nofollow">How to Tell if Your Home Thermostat is Bad - Bypass it and Find Out</a></td>
+<td>95%</td>
+<td>1.1M</td>
+<td>137K/yr</td>
+<td>6:05</td>
+<td>2018-07</td>
+<td>Word of Advice TV</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/52iq9rYI0mI" rel="nofollow">Furnace/AC How to Troubleshoot The Control Board</a></td>
+<td>90%</td>
+<td>1.1M</td>
+<td>135K/yr</td>
+<td>8:59</td>
+<td>2018-07</td>
+<td>Word of Advice TV</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/GOXgdnRB840" rel="nofollow">Top 5 AC Problems and How to Fix Them</a></td>
+<td>90%</td>
+<td>1.1M</td>
+<td>213K/yr</td>
+<td>16:23</td>
+<td>2021-07</td>
+<td>Word of Advice TV</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/QAJv4U1JeRA" rel="nofollow">Vehicle AC System Diagnosis for Beginners. A/C System Troubleshooting</a></td>
+<td>95%</td>
+<td>1.0M</td>
+<td>491K/yr</td>
+<td>25:20</td>
+<td>2024-05</td>
+<td>Repair Geek</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/EvzwyDl4Fgg" rel="nofollow">Testing if an HVACR Compressor is Shorted to Ground, Open, or Overload Tripped!</a></td>
+<td>90%</td>
+<td>897K</td>
+<td>155K/yr</td>
+<td>11:05</td>
+<td>2020-09</td>
+<td>AC Service Tech LLC</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/PlA1kBz2kHA" rel="nofollow">Gas Furnace Training Class! Basics, Operation, Components, Troubleshooting</a></td>
+<td>80%</td>
+<td>892K</td>
+<td>212K/yr</td>
+<td>80:49</td>
+<td>2022-04</td>
+<td>AC Service Tech LLC</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/4e4wsruGS0s" rel="nofollow">How to Find a Short (HVAC)</a></td>
+<td>95%</td>
+<td>876K</td>
+<td>128K/yr</td>
+<td>32:02</td>
+<td>2019-08</td>
+<td>Word of Advice TV</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/VHWEoXsViFY" rel="nofollow">Finding Low Voltage Shorts Fast! HVAC Troubleshooting!</a></td>
+<td>95%</td>
+<td>656K</td>
+<td>118K/yr</td>
+<td>11:42</td>
+<td>2020-12</td>
+<td>AC Service Tech LLC</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/DlHDaoT_vjY" rel="nofollow">Critical System Diagnosis for Residential HVAC</a></td>
+<td>85%</td>
+<td>505K</td>
+<td>86K/yr</td>
+<td>41:45</td>
+<td>2020-08</td>
+<td>HVAC School</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/v-6Mmat0tzM" rel="nofollow">Troubleshooting all HVAC CIRCUIT BOARDS! Methodology and Procedures Used in the Field!</a></td>
+<td>90%</td>
+<td>314K</td>
+<td>79K/yr</td>
+<td>17:25</td>
+<td>2022-06</td>
+<td>AC Service Tech LLC</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/xxclrVcvKSQ" rel="nofollow">Electrical Troubleshooting! Finding 8 Electrical Faults!</a></td>
+<td>90%</td>
+<td>302K</td>
+<td>69K/yr</td>
+<td>26:04</td>
+<td>2022-02</td>
+<td>AC Service Tech LLC</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/FQRJsz1FZgI" rel="nofollow">HVAC Multimeter Basics: Measuring Electrical Resistance vs Continuity! Testing and Tips!</a></td>
+<td>90%</td>
+<td>256K</td>
+<td>88K/yr</td>
+<td>10:23</td>
+<td>2023-07</td>
+<td>AC Service Tech LLC</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/0inFNly1QdE" rel="nofollow">HVAC Troubleshooting Part 1</a></td>
+<td>85%</td>
+<td>233K</td>
+<td>155K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>70:37</td>
+<td>2025-01</td>
+<td>HVAC School</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/LrUoSRpPm7c" rel="nofollow">HVAC Videos For Beginners</a></td>
+<td>85%</td>
+<td>203K</td>
+<td>48K/yr</td>
+<td>11:21</td>
+<td>2022-04</td>
+<td>Lex Vance</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/iy1YTK2Y7Uc" rel="nofollow">HVAC Service Call from Start to Finish: What Every New Tech Must Know!</a></td>
+<td>90%</td>
+<td>188K</td>
+<td>126K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>19:47</td>
+<td>2025-06</td>
+<td>Taddy Digest</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/gVCPMQTqJxI" rel="nofollow">Troubleshoot AC for Beginners ONLY! Part 1 Understanding the System</a></td>
+<td>90%</td>
+<td>133K</td>
+<td>18K/yr</td>
+<td>10:03</td>
+<td>2019-04</td>
+<td>Sam</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/c14dOkRN6CE" rel="nofollow">How to Troubleshoot Your AC Like a Pro</a></td>
+<td>90%</td>
+<td>72K</td>
+<td>25K/yr</td>
+<td>15:34</td>
+<td>2023-08</td>
+<td>Taddy Digest</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/ChzP82bN5EE" rel="nofollow">How to Troubleshoot on a Service Call - HVAC Training (Part 1)</a></td>
+<td>90%</td>
+<td>60K</td>
+<td>40K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>40:34</td>
+<td>2026-02</td>
+<td>Pioneer HVAC Controls</td>
+</tr>
+</tbody>
+</table>
+<p><em>Excluded (not counted): 4 — 4 explainer. e.g. <em>All AC Parts and What They Do</em> (explainer); <em>HVAC Training Basics for New Technicians and Stu</em> (explainer); <em>Refrigeration Cycle Tutorial: Step by Step, Deta</em> (explainer).</em></p>
+<h3 id="paper-craft-bookbindingorigami----bookbinding-tutorial">Paper craft (bookbinding/origami)  ·  <em>bookbinding tutorial</em></h3>
+<table role="table">
+<thead>
+<tr>
+<th>✓</th>
+<th>Title</th>
+<th>Conf</th>
+<th>Views</th>
+<th>Views/yr</th>
+<th>Len</th>
+<th>Uploaded</th>
+<th>Channel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/9O4kFTOEh6k" rel="nofollow">How to Stitch a Text Block for Case Book Binding</a></td>
+<td>95%</td>
+<td>5.6M</td>
+<td>553K/yr</td>
+<td>9:21</td>
+<td>2016-04</td>
+<td>Sea Lemon</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/S2FRKbQI2kY" rel="nofollow">How to Make a Sketchbook / DIY Coptic Stitch Bookbinding Tutorial / Sea Lemon</a></td>
+<td>95%</td>
+<td>4.7M</td>
+<td>322K/yr</td>
+<td>12:59</td>
+<td>2011-12</td>
+<td>Sea Lemon</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/Av_rU-yOPd4" rel="nofollow">DIY Hardcover Book / Case Bookbinding Tutorial / Sea Lemon</a></td>
+<td>95%</td>
+<td>3.6M</td>
+<td>268K/yr</td>
+<td>7:19</td>
+<td>2013-02</td>
+<td>Sea Lemon</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/XGQ5P8QVHSg" rel="nofollow">DIY Text Block / Case Bookbinding Tutorial / Sea Lemon</a></td>
+<td>95%</td>
+<td>2.3M</td>
+<td>164K/yr</td>
+<td>9:56</td>
+<td>2012-03</td>
+<td>Sea Lemon</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/KKojHFky150" rel="nofollow">perfect binding / step-by-step (no stitching &amp; book press needed!)</a></td>
+<td>95%</td>
+<td>2.1M</td>
+<td>397K/yr</td>
+<td>9:54</td>
+<td>2021-03</td>
+<td>porsche and coffee</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/j-r6c_trSxY" rel="nofollow">4-Hole Japanese Bookbinding Tutorial</a></td>
+<td>95%</td>
+<td>1.8M</td>
+<td>135K/yr</td>
+<td>4:55</td>
+<td>2012-11</td>
+<td>Sea Lemon</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/kcEaWDY-l6Y" rel="nofollow">DIY Hard Cover Bookbinding / Tasty Home</a></td>
+<td>90%</td>
+<td>1.7M</td>
+<td>182K/yr</td>
+<td>1:29</td>
+<td>2017-04</td>
+<td>BuzzFeed Nifty</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/aWHkY5jOoqM" rel="nofollow">DIY Saddle Stitch Bookbinding Tutorial / Sea Lemon</a></td>
+<td>95%</td>
+<td>1.6M</td>
+<td>116K/yr</td>
+<td>4:42</td>
+<td>2012-08</td>
+<td>Sea Lemon</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/04vt8YfT7XM" rel="nofollow">DIY Single Sheet Bookbinding Tutorial / Sea Lemon</a></td>
+<td>95%</td>
+<td>1.5M</td>
+<td>126K/yr</td>
+<td>7:02</td>
+<td>2014-07</td>
+<td>Sea Lemon</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/GFbgW0r7uXw" rel="nofollow">DIY Perfect Bookbinding Tutorial / Sea Lemon</a></td>
+<td>95%</td>
+<td>1.5M</td>
+<td>105K/yr</td>
+<td>3:16</td>
+<td>2012-07</td>
+<td>Sea Lemon</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/ue52htX3j0k" rel="nofollow">DIY Coptic Stitch Bookbinding Tutorial / Sea Lemon</a></td>
+<td>95%</td>
+<td>1.4M</td>
+<td>98K/yr</td>
+<td>11:55</td>
+<td>2012-08</td>
+<td>Sea Lemon</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/ShcYQv0l27Q" rel="nofollow">📚 Easy LOOSE SHEET BOOKBINDING 👉 Make Your Own DIY Hardcover Book [Step by Step] 📖✂️</a></td>
+<td>95%</td>
+<td>1.3M</td>
+<td>259K/yr</td>
+<td>14:24</td>
+<td>2021-08</td>
+<td>Bookbinding Studio</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/0984uZFc5bw" rel="nofollow">BEGINNER BOOKBINDING PROJECT / Art Journal</a></td>
+<td>95%</td>
+<td>905K</td>
+<td>173K/yr</td>
+<td>28:37</td>
+<td>2021-03</td>
+<td>Nik the Booksmith</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/jabgWTJV6DQ" rel="nofollow">Step-by-step case binding tutorial</a></td>
+<td>95%</td>
+<td>781K</td>
+<td>350K/yr</td>
+<td>36:35</td>
+<td>2024-04</td>
+<td>bitter melon bindery</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/hmu8d2AaPZM" rel="nofollow">Easiest Journal Ever! (Step-by-Step DIY)</a></td>
+<td>95%</td>
+<td>675K</td>
+<td>450K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>61:37</td>
+<td>2025-03</td>
+<td>Treasure Books</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/ER9FIyYr_QA" rel="nofollow">Rajiv Surendra’s Bookbinding Guide for Beginners / Intro to Bookbinding</a></td>
+<td>95%</td>
+<td>639K</td>
+<td>133K/yr</td>
+<td>40:32</td>
+<td>2021-09</td>
+<td>HGTV Home</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/IAx3eqHkoPI" rel="nofollow">How I Coptic Binding / DIY Bookbinding / Easy Step by Step</a></td>
+<td>95%</td>
+<td>518K</td>
+<td>86K/yr</td>
+<td>8:49</td>
+<td>2020-06</td>
+<td>Books Bind Faye</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/OcASCsGDjEw" rel="nofollow">DIY Recycled Candy Box Book / Perfect Bookbinding Tutorial / Sea Lemon</a></td>
+<td>95%</td>
+<td>444K</td>
+<td>32K/yr</td>
+<td>5:47</td>
+<td>2012-07</td>
+<td>Sea Lemon</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/RigW13OJSFo" rel="nofollow">Start bookbinding this year ⟡ how-to guide for beginners</a></td>
+<td>95%</td>
+<td>184K</td>
+<td>123K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>8:15</td>
+<td>2025-01</td>
+<td>bitter melon bindery</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/Vwi3IekcCz0" rel="nofollow">How To Rebind Books Into Custom Hardcover Editions! / Bookbinding Tutorial 📖✨ (with supplies list!)</a></td>
+<td>95%</td>
+<td>101K</td>
+<td>67K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>10:46</td>
+<td>2025-04</td>
+<td>ValBinds</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/FSTnYqOVyWE" rel="nofollow">Tutorial for Binding Journal Pages Into an Old Book Cover</a></td>
+<td>95%</td>
+<td>79K</td>
+<td>19K/yr</td>
+<td>25:38</td>
+<td>2022-04</td>
+<td>Sharon Hoerth</td>
+</tr>
+</tbody>
+</table>
+<p><em>Excluded (not counted): 9 — 6 entertainment, 3 explainer. e.g. <em>Binding a MYSTICAL Handmade GRIMOIRE / Book of S</em> (entertainment); <em>Making journals for a peaceful mind ✦ ASMR bookb</em> (entertainment); <em>Bookbinding Tools &amp; Materials - beginner friendl</em> (explainer).</em></p>
+<h3 id="craft-chemistry-candlesoapresin----soap-making-for-beginners">Craft chemistry (candle/soap/resin)  ·  <em>soap making for beginners</em></h3>
+<table role="table">
+<thead>
+<tr>
+<th>✓</th>
+<th>Title</th>
+<th>Conf</th>
+<th>Views</th>
+<th>Views/yr</th>
+<th>Len</th>
+<th>Uploaded</th>
+<th>Channel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/VtWTnY29EwI" rel="nofollow">Homemade lemon turmeric soap🍋 Natural cold process soap making w/ recipe</a></td>
+<td>95%</td>
+<td>3.0M</td>
+<td>771K/yr</td>
+<td>13:52</td>
+<td>2022-07</td>
+<td>tellervo</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/YJekJyko0z0" rel="nofollow">Homemade cucumber soap🥒 A cooling recipe</a></td>
+<td>95%</td>
+<td>2.4M</td>
+<td>794K/yr</td>
+<td>15:08</td>
+<td>2023-07</td>
+<td>tellervo</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/Kc7duzDEa6Y" rel="nofollow">Soap Making Tutorial for Beginners - Full Demonstration &amp; Cold Process Soap Beginner Recipe</a></td>
+<td>95%</td>
+<td>2.2M</td>
+<td>267K/yr</td>
+<td>33:32</td>
+<td>2018-06</td>
+<td>Elly's Everyday Soap Making</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/yZbAfgwEkJs" rel="nofollow">🌴 100% coconut oil soap for bathing -  3 ingredients - no stick blender soap</a></td>
+<td>95%</td>
+<td>1.5M</td>
+<td>272K/yr</td>
+<td>14:44</td>
+<td>2020-10</td>
+<td>Elly's Everyday Soap Making</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/dsY4MRexguA" rel="nofollow">🌿 Making soap with fresh rosemary from my garden</a></td>
+<td>95%</td>
+<td>1.3M</td>
+<td>427K/yr</td>
+<td>20:50</td>
+<td>2023-07</td>
+<td>Elly's Everyday Soap Making</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/zVz6o08g5Po" rel="nofollow">Simple Homemade Cold Process Soap</a></td>
+<td>90%</td>
+<td>1.2M</td>
+<td>125K/yr</td>
+<td>3:02</td>
+<td>2016-09</td>
+<td>Lehman's</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/_WPIMsLk1P8" rel="nofollow">Liquid Soap Making Tutorial – Complete Process and Easy Beginner Recipe</a></td>
+<td>95%</td>
+<td>1.2M</td>
+<td>199K/yr</td>
+<td>33:08</td>
+<td>2020-06</td>
+<td>Elly's Everyday Soap Making</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/QbQCBaxQIfQ" rel="nofollow">Making Soap with Only 3 Ingredients!</a></td>
+<td>85%</td>
+<td>1.2M</td>
+<td>233K/yr</td>
+<td>4:08</td>
+<td>2021-05</td>
+<td>Riverbell Cottage</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/lBc-dWQmFIM" rel="nofollow">Soap Making Tutorial and Recipe for Absolute Beginners (you can do it!)</a></td>
+<td>95%</td>
+<td>1.1M</td>
+<td>541K/yr</td>
+<td>20:00</td>
+<td>2024-06</td>
+<td>Elly's Everyday Soap Making</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/VTNOphiE9CQ" rel="nofollow">Super Easy Basic Soap Only 3 Ingredients Must know Homestead Skills</a></td>
+<td>95%</td>
+<td>1.0M</td>
+<td>89K/yr</td>
+<td>11:34</td>
+<td>2015-03</td>
+<td>Brad &amp; Christa</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/FfY2-Z0S_io" rel="nofollow">Becky's Beginner Bar Soap Recipe: 3 Simple Ingredients Lye, Lard, &amp; Water</a></td>
+<td>95%</td>
+<td>929K</td>
+<td>72K/yr</td>
+<td>22:19</td>
+<td>2013-06</td>
+<td>Becky Sunshine</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/RYlyFOFR9cY" rel="nofollow">How To Make Cold Process Soap - Basics Of Soap Making / BrambleBerry.com</a></td>
+<td>95%</td>
+<td>611K</td>
+<td>159K/yr</td>
+<td>22:33</td>
+<td>2022-08</td>
+<td>Bramble Berry</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/kESIaTZJCUk" rel="nofollow">How to Make Your First Batch of Cold Process Soap / Royalty Soaps</a></td>
+<td>95%</td>
+<td>586K</td>
+<td>98K/yr</td>
+<td>17:52</td>
+<td>2020-06</td>
+<td>Royalty Soaps</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/1KkCLRsOcLg" rel="nofollow">Handmade Soap Making ~ Cold Process Soap ~ Homemade Soap Bars ~ Spring Soap Designs~Small Batch Soap</a></td>
+<td>90%</td>
+<td>409K</td>
+<td>184K/yr</td>
+<td>25:29</td>
+<td>2024-04</td>
+<td>White Cottage Company</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/kVIOGYlH5TM" rel="nofollow">How I Make Goat Milk Soap</a></td>
+<td>90%</td>
+<td>329K</td>
+<td>73K/yr</td>
+<td>9:38</td>
+<td>2021-12</td>
+<td>River Made Farmstead</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/M2XlObl7NGA" rel="nofollow">DIY - EASY TO MAKE SOAP RECIPE FOR BEGINNERS - ONLY THREE INGREDIENTS</a></td>
+<td>95%</td>
+<td>302K</td>
+<td>94K/yr</td>
+<td>18:34</td>
+<td>2023-04</td>
+<td>Rudy's Corner of Alaska</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/AMrXI4Li6mg" rel="nofollow">DIY Melt-and-Pour Soap Bars / Soap Making At Home</a></td>
+<td>95%</td>
+<td>254K</td>
+<td>56K/yr</td>
+<td>5:34</td>
+<td>2021-11</td>
+<td>HGTV Home</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/6rdyRi0rgjw" rel="nofollow">How I Make Turmeric and Honey Soap / For Us Soap Company</a></td>
+<td>85%</td>
+<td>232K</td>
+<td>51K/yr</td>
+<td>14:39</td>
+<td>2021-12</td>
+<td>For Us Soap</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/eil7mvElZq4" rel="nofollow">I so HAPPY with the Results! Homemade Soap Made EASY!</a></td>
+<td>85%</td>
+<td>176K</td>
+<td>83K/yr</td>
+<td>42:36</td>
+<td>2024-05</td>
+<td>Acre Homestead</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/CvMQQkninJM" rel="nofollow">All natural soap recipe! Olive oil, shea butter, coconut oil, and castor oil blend</a></td>
+<td>90%</td>
+<td>173K</td>
+<td>50K/yr</td>
+<td>5:49</td>
+<td>2023-01</td>
+<td>My Healthy Soap</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/z0XbHDLQbVs" rel="nofollow">How to make cold process soap detailed video / For Us Soap Company</a></td>
+<td>95%</td>
+<td>162K</td>
+<td>38K/yr</td>
+<td>18:34</td>
+<td>2022-03</td>
+<td>For Us Soap</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/DMU9rGznnUo" rel="nofollow">Cold Process Soap Making 101 - Step by Step Tutorial w/ Recipe❣️ / Ellen Ruth Soap</a></td>
+<td>95%</td>
+<td>143K</td>
+<td>55K/yr</td>
+<td>38:15</td>
+<td>2023-11</td>
+<td>Ellen Ruth Soap</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/Fm0fjNd-Ee8" rel="nofollow">Tallow Soap Recipe</a></td>
+<td>80%</td>
+<td>123K</td>
+<td>38K/yr</td>
+<td>3:47</td>
+<td>2023-04</td>
+<td>My Healthy Soap</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/3IquaLIrSu8" rel="nofollow">Beginner Soap Recipe with Shea Butter / Cold Process</a></td>
+<td>95%</td>
+<td>109K</td>
+<td>26K/yr</td>
+<td>13:00</td>
+<td>2022-04</td>
+<td>The Everyday Farmhouse</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/Wdsn0zYMoVM" rel="nofollow">It's Simple! Homestead Soap Recipe, 100% Tallow!</a></td>
+<td>95%</td>
+<td>57K</td>
+<td>38K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>18:26</td>
+<td>2024-12</td>
+<td>A Pinch of Patience</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/nYG-l4NQMOs" rel="nofollow">Learn the Art of SOAP MAKING / Beginner's Guide to Melt &amp; Pour!</a></td>
+<td>95%</td>
+<td>39K</td>
+<td>24K/yr</td>
+<td>18:17</td>
+<td>2024-11</td>
+<td>Kathartic Studios</td>
+</tr>
+</tbody>
+</table>
+<p><em>Excluded (not counted): 4 — 3 explainer, 1 other. e.g. <em>Making Soap</em> (explainer); <em>A Kitchen Hobby Turned Into a $320K/Year Busines</em> (other); <em>Basic Equipment for Beginners Soap Making</em> (explainer).</em></p>
+<h3 id="horticulture-bench-propagation----how-to-graft-fruit-trees">Horticulture bench propagation  ·  <em>how to graft fruit trees</em></h3>
+<table role="table">
+<thead>
+<tr>
+<th>✓</th>
+<th>Title</th>
+<th>Conf</th>
+<th>Views</th>
+<th>Views/yr</th>
+<th>Len</th>
+<th>Uploaded</th>
+<th>Channel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/fyISWJrIlWM" rel="nofollow">CLONE a FRUIT TREE the EASY WAY / Air Layering Fruit Trees</a></td>
+<td>95%</td>
+<td>5.3M</td>
+<td>1.6M/yr</td>
+<td>11:57</td>
+<td>2023-02</td>
+<td>JSacadura</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/7A5Jg2_OZ0M" rel="nofollow">Fruit Tree Grafting / Step by Step + 100 Days Results</a></td>
+<td>90%</td>
+<td>4.1M</td>
+<td>2.7M/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>8:08</td>
+<td>2025-07</td>
+<td>Graft &amp; Grow</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/NBV9OIfQlaY" rel="nofollow">Grafting Fruit Trees / The 2 Best Techniques for Grafting Figs and other fruit trees</a></td>
+<td>90%</td>
+<td>2.2M</td>
+<td>333K/yr</td>
+<td>15:31</td>
+<td>2019-10</td>
+<td>JSacadura</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/6WUameIQS6I" rel="nofollow">Grafting Lemon Trees – Grafting Fruit Trees by T-budding</a></td>
+<td>90%</td>
+<td>1.9M</td>
+<td>188K/yr</td>
+<td>5:58</td>
+<td>2016-08</td>
+<td>fruitmentor</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/V3-4shUjEx0" rel="nofollow">CHIP-BUD EASY GRAFTING TECHNIQUE / Peach, Plum, Citrus, Kiwi, Grape, Fig / FRUIT TREE GRAFTING</a></td>
+<td>92%</td>
+<td>1.8M</td>
+<td>402K/yr</td>
+<td>12:39</td>
+<td>2022-02</td>
+<td>JSacadura</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/PEKNrnsuuW0" rel="nofollow">How to Graft a Mango Tree w/ Dr. Richard Campbell</a></td>
+<td>92%</td>
+<td>1.7M</td>
+<td>194K/yr</td>
+<td>17:50</td>
+<td>2017-07</td>
+<td>Pete Kanaris GreenDreamsTV</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/FwzclXcI7NE" rel="nofollow">GRAFTING 8 FRUIT TREES – with RESULTS / Plum, Almond, Pear, Apple, Nectarine, Fig, Peach and Olive</a></td>
+<td>90%</td>
+<td>1.4M</td>
+<td>464K/yr</td>
+<td>15:51</td>
+<td>2023-05</td>
+<td>JSacadura</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/3nlsAk3nnAY" rel="nofollow">Grafting Fruit Trees / The best grafting techniques for Apples, Pears and other fruit trees</a></td>
+<td>92%</td>
+<td>1.4M</td>
+<td>198K/yr</td>
+<td>13:08</td>
+<td>2019-04</td>
+<td>JSacadura</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/xTDoW-NsJTE" rel="nofollow">Grafting Citrus Trees - Cleft Grafting a Fruit Cocktail Tree</a></td>
+<td>90%</td>
+<td>1.2M</td>
+<td>116K/yr</td>
+<td>5:32</td>
+<td>2016-03</td>
+<td>fruitmentor</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/4p_DKv9lM2A" rel="nofollow">Grafting Fruit Trees / The 3 BEST Grafting Techniques for SPRING</a></td>
+<td>90%</td>
+<td>1.2M</td>
+<td>220K/yr</td>
+<td>17:26</td>
+<td>2021-03</td>
+<td>JSacadura</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/SOu15VsEIuM" rel="nofollow">The 4 BEST Grafting Techniques using DORMANT SCIONS / RESULTS after 35 days</a></td>
+<td>80%</td>
+<td>1.1M</td>
+<td>263K/yr</td>
+<td>11:08</td>
+<td>2022-05</td>
+<td>JSacadura</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/885VGccSrvs" rel="nofollow">Fruit Tree Grafting for Beginners</a></td>
+<td>90%</td>
+<td>1.1M</td>
+<td>107K/yr</td>
+<td>7:34</td>
+<td>2016-04</td>
+<td>Alberta Urban Garden Simple Organic and Sustainable</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/SjdkFrDvHBo" rel="nofollow">Apple Tree Grafting For Beginners - Learn How To Graft / Includes 6 Months of Updates</a></td>
+<td>95%</td>
+<td>1.0M</td>
+<td>195K/yr</td>
+<td>10:33</td>
+<td>2021-03</td>
+<td>TheKiwiGrower</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/qTtXmBVsolY" rel="nofollow">How To Graft A Fruit Tree</a></td>
+<td>90%</td>
+<td>915K</td>
+<td>53K/yr</td>
+<td>9:21</td>
+<td>2009-02</td>
+<td>Dave Wilson Nursery</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/XjTSi-6l2hQ" rel="nofollow">BEST Grafting Techniques using DORMANT SCIONS / Grafting Fruit Trees</a></td>
+<td>92%</td>
+<td>804K</td>
+<td>189K/yr</td>
+<td>14:52</td>
+<td>2022-03</td>
+<td>JSacadura</td>
+</tr>
+<tr>
+<td>✓</td>
+<td><a href="https://youtu.be/hD8ePt6KV-Y" rel="nofollow">Easy Way to Graft a New Variety to a Fruit Tree</a></td>
+<td>90%</td>
+<td>779K</td>
+<td>366K/yr</td>
+<td>19:35</td>
+<td>2024-05</td>
+<td>fruitmentor</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/lmhaqk-XFcg" rel="nofollow">How to Graft Fruit Trees: A Complete Step-by-Step Guide for Beginners</a></td>
+<td>95%</td>
+<td>229K</td>
+<td>153K/yr ᵗᵒᵒⁿᵉʷ</td>
+<td>8:14</td>
+<td>2025-12</td>
+<td>Graft &amp; Grow</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/Q-1dpqp4tB8" rel="nofollow">The BEST GRAFTING techniques for APPLES, PEARS and other fruit trees / Update</a></td>
+<td>95%</td>
+<td>165K</td>
+<td>36K/yr</td>
+<td>12:41</td>
+<td>2021-11</td>
+<td>JSacadura</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/9FoyUdPnkNE" rel="nofollow">GRAFTING fruit trees 101 STEP by STEP 🍐🍎🍋🍊🍌🥭🍑🍇🍒</a></td>
+<td>90%</td>
+<td>155K</td>
+<td>21K/yr</td>
+<td>20:41</td>
+<td>2019-02</td>
+<td>Lead Farmer 73</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/kMKBhIdE4SI" rel="nofollow">How to Graft Apple Trees (Bench Grafting) - Seed Savers Exchange</a></td>
+<td>95%</td>
+<td>113K</td>
+<td>9K/yr</td>
+<td>5:12</td>
+<td>2013-08</td>
+<td>SSEHeritageFarm</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://youtu.be/CTPeBieTRcA" rel="nofollow">Grafting apple trees with Michael Dolan</a></td>
+<td>90%</td>
+<td>43K</td>
+<td>8K/yr</td>
+<td>23:08</td>
+<td>2021-03</td>
+<td>Burnt Ridge Nursery</td>
+</tr>
+</tbody>
+</table>
+<p><em>Excluded (not counted): 9 — 7 explainer, 1 entertainment, 1 other. e.g. <em>This Crazy Tree Grows 40 Kinds of Fruit | Nation</em> (entertainment); <em>Best Grafting Techniques | WHICH Grafting Techni</em> (explainer); <em>7 COMMON GRAFTING MISTAKES and HOW to AVOID THEM</em> (explainer).</em></p>
+</article></body></html>
