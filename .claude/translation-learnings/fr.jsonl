@@ -210,4 +210,23 @@
 {"type":"mapping","en":"in the past month or so","fr":"ces dernières semaines / ces derniers temps","avoid":"au cours du dernier mois environ","notes":"trailing 'environ' after a time period reads clunky; restructure with 'ces dernières semaines'"}
 {"type":"mapping","en":"a helpful reminder is that","fr":"il est utile de se rappeler que","avoid":"un rappel utile est que","notes":"'un rappel utile est que' is a literal calque; native French uses an impersonal verbal construction"}
 {"type":"style","en":"on top (charging for the interface on top)","rule":"Avoid 'par-dessus' near 'tout' — 'par-dessus tout' reads as the idiom 'above all'. Restructure to 'pour la couche d'interface' or rephrase to keep 'tout en' intact as 'while X-ing'.","avoid":"pour l'interface par-dessus tout en retirant"}
+{"type":"mapping","en":"a corner of X (field, domain)","fr":"un pan de X","avoid":"un coin de X","notes":"'un coin de l'IA' is a literal calque; 'un pan' is the natural French for a section of a field"}
+{"type":"mapping","en":"the loudest debate","fr":"les débats les plus vifs","avoid":"le débat le plus bruyant","notes":"'bruyant' is literal noise; French uses 'vif' for heated debate"}
+{"type":"mapping","en":"where the chips fall matters","fr":"l'issue de ce débat compte","avoid":"l'issue compte","notes":"the poker idiom doesn't carry; state the outcome explicitly"}
+{"type":"mapping","en":"that bar filters out most people","fr":"ce niveau d'exigence écarte la plupart des gens","avoid":"cette barre écarte","notes":"'barre' as a metaphorical threshold doesn't read in French"}
+{"type":"mapping","en":"no performance to deliver","fr":"aucune prestation à assurer","avoid":"pas de performance à livrer","notes":"French 'performance' means achievement/result, not an acted performance; use 'prestation'"}
+{"type":"mapping","en":"with nobody in the loop","fr":"sans la moindre intervention humaine","avoid":"sans personne dans la boucle","notes":"the human-in-the-loop pun doesn't transfer; state it plainly"}
+{"type":"mapping","en":"it turns out (sentence-final tag)","fr":"en fait / en réalité","avoid":"il s'avère","notes":"postposed 'il s'avère' is ungrammatical as a tag; 'Il s'avère que...' is fine sentence-initially"}
+{"type":"mapping","en":"repair the reputation of X","fr":"redorer le blason de X","avoid":"réparer la réputation de X","domain":"tech"}
+{"type":"mapping","en":"compare notes","fr":"échanger / qu'on échange","avoid":"comparer nos notes","notes":"'comparer nos notes' is a calque; French uses 'échanger' or 'en discuter'"}
+{"type":"mapping","en":"point-of-view / first-person view (video)","fr":"vue subjective","avoid":"vue à la première personne","domain":"video","notes":"'vue subjective' is the standard French cinematography term; keep it consistent within a post"}
+{"type":"mapping","en":"pan-seared steak","fr":"steak saisi à la poêle","avoid":"cuisson d'un steak à la poêle","domain":"cooking","notes":"'saisir' is the culinary verb for searing"}
+{"type":"mapping","en":"a build (software artifact)","fr":"un build","avoid":"une build","domain":"dev","notes":"masculine in French dev usage"}
+{"type":"mapping","en":"practical (feasible)","fr":"envisageable / faisable","avoid":"réaliste","notes":"'réaliste' shifts to 'plausible'; 'envisageable' carries the feasibility sense"}
+{"type":"mapping","en":"smooth the experience","fr":"fluidifier l'expérience","avoid":"lisser l'expérience","notes":"'lisser' is used for smoothing curves/data, not user experience"}
+{"type":"mapping","en":"trim each clip","fr":"ajuste chaque clip","avoid":"taille chaque clip","domain":"video","notes":"'tailler' suggests carving/pruning; 'ajuster' or 'raccourcir' fits video editing"}
+{"type":"mapping","en":"excited to spend time building X","fr":"un avenir que j'aurais plaisir à construire","avoid":"que je serais enthousiaste de passer du temps à construire","notes":"'être enthousiaste de + infinitif' is not idiomatic; restructure with 'avoir plaisir à'"}
+{"type":"mapping","en":"apps assume thumbs","fr":"les apps sont pensées pour les pouces","avoid":"les apps supposent des pouces","notes":"'supposer' + concrete noun is a calque; use 'être pensé/conçu pour'"}
+{"type":"style","en":"nested quotes inside guillemets","rule":"Inside « », use curly double quotes (“ ”) for the inner quotation, never straight ASCII quotes.","avoid":"« dites \"menu\" pour les options »"}
+{"type":"style","en":"the twenty-minute fix it often is","rule":"Do not calque 'the X it is' as 'le X qu'il est'. Attach a verb: 'la réparation de vingt minutes qu'il demande bien souvent'.","avoid":"la réparation de vingt minutes qu'il est"}
 
