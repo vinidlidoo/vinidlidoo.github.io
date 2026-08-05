@@ -314,3 +314,4 @@
 {"type":"mapping","en":"no commission or affiliation (link disclaimer)","ja":"紹介料もアフィリエイトも一切なし","avoid":"手数料も提携も一切なし","notes":"アフィリエイト is the exact concept JA blog readers know; 提携 (partnership) is vague, 手数料 reads as a fee charged to the reader"}
 {"type":"mapping","en":"anything adjacent (field/domain)","ja":"近いところで何か","avoid":"隣接する何か","notes":"隣接する is spatial/technical (adjacent buildings, cells); for adjacent fields use 近いところ/近い領域"}
 {"type":"mapping","en":"people excited by this kind of tech","ja":"この種の技術を面白がれる人","avoid":"心が動く/ワクワクする","notes":"面白がれる captures early-adopter playful enthusiasm; 心が動く means tempted/swayed, ワクワク is infantile"}
+{"type":"style","en":"register exception: waza-ai-coach-for-your-hands.ja.md","rule":"waza-ai-coach-for-your-hands.ja.md uses です・ます register (author choice: recruiting-testers tone), overriding the global だ-style rule. When syncing or editing THIS post, write です・ます. All other posts keep だ体.","domain":"waza"}
