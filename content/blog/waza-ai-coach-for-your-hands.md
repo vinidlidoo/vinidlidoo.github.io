@@ -81,7 +81,7 @@ What I keep coming back to is what happens when users and skills reach critical 
 
 Scale changes the human side too. One setting I'd like to test is organized training: places that already teach hands-on skills, running sessions remotely, a human guide ready to step in whenever the AI hits a wall, and hundreds of people working through the same skill at once. The takeover part already works in Waza today (a subject for another post).
 
-That's a future I'd be excited to spend time building: more people (kids included) making and fixing real things in the real world, guided enough to succeed, instead of watching a screen while software acts on their behalf. Whether it's worth building, only users can tell me, and that's what the invitation below is for. We can't load kung fu yet, but coaching for everyone may already be within reach.
+That's a future I'd be excited to spend time building: more people (kids included) making and fixing real things in the real world, guided enough to succeed, instead of waiting glued to a screen while AI does the work for them. Whether it's worth building, only users can tell me, and that's what the invitation below is for. We can't load kung fu yet, but coaching for everyone may already be within reach.
 
 <a id="invitation"></a>
 
